@@ -2,10 +2,60 @@
 {% block title %}Capturam Ingeniería · Cómo trabajamos{% endblock %}
 
 {% block contenido %}
+<!-- Imagen conceptual generada por IA para maquetación (content/08-marca.md) — sustituir por fotografía real -->
 <section class="container">
   <h1>Cómo trabajamos</h1>
-  <div class="placeholder-note">
-    [PLANTILLA SIN RELLENAR] Pídele a Claude Code: "Rellena templates/como-trabajamos.html con las 6 fases de content/06-como-trabajamos.md, como una línea de tiempo simple, sin animaciones excesivas."
+  <p class="lead">No entregamos únicamente documentos: organizamos decisiones, dependencias y próximos pasos. El cliente conoce qué se ha validado, qué permanece abierto, quién es responsable y qué condiciona el siguiente hito.</p>
+
+  <div class="foto-seccion">
+    <img src="{{ url_for('static', filename='img/como-trabajamos.jpg') }}" alt="Revisión de planos y documentación técnica de un proyecto con vistas a la planta" loading="lazy">
   </div>
+
+  <ol class="timeline">
+    <li class="timeline-item">
+      <span class="timeline-numero">1</span>
+      <div>
+        <h3>Alineación</h3>
+        <p>Definimos objetivos, alcance, responsabilidades, información disponible y criterio de éxito.</p>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-numero">2</span>
+      <div>
+        <h3>Detección de oportunidad</h3>
+        <p>Analizamos suelo, recurso, capacidad de red, concursos y contexto administrativo.</p>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-numero">3</span>
+      <div>
+        <h3>Viabilidad</h3>
+        <p>Contrastamos implantación, acceso, medio ambiente, urbanismo, evacuación y calendario.</p>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-numero">4</span>
+      <div>
+        <h3>Validación con el cliente</h3>
+        <p>Presentamos riesgos, alternativas y recomendación para decidir el avance.</p>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-numero">5</span>
+      <div>
+        <h3>Ingeniería y tramitación</h3>
+        <p>Desarrollamos proyectos, estudios, separatas, EIA y documentación de acceso.</p>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-numero">6</span>
+      <div>
+        <h3>Seguimiento por hitos</h3>
+        <p>Coordinamos requerimientos y autorizaciones hasta RtB, construcción o PES según alcance.</p>
+      </div>
+    </li>
+  </ol>
+
+  <p class="resultado-destacado">Resultado: decisiones trazables, documentación técnica robusta y seguimiento continuo hasta la madurez del proyecto.</p>
 </section>
 {% endblock %}

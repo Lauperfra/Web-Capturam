@@ -4,8 +4,50 @@
 {% block contenido %}
 <section class="container">
   <h1>Proyectos</h1>
-  <div class="placeholder-note">
-    [PLANTILLA SIN RELLENAR] Pídele a Claude Code: "Rellena templates/proyectos.html con las tablas de content/07-proyectos.md (tabla .table-proyectos)". Recuerda el aviso de autorización de clientes al principio de ese archivo antes de publicar nombres reales.
+  <p class="lead">Referencias de proyecto por tecnología, magnitud y cliente.</p>
+
+  <h2 class="mt-5">Referencias 2025–2026</h2>
+  <div class="table-responsive">
+    <table class="table table-proyectos">
+      <thead>
+        <tr><th>Proyecto</th><th>Cliente / año</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Instalación híbrida FV + BESS 5 MW · AC coupling</td><td>Prokon · 2026</td></tr>
+        <tr><td>Instalación híbrida FV + BESS 5 MW · DC coupling</td><td>Prokon · 2026</td></tr>
+        <tr><td>Instalación híbrida FV + BESS 5 MW · AC coupling</td><td>Aldesa · 2026</td></tr>
+        <tr><td>Parque eólico 33 MW + infraestructura de evacuación 66 kV</td><td>IGNIS · 2026</td></tr>
+        <tr><td>BESS stand-alone 50 MW / 4 h · acceso y conexión en red de transporte</td><td>Solager · 2026</td></tr>
+        <tr><td>BESS stand-alone 5 MW / 4 h · red de distribución</td><td>Solager · 2026</td></tr>
+        <tr><td>PSF agrovoltaica 20 × 5 MW + ICE 25 kV</td><td>Solager · 2025</td></tr>
+        <tr><td>PSF 5 MW autoconsumo sin excedentes</td><td>Green Fuel · 2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5">Referencias históricas 2016–2024</h2>
+  <div class="table-responsive">
+    <table class="table table-proyectos">
+      <thead>
+        <tr><th>Proyecto</th><th>Cliente / periodo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PSF 3 × 50 MW + infraestructura de evacuación 400 kV</td><td>IGNIS · 2024</td></tr>
+        <tr><td>PSF Francisco Pizarro 590 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF José María Oriol 327 MW + ICE 220 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Los Arenales 150 MW + ICE 220 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Tagus 425 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Tagus I–IV, 4 × 50 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Almaraz I–III, 3 × 50 MW + ICE 132 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Cedillo 375 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>PSF Majada Alta y San Antonio, 2 × 50 MW</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>Proyecto eólico 3 × 50 MW + ICE 132 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="placeholder-note mt-4">
+    [PENDIENTE] Logotipos de cliente y alcance exacto realizado por Capturam en cada referencia — ver content/10-pendientes.md.
   </div>
 </section>
 {% endblock %}

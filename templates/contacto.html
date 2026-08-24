@@ -2,7 +2,8 @@
 {% block title %}Capturam Ingeniería · Contacto{% endblock %}
 
 {% block contenido %}
-<section class="container" style="max-width: 640px;">
+<section class="container">
+  <div class="col-formulario">
   <h1>Contacta con nosotros</h1>
 
   {% with mensajes = get_flashed_messages(with_categories=true) %}
@@ -29,6 +30,7 @@
 
   <div class="placeholder-note mt-4">
     [PENDIENTE] Añadir aquí teléfono, dirección, horario y enlace de LinkedIn en cuanto Capturam los confirme (content/10-pendientes.md).
+  </div>
   </div>
 </section>
 {% endblock %}

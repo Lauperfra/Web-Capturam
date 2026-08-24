@@ -2,19 +2,86 @@
 {% block title %}Capturam Ingeniería · Solar, Eólica, BESS e Hibridación{% endblock %}
 
 {% block contenido %}
+<!-- Imagen conceptual generada por IA para maquetación (content/08-marca.md) — sustituir por fotografía real de emplazamiento -->
 <section class="hero">
+  <div class="hero-imagen">
+    <img src="{{ url_for('static', filename='img/hero-hibrido.jpg') }}" alt="Planta solar con almacenamiento BESS, aerogeneradores y subestación de evacuación" loading="eager">
+  </div>
   <div class="container">
     <p class="eyebrow">Ingeniería para proyectos renovables</p>
     <h1>Convertimos oportunidades energéticas en proyectos listos para construir.</h1>
     <p class="lead">Desarrollamos proyectos solares, eólicos, BESS e hibridados desde el análisis de suelo y red hasta la ingeniería, los permisos y la puesta en servicio.</p>
-    <a href="{{ url_for('contacto') }}" class="btn btn-capturam">Analizamos tu proyecto</a>
-    <a href="{{ url_for('proyectos') }}" class="btn btn-capturam-outline">Conoce nuestra experiencia</a>
+    <div class="hero-cta">
+      <a href="{{ url_for('contacto') }}" class="btn btn-capturam">Analizamos tu proyecto</a>
+      <a href="{{ url_for('proyectos') }}" class="btn btn-capturam-outline">Conoce nuestra experiencia</a>
+    </div>
   </div>
 </section>
 
-<div class="container">
-  <div class="placeholder-note">
-    [PLANTILLA SIN RELLENAR] Pídele a Claude Code: "Lee CLAUDE.md y content/02-home.md, y rellena templates/index.html con ese contenido" — debe añadir el bloque de propuesta de valor, las tarjetas de sectores (content/05-sectores.md) y el cierre de inicio.
+<section>
+  <div class="container">
+    <h2>Ingeniería y desarrollo con visión integral.</h2>
+    <p class="lead">Un proyecto renovable no depende de una sola disciplina. En Capturam coordinamos territorio, capacidad de red, diseño técnico, condicionantes ambientales y tramitación administrativa para anticipar riesgos, documentar decisiones y avanzar con solvencia hacia cada hito.</p>
   </div>
-</div>
+</section>
+
+<section class="bg-suave">
+  <div class="container">
+    <h2>Sectores</h2>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3">
+        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100">
+          <div class="card-sector">
+            <img src="{{ url_for('static', filename='img/sector-solar.jpg') }}" alt="Planta solar fotovoltaica con técnico realizando inspección" class="card-sector-img" loading="lazy">
+            <div class="card-sector-body">
+              <h3>Solar fotovoltaica</h3>
+              <p>Diseño y desarrollo de plantas fotovoltaicas, desde la implantación y la evacuación hasta la tramitación y puesta en servicio.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100">
+          <div class="card-sector">
+            <img src="{{ url_for('static', filename='img/sector-eolica.jpg') }}" alt="Aerogeneradores junto a una planta solar y una subestación de evacuación" class="card-sector-img" loading="lazy">
+            <div class="card-sector-body">
+              <h3>Eólica</h3>
+              <p>Ingeniería y desarrollo de parques eólicos e infraestructuras de evacuación, integrando viabilidad territorial, técnica y ambiental.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100">
+          <div class="card-sector">
+            <img src="{{ url_for('static', filename='img/sector-bess.jpg') }}" alt="Contenedores de almacenamiento BESS junto a una subestación eléctrica" class="card-sector-img" loading="lazy">
+            <div class="card-sector-body">
+              <h3>BESS</h3>
+              <p>Sistemas de almacenamiento stand-alone o asociados a generación, con análisis de conexión, configuración, ingeniería y permisos.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100">
+          <div class="card-sector">
+            <img src="{{ url_for('static', filename='img/hero-hibrido.jpg') }}" alt="Instalación híbrida con solar, eólica y almacenamiento BESS" class="card-sector-img" loading="lazy">
+            <div class="card-sector-body">
+              <h3>Hibridación</h3>
+              <p>Integración de generación y almacenamiento mediante soluciones AC o DC coupling adaptadas al activo, la red y la estrategia del proyecto.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>La seguridad de avanzar con criterio técnico.</h2>
+    <p class="lead">Acompañamos a promotores, inversores y propietarios en las decisiones que determinan la viabilidad y el calendario de un proyecto. Hablemos de tu próxima oportunidad.</p>
+    <a href="{{ url_for('contacto') }}" class="btn btn-capturam">Analizamos tu proyecto</a>
+  </div>
+</section>
 {% endblock %}

@@ -1,6 +1,6 @@
 # 07 · Proyectos y referencias
 
-⚠️ **Aviso de autorización:** el dossier indica publicar clientes solo tras comprobar autorización expresa. Estas tablas están aquí como fuente de datos técnicos para maquetar la página de Proyectos, pero antes de publicar nombres de cliente reales hay que confirmar con Capturam (ver `content/10-pendientes.md`, prioridad alta). Mientras no haya confirmación, considera usar fichas anonimizadas (tecnología + magnitud, sin nombre de cliente).
+✅ **Nombres de cliente confirmados para publicación:** estos proyectos y clientes aparecen ya citados directamente en las presentaciones corporativas del CEO (Presentación Capturam_2025.pptx y Presentación Capturam_2026.pptx), que se consideran fuente autorizada. Pendiente sigue el alcance exacto realizado por Capturam en cada referencia (ver `content/10-pendientes.md`).
 
 ## Referencias 2025–2026
 
