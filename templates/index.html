@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Capturam Ingeniería · Solar, Eólica, BESS e Hibridación{% endblock %}
+
+{% block contenido %}
+<section class="hero">
+  <div class="container">
+    <p class="eyebrow">Ingeniería para proyectos renovables</p>
+    <h1>Convertimos oportunidades energéticas en proyectos listos para construir.</h1>
+    <p class="lead">Desarrollamos proyectos solares, eólicos, BESS e hibridados desde el análisis de suelo y red hasta la ingeniería, los permisos y la puesta en servicio.</p>
+    <a href="{{ url_for('contacto') }}" class="btn btn-capturam">Analizamos tu proyecto</a>
+    <a href="{{ url_for('proyectos') }}" class="btn btn-capturam-outline">Conoce nuestra experiencia</a>
+  </div>
+</section>
+
+<div class="container">
+  <div class="placeholder-note">
+    [PLANTILLA SIN RELLENAR] Pídele a Claude Code: "Lee CLAUDE.md y content/02-home.md, y rellena templates/index.html con ese contenido" — debe añadir el bloque de propuesta de valor, las tarjetas de sectores (content/05-sectores.md) y el cierre de inicio.
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Capturam Ingeniería · Contacto{% endblock %}
+
+{% block contenido %}
+<section class="container" style="max-width: 640px;">
+  <h1>Contacta con nosotros</h1>
+
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% for categoria, texto in mensajes %}
+      <div class="alert alert-{{ categoria }}">{{ texto }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mensaje</label>
+      <textarea name="mensaje" rows="5" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-capturam">Enviar mensaje</button>
+  </form>
+
+  <div class="placeholder-note mt-4">
+    [PENDIENTE] Añadir aquí teléfono, dirección, horario y enlace de LinkedIn en cuanto Capturam los confirme (content/10-pendientes.md).
+  </div>
+</section>
+{% endblock %}

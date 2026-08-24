@@ -1,0 +1,106 @@
+:root {
+  --capturam-azul-pizarra: #596074;
+  --capturam-verde-agua: #91b5b4;
+  --capturam-azul-profundo: #102d3a;
+  --capturam-blanco-calido: #f3f6f4;
+  --capturam-blanco: #ffffff;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--capturam-azul-profundo);
+  background-color: var(--capturam-blanco);
+}
+
+.navbar {
+  background-color: var(--capturam-blanco) !important;
+  border-bottom: 1px solid #e2e5ea;
+}
+
+.navbar-brand img {
+  height: 36px;
+}
+
+.nav-link {
+  color: var(--capturam-azul-pizarra) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--capturam-verde-agua) !important;
+}
+
+.hero {
+  background-color: var(--capturam-blanco-calido);
+  padding: 72px 0;
+}
+
+.hero .eyebrow {
+  color: var(--capturam-verde-agua);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.btn-capturam {
+  background-color: var(--capturam-azul-profundo);
+  color: var(--capturam-blanco);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 4px;
+}
+
+.btn-capturam:hover {
+  background-color: var(--capturam-azul-pizarra);
+  color: var(--capturam-blanco);
+}
+
+.btn-capturam-outline {
+  background-color: transparent;
+  color: var(--capturam-azul-profundo);
+  border: 1px solid var(--capturam-azul-profundo);
+  padding: 10px 22px;
+  border-radius: 4px;
+}
+
+section {
+  padding: 56px 0;
+}
+
+.card-servicio,
+.card-sector {
+  border: 1px solid #e2e5ea;
+  border-radius: 6px;
+  padding: 24px;
+  height: 100%;
+}
+
+.card-servicio h3,
+.card-sector h3 {
+  color: var(--capturam-azul-profundo);
+  font-size: 1.15rem;
+}
+
+footer.site-footer {
+  background-color: var(--capturam-azul-profundo);
+  color: var(--capturam-blanco-calido);
+  padding: 32px 0;
+}
+
+footer.site-footer a {
+  color: var(--capturam-blanco-calido);
+}
+
+.table-proyectos th {
+  background-color: var(--capturam-blanco-calido);
+}
+
+.placeholder-note {
+  background-color: #fff8e6;
+  border: 1px dashed #e7bf6a;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #6b4c11;
+}
