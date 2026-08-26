@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Capturam Ingeniería{% endblock %}</title>
   <meta name="description" content="{% block description %}Ingeniería y desarrollo de proyectos solares, eólicos, BESS e hibridados: suelo, acceso a red, viabilidad, permisos, RtB y PES.{% endblock %}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32.png') }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='img/favicon-48.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +21,7 @@
   <nav class="navbar navbar-expand-md sticky-top">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('inicio') }}">
-        <img src="{{ url_for('static', filename='img/logo-capturam.png') }}" alt="Capturam Ingeniería">
+        <img src="{{ url_for('static', filename='img/logo-capturam-claro.png') }}" alt="Capturam Ingeniería">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
         <span class="navbar-toggler-icon"></span>
@@ -24,12 +29,11 @@
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="{{ url_for('inicio') }}">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('empresa') }}">Empresa</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('servicios') }}">Servicios</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('sectores') }}">Sectores</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('proyectos') }}">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('empresa') }}">Quiénes somos</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('como_trabajamos') }}">Cómo trabajamos</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('conocimiento') }}">Conocimiento</a></li>
           <li class="nav-item"><a class="btn btn-capturam ms-md-2" href="{{ url_for('contacto') }}">Contacto</a></li>
         </ul>
       </div>
@@ -42,8 +46,12 @@
 
   <footer class="site-footer">
     <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
-      <span>&copy; 2026 Capturam Ingeniería S.L. Todos los derechos reservados.</span>
-      <span><a href="{{ url_for('legal') }}">Aviso legal · Privacidad · Cookies</a></span>
+      <span>&copy; Capturam Ingeniería S.L. Todos los derechos reservados.</span>
+      <span>
+        <a href="{{ url_for('legal') }}">Aviso legal</a>
+        ·
+        <a href="{{ url_for('privacidad') }}">Política de privacidad</a>
+      </span>
     </div>
   </footer>
 

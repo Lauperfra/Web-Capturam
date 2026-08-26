@@ -57,6 +57,11 @@ def legal():
     return render_template("legal.html")
 
 
+@app.route("/privacidad")
+def privacidad():
+    return render_template("privacidad.html")
+
+
 @app.route("/contacto", methods=["GET", "POST"])
 def contacto():
     if request.method == "POST":
