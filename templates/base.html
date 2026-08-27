@@ -29,7 +29,17 @@
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="{{ url_for('inicio') }}">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('servicios') }}">Servicios</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{{ url_for('servicios') }}" data-bs-toggle="dropdown" aria-expanded="false">Servicios</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#acceso-conexion">Estrategia de acceso y conexión</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#terrenos-viabilidad">Terrenos y viabilidad</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#ingenieria-plantas">Ingeniería de plantas e infraestructuras</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#medio-ambiente">Medio ambiente</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#permitting">Permitting, RtB y PES</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios') }}#asesoramiento">Asesoramiento técnico-regulatorio</a></li>
+            </ul>
+          </li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('sectores') }}">Sectores</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('proyectos') }}">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('empresa') }}">Quiénes somos</a></li>
@@ -56,5 +66,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/revelar.js') }}"></script>
 </body>
 </html>

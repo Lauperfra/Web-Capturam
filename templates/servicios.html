@@ -2,53 +2,81 @@
 {% block title %}Capturam Ingeniería · Servicios{% endblock %}
 
 {% block contenido %}
+<!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
 <section class="container">
   <h1>Servicios</h1>
   <p class="lead">Descripciones orientadas al problema del cliente y al resultado esperado.</p>
-
-  <div class="row g-4 mt-2">
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Estrategia de acceso y conexión</h3>
-        <p><strong>Alcance:</strong> Seguimiento de capacidad en redes de transporte y distribución; análisis del punto de conexión; preparación y tramitación de documentación; respuesta a requerimientos y seguimiento del expediente.</p>
-        <p><strong>Resultado:</strong> Una estrategia de conexión fundamentada y una documentación consistente.</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Terrenos y viabilidad</h3>
-        <p><strong>Alcance:</strong> Identificación de emplazamientos; análisis previo ambiental, urbanístico y técnico; contacto con propietarios; apoyo en derechos de superficie; análisis de pendientes y capacidad de implantación.</p>
-        <p><strong>Resultado:</strong> Oportunidades filtradas antes de comprometer tiempo y capital.</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Ingeniería de plantas e infraestructuras</h3>
-        <p><strong>Alcance:</strong> Estudios de implantación (análisis de pendientes y capacidad de implantación con PVCase); ingeniería de planta, accesos, obra civil e infraestructuras de evacuación; documentación para permisos y coordinación técnica.</p>
-        <p><strong>Resultado:</strong> Una solución diseñable, tramitable y alineada con los condicionantes del proyecto.</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Medio ambiente</h3>
-        <p><strong>Alcance:</strong> Coordinación o elaboración de estudios de impacto ambiental, estudios de avifauna y documentación sectorial; integración de condicionantes en el diseño.</p>
-        <p><strong>Resultado:</strong> Menos iteraciones y mejor coherencia entre ingeniería y evaluación ambiental.</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Permitting, RtB y PES</h3>
-        <p><strong>Alcance:</strong> Planificación y seguimiento de autorizaciones tanto de competencia autonómica como ministerial; separatas y respuestas a organismos; alegaciones; coordinación de hitos hasta RtB y apoyo a la puesta en servicio.</p>
-        <p><strong>Resultado:</strong> Visibilidad del estado real del expediente y de sus siguientes pasos.</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-servicio">
-        <h3>Asesoramiento técnico-regulatorio</h3>
-        <p><strong>Alcance:</strong> Análisis de normativa aplicable, concursos de capacidad, régimen retributivo, alternativas de desarrollo y apoyo técnico a decisiones de inversión.</p>
-        <p><strong>Resultado:</strong> Decisiones con una lectura integrada de técnica, plazo y riesgo regulatorio.</p>
-      </div>
-    </div>
-  </div>
 </section>
+
+<div class="servicio-fila" id="acceso-conexion">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-conexion.jpg') }}" alt="Subestación eléctrica con transformador de alta tensión" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">01</span>
+    <h3>Estrategia de acceso y conexión</h3>
+    <p><strong>Alcance:</strong> Seguimiento de capacidad en redes de transporte (REE) y distribución (Endesa, i+DE); análisis del punto de conexión; preparación y tramitación de documentación de acceso y conexión; respuesta a requerimientos y seguimiento del expediente.</p>
+    <p><strong>Resultado:</strong> Una estrategia de conexión fundamentada y una documentación consistente.</p>
+  </div>
+</div>
+
+<div class="servicio-fila servicio-fila--invertida bg-suave" id="terrenos-viabilidad">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}" alt="Camino de acceso a un emplazamiento de proyecto renovable en ladera" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">02</span>
+    <h3>Terrenos y viabilidad</h3>
+    <p><strong>Alcance:</strong> Identificación de emplazamientos; análisis previo ambiental, urbanístico y técnico; contacto con propietarios; apoyo en derechos de superficie; análisis de pendientes y capacidad de implantación.</p>
+    <p><strong>Resultado:</strong> Oportunidades filtradas antes de comprometer tiempo y capital.</p>
+  </div>
+</div>
+
+<div class="servicio-fila" id="ingenieria-plantas">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-ingenieria.jpg') }}" alt="Estructura de seguidor solar en fase de instalación" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">03</span>
+    <h3>Ingeniería de plantas e infraestructuras</h3>
+    <p><strong>Alcance:</strong> Estudios de implantación, incluido análisis de pendientes en instalación fija o a un eje y capacidad de implantación con PVCase; ingeniería de planta, accesos, obra civil e infraestructuras de evacuación; documentación para permisos y coordinación técnica.</p>
+    <p><strong>Resultado:</strong> Una solución diseñable, tramitable y alineada con los condicionantes del proyecto.</p>
+  </div>
+</div>
+
+<div class="servicio-fila servicio-fila--invertida bg-suave" id="medio-ambiente">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-ambiente.jpg') }}" alt="Rebaño de ovejas pastando junto a una planta solar" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">04</span>
+    <h3>Medio ambiente</h3>
+    <p><strong>Alcance:</strong> Coordinación o elaboración de estudios de impacto ambiental, estudios de avifauna y documentación sectorial; integración de condicionantes en el diseño.</p>
+    <p><strong>Resultado:</strong> Menos iteraciones y mejor coherencia entre ingeniería y evaluación ambiental.</p>
+  </div>
+</div>
+
+<div class="servicio-fila" id="permitting">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-permitting.jpg') }}" alt="Vista general de una subestación eléctrica en operación" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">05</span>
+    <h3>Permitting, RtB y PES</h3>
+    <p><strong>Alcance:</strong> Planificación y seguimiento de autorizaciones tanto de competencia autonómica como ministerial; separatas y respuestas a organismos; alegaciones; coordinación de hitos hasta RtB y apoyo a la puesta en servicio.</p>
+    <p><strong>Resultado:</strong> Visibilidad del estado real del expediente y de sus siguientes pasos.</p>
+  </div>
+</div>
+
+<div class="servicio-fila servicio-fila--invertida bg-suave" id="asesoramiento">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/servicio-asesoramiento.jpg') }}" alt="Sistema de almacenamiento BESS junto a aerogeneradores" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">06</span>
+    <h3>Asesoramiento técnico-regulatorio</h3>
+    <p><strong>Alcance:</strong> Análisis de normativa aplicable, concursos de capacidad, régimen retributivo, alternativas de desarrollo y apoyo técnico a decisiones de inversión.</p>
+    <p><strong>Resultado:</strong> Decisiones con una lectura integrada de técnica, plazo y riesgo regulatorio.</p>
+  </div>
+</div>
 {% endblock %}
