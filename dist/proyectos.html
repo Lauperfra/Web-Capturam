@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="static/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="static/css/estilos.css">
 </head>
@@ -30,7 +30,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="servicios.html" data-bs-toggle="dropdown" aria-expanded="false">Servicios</a>
+            <a class="nav-link dropdown-toggle" href="servicios.html">Servicios</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="servicios.html#acceso-conexion">Estrategia de acceso y conexión</a></li>
               <li><a class="dropdown-item" href="servicios.html#terrenos-viabilidad">Terrenos y viabilidad</a></li>
@@ -40,7 +40,16 @@
               <li><a class="dropdown-item" href="servicios.html#asesoramiento">Asesoramiento técnico-regulatorio</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="sectores.html">Sectores</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="sectores.html">Sectores</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="sectores.html#solar-fotovoltaica">Solar fotovoltaica</a></li>
+              <li><a class="dropdown-item" href="sectores.html#eolica">Eólica</a></li>
+              <li><a class="dropdown-item" href="sectores.html#bess">BESS stand-alone</a></li>
+              <li><a class="dropdown-item" href="sectores.html#hibridacion">Instalaciones hibridadas</a></li>
+              <li><a class="dropdown-item" href="sectores.html#autoconsumo">Autoconsumo industrial</a></li>
+            </ul>
+          </li>
           <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="empresa.html">Quiénes somos</a></li>
           <li class="nav-item"><a class="nav-link" href="como-trabajamos.html">Cómo trabajamos</a></li>
@@ -52,52 +61,103 @@
 
   <main>
     
-<section class="container">
-  <h1>Proyectos</h1>
-  <p class="lead">Referencias de proyecto por tecnología, magnitud y cliente.</p>
+<!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
+<section class="container-fluid px-4 px-lg-5">
+  <h1 class="section-title">Proyectos</h1>
+  <p class="lead lead-ancho">En <strong>Capturam</strong> preferimos <strong>enseñar</strong> el trabajo hecho antes que solo describirlo. Estos son algunos de los proyectos que hemos desarrollado en los últimos años, una muestra de la <strong>experiencia</strong> técnica del equipo en solar fotovoltaica, eólica, BESS e hibridación: desde instalaciones híbridas de pocos megavatios hasta plantas de cientos de MW con infraestructuras de evacuación complejas.</p>
 
-  <h2 class="mt-5">Referencias 2025–2026</h2>
-  <div class="table-responsive">
-    <table class="table table-proyectos">
-      <thead>
-        <tr><th>Proyecto</th><th>Cliente / año</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Instalación híbrida FV + BESS 5 MW · AC coupling</td><td>Prokon · 2026</td></tr>
-        <tr><td>Instalación híbrida FV + BESS 5 MW · DC coupling</td><td>Prokon · 2026</td></tr>
-        <tr><td>Instalación híbrida FV + BESS 5 MW · AC coupling</td><td>Aldesa · 2026</td></tr>
-        <tr><td>Parque eólico 33 MW + infraestructura de evacuación 66 kV</td><td>IGNIS · 2026</td></tr>
-        <tr><td>BESS stand-alone 50 MW / 4 h · acceso y conexión en red de transporte</td><td>Solager · 2026</td></tr>
-        <tr><td>BESS stand-alone 5 MW / 4 h · red de distribución</td><td>Solager · 2026</td></tr>
-        <tr><td>PSF agrovoltaica 20 × 5 MW + ICE 25 kV</td><td>Solager · 2025</td></tr>
-        <tr><td>PSF 5 MW autoconsumo sin excedentes</td><td>Green Fuel · 2025</td></tr>
-      </tbody>
-    </table>
+  <div class="row g-4 mt-2">
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-hibrido.jpg" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2026</span>
+          <h3>Instalación híbrida FV + BESS</h3>
+          <p>Diseño y tramitación de una instalación híbrida fotovoltaica y BESS de 5 MW mediante AC coupling.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-eolico.jpg" alt="Aerogenerador en operación" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2026</span>
+          <h3>Parque eólico</h3>
+          <p class="justificado">Ingeniería y tramitación de un parque eólico de 33 MW con infraestructura de evacuación a 66 kV.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-bess.jpg" alt="Fila de contenedores de almacenamiento BESS" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2026</span>
+          <h3>BESS stand-alone</h3>
+          <p>Acceso y conexión a red de transporte para un sistema de almacenamiento de 50 MW / 4 h.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-agrovoltaica.jpg" alt="Planta solar con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2025</span>
+          <h3>Planta solar agrovoltaica</h3>
+          <p>Desarrollo de una planta fotovoltaica agrovoltaica de 20 × 5 MW con infraestructura de conexión a 25 kV.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-autoconsumo.jpg" alt="Planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2025</span>
+          <h3>Autoconsumo industrial</h3>
+          <p>Desarrollo de una instalación fotovoltaica de autoconsumo de 5 MW sin excedentes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-sector revelar">
+        <img src="static/img/caso-historico.jpg" alt="Subestación eléctrica de alta tensión" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">2016–2022</span>
+          <h3>Planta solar de gran escala</h3>
+          <p>Ingeniería de una de las mayores plantas fotovoltaicas de Europa, 590 MW con infraestructura de evacuación a 400 kV.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2 class="mt-5">Referencias históricas 2016–2024</h2>
-  <div class="table-responsive">
+  <p class="mt-4">Este es solo un extracto de nuestro trabajo. Puedes ver el proceso completo que seguimos en cada proyecto en <a href="como-trabajamos.html">Cómo trabajamos</a>.</p>
+</section>
+
+<div class="foto-ancha revelar">
+  <img src="static/img/proyectos-divisor.jpg" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" loading="lazy">
+</div>
+
+<section class="container-fluid px-4 px-lg-5">
+  <h2 class="revelar">Más referencias 2016–2026</h2>
+  <div class="table-responsive revelar">
     <table class="table table-proyectos">
       <thead>
-        <tr><th>Proyecto</th><th>Cliente / periodo</th></tr>
+        <tr><th>Proyecto</th><th>Año</th></tr>
       </thead>
       <tbody>
-        <tr><td>PSF 3 × 50 MW + infraestructura de evacuación 400 kV</td><td>IGNIS · 2024</td></tr>
-        <tr><td>PSF Francisco Pizarro 590 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF José María Oriol 327 MW + ICE 220 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Los Arenales 150 MW + ICE 220 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Tagus 425 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Tagus I–IV, 4 × 50 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Almaraz I–III, 3 × 50 MW + ICE 132 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Cedillo 375 MW + ICE 400 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>PSF Majada Alta y San Antonio, 2 × 50 MW</td><td>Iberdrola Renovables · 2016–2022</td></tr>
-        <tr><td>Proyecto eólico 3 × 50 MW + ICE 132 kV</td><td>Iberdrola Renovables · 2016–2022</td></tr>
+        <tr><td>Instalación híbrida FV + BESS 5 MW · DC coupling</td><td>2026</td></tr>
+        <tr><td>Instalación híbrida FV + BESS 5 MW · AC coupling</td><td>2026</td></tr>
+        <tr><td>BESS stand-alone 5 MW / 4 h · red de distribución</td><td>2026</td></tr>
+        <tr><td>PSF 3 × 50 MW + infraestructura de evacuación 400 kV</td><td>2024</td></tr>
+        <tr><td>PSF José María Oriol 327 MW + ICE 220 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Los Arenales 150 MW + ICE 220 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Tagus 425 MW + ICE 400 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Tagus I–IV, 4 × 50 MW + ICE 400 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Almaraz I–III, 3 × 50 MW + ICE 132 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Cedillo 375 MW + ICE 400 kV</td><td>2016–2022</td></tr>
+        <tr><td>PSF Majada Alta y San Antonio, 2 × 50 MW</td><td>2016–2022</td></tr>
+        <tr><td>Proyecto eólico 3 × 50 MW + ICE 132 kV</td><td>2016–2022</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="placeholder-note mt-4">
-    [PENDIENTE] Logotipos de cliente y alcance exacto realizado por Capturam en cada referencia — ver content/10-pendientes.md.
   </div>
 </section>
 

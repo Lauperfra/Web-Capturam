@@ -2,60 +2,126 @@
 {% block title %}Capturam Ingeniería · Cómo trabajamos{% endblock %}
 
 {% block contenido %}
-<!-- Imagen conceptual generada por IA para maquetación (content/08-marca.md) — sustituir por fotografía real -->
-<section class="container">
-  <h1>Cómo trabajamos</h1>
-  <p class="lead">No entregamos únicamente documentos: organizamos decisiones, dependencias y próximos pasos. El cliente conoce qué se ha validado, qué permanece abierto, quién es responsable y qué condiciona el siguiente hito.</p>
+<!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
+<section class="container-fluid px-4 px-lg-5">
+  <h1 class="section-title">Cómo trabajamos</h1>
+  <p class="lead lead-ancho">En <strong>Capturam</strong> entendemos el desarrollo de un proyecto como un proceso coordinado de decisiones técnicas, regulatorias y territoriales. Nuestro trabajo no se limita a entregar documentación: <strong>ordenamos prioridades, identificamos dependencias y damos visibilidad sobre cada siguiente paso</strong>. El cliente sabe qué está validado, qué permanece abierto, quién debe actuar y qué condiciona el siguiente hito.</p>
 
-  <div class="foto-seccion">
-    <img src="{{ url_for('static', filename='img/como-trabajamos.jpg') }}" alt="Revisión de planos y documentación técnica de un proyecto con vistas a la planta" loading="lazy">
+  <h2 class="mt-5 revelar">Nuestro enfoque</h2>
+  <p class="revelar">Convertimos oportunidad territorial y capacidad de red en proyectos viables y listos para construir.</p>
+
+  <div class="row g-4 mt-2">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card-sector revelar">
+        <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}" alt="Camino de acceso a un emplazamiento de proyecto renovable" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">01</span>
+          <h3>Oportunidad</h3>
+          <p>Suelo, recurso, capacidad de red y estrategia de acceso.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card-sector revelar">
+        <img src="{{ url_for('static', filename='img/servicio-conexion.jpg') }}" alt="Subestación eléctrica con transformador" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">02</span>
+          <h3>Viabilidad</h3>
+          <p>Análisis técnico, ambiental, urbanístico y de capacidad de implantación.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card-sector revelar">
+        <img src="{{ url_for('static', filename='img/servicio-ingenieria.jpg') }}" alt="Estructura de seguidor solar en fase de instalación" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">03</span>
+          <h3>Ingeniería y permisos</h3>
+          <p>Proyectos, documentación de acceso, EIA y separatas.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card-sector revelar">
+        <img src="{{ url_for('static', filename='img/servicio-permitting.jpg') }}" alt="Vista general de una subestación eléctrica en operación" class="card-sector-img" loading="lazy">
+        <div class="card-sector-body">
+          <span class="servicio-numero">04</span>
+          <h3>RtB / PES</h3>
+          <p>Seguimiento de autorizaciones, construcción y puesta en servicio.</p>
+        </div>
+      </div>
+    </div>
   </div>
+  <p class="mt-4 revelar">Nuestro enfoque combina <strong>conocimiento del territorio, ingeniería especializada y gestión regulatoria</strong> para reducir incertidumbre y anticipar riesgos en cada fase del desarrollo.</p>
 
-  <ol class="timeline">
+  <h2 class="mt-5 revelar">El proceso, paso a paso</h2>
+
+  <ol class="timeline revelar">
     <li class="timeline-item">
       <span class="timeline-numero">1</span>
       <div>
-        <h3>Alineación</h3>
-        <p>Definimos objetivos, alcance, responsabilidades, información disponible y criterio de éxito.</p>
+        <div class="timeline-contenido">
+          <img src="{{ url_for('static', filename='img/como-trabajamos.jpg') }}" alt="Revisión de planos y documentación técnica" class="timeline-foto" loading="lazy">
+          <div>
+            <h3>Acuerdo de colaboración</h3>
+            <p>Alcance, responsabilidades y modelo de prestación de servicios.</p>
+          </div>
+        </div>
       </div>
     </li>
     <li class="timeline-item">
       <span class="timeline-numero">2</span>
       <div>
-        <h3>Detección de oportunidad</h3>
-        <p>Analizamos suelo, recurso, capacidad de red, concursos y contexto administrativo.</p>
+        <div class="timeline-contenido">
+          <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}" alt="Camino de acceso a un emplazamiento" class="timeline-foto" loading="lazy">
+          <div>
+            <h3>Detección de oportunidad</h3>
+            <p>Terrenos, concursos, capacidad disponible y orden de prelación.</p>
+          </div>
+        </div>
       </div>
     </li>
     <li class="timeline-item">
       <span class="timeline-numero">3</span>
       <div>
-        <h3>Viabilidad</h3>
-        <p>Contrastamos implantación, acceso, medio ambiente, urbanismo, evacuación y calendario.</p>
+        <div class="timeline-contenido">
+          <img src="{{ url_for('static', filename='img/empresa-equipo.jpg') }}" alt="Equipo técnico revisando la implantación de un proyecto" class="timeline-foto" loading="lazy">
+          <div>
+            <h3>Validación con cliente</h3>
+            <p>Aceptación de oportunidad e inclusión en acuerdo marco.</p>
+          </div>
+        </div>
       </div>
     </li>
     <li class="timeline-item">
       <span class="timeline-numero">4</span>
       <div>
-        <h3>Validación con el cliente</h3>
-        <p>Presentamos riesgos, alternativas y recomendación para decidir el avance.</p>
+        <div class="timeline-contenido">
+          <img src="{{ url_for('static', filename='img/servicio-ingenieria.jpg') }}" alt="Estructura de seguidor solar en fase de instalación" class="timeline-foto" loading="lazy">
+          <div>
+            <h3>Desarrollo de trabajos</h3>
+            <p>Ingeniería, estudios, permisos y tramitación coordinada.</p>
+          </div>
+        </div>
       </div>
     </li>
     <li class="timeline-item">
       <span class="timeline-numero">5</span>
       <div>
-        <h3>Ingeniería y tramitación</h3>
-        <p>Desarrollamos proyectos, estudios, separatas, EIA y documentación de acceso.</p>
-      </div>
-    </li>
-    <li class="timeline-item">
-      <span class="timeline-numero">6</span>
-      <div>
-        <h3>Seguimiento por hitos</h3>
-        <p>Coordinamos requerimientos y autorizaciones hasta RtB, construcción o PES según alcance.</p>
+        <div class="timeline-contenido">
+          <img src="{{ url_for('static', filename='img/servicio-permitting.jpg') }}" alt="Vista general de una subestación eléctrica en operación" class="timeline-foto" loading="lazy">
+          <div>
+            <h3>Hitos de proyecto</h3>
+            <p>RtB, autorizaciones y preparación para construcción/PES.</p>
+          </div>
+        </div>
       </div>
     </li>
   </ol>
 
-  <p class="resultado-destacado">Resultado: decisiones trazables, documentación técnica robusta y seguimiento continuo hasta la madurez del proyecto.</p>
+  <p class="resultado-servicio revelar">
+    <span>Resultado</span>
+    Decisiones trazables, documentación técnica robusta y seguimiento continuo hasta la madurez del proyecto.
+  </p>
 </section>
 {% endblock %}

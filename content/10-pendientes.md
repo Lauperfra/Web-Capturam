@@ -5,7 +5,7 @@
 | Prioridad | Dato / decisión | Responsable sugerido |
 |---|---|---|
 | Alta | Teléfono, email, dirección, horario y persona receptora de formularios. | Capturam |
-| ~~Alta~~ Resuelto | ~~Autorización para publicar nombres y logotipos de clientes y proyectos.~~ Nombres confirmados: aparecen citados directamente en las presentaciones corporativas del CEO (Presentación Capturam_2025.pptx, Presentación Capturam_2026.pptx). Logotipos siguen pendientes. | Capturam / clientes |
+| Alta | Autorización para publicar nombres y logotipos de clientes y proyectos. Confirmado por Capturam: **no hay autorización actualmente**; mantener anonimizado hasta nuevo aviso. | Capturam / clientes |
 | Alta | Alcance exacto realizado por Capturam en cada referencia. | Responsable técnico |
 | Alta | Cifras consolidadas de MW, MWh/GWh, proyectos, RtB y PES sin duplicidades. | Dirección / técnico |
 | Alta | Textos legales, DPO si aplica, cookies y proveedor de analítica. | Asesoría jurídica / agencia |

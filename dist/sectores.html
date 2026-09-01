@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="static/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="static/css/estilos.css">
 </head>
@@ -30,7 +30,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="servicios.html" data-bs-toggle="dropdown" aria-expanded="false">Servicios</a>
+            <a class="nav-link dropdown-toggle" href="servicios.html">Servicios</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="servicios.html#acceso-conexion">Estrategia de acceso y conexión</a></li>
               <li><a class="dropdown-item" href="servicios.html#terrenos-viabilidad">Terrenos y viabilidad</a></li>
@@ -40,7 +40,16 @@
               <li><a class="dropdown-item" href="servicios.html#asesoramiento">Asesoramiento técnico-regulatorio</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="sectores.html">Sectores</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="sectores.html">Sectores</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="sectores.html#solar-fotovoltaica">Solar fotovoltaica</a></li>
+              <li><a class="dropdown-item" href="sectores.html#eolica">Eólica</a></li>
+              <li><a class="dropdown-item" href="sectores.html#bess">BESS stand-alone</a></li>
+              <li><a class="dropdown-item" href="sectores.html#hibridacion">Instalaciones hibridadas</a></li>
+              <li><a class="dropdown-item" href="sectores.html#autoconsumo">Autoconsumo industrial</a></li>
+            </ul>
+          </li>
           <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="empresa.html">Quiénes somos</a></li>
           <li class="nav-item"><a class="nav-link" href="como-trabajamos.html">Cómo trabajamos</a></li>
@@ -52,57 +61,66 @@
 
   <main>
     
-<!-- Imágenes conceptuales generadas por IA para maquetación (content/08-marca.md) — sustituir por fotografía real de emplazamiento -->
-<section class="container">
-  <h1>Sectores</h1>
-
-  <div class="row g-4 mt-2">
-    <div class="col-md-6">
-      <div class="card-sector">
-        <img src="static/img/sector-solar.jpg" alt="Planta solar fotovoltaica con técnico realizando inspección" class="card-sector-img" loading="lazy">
-        <div class="card-sector-body">
-          <h3>Solar fotovoltaica</h3>
-          <p>Desarrollamos plantas fotovoltaicas y sus infraestructuras de evacuación desde la selección del emplazamiento y la implantación hasta la ingeniería, la tramitación y la puesta en servicio. Evaluamos pendientes, capacidad de implantación, accesos, conexión y condicionantes ambientales para construir una solución coherente desde las primeras decisiones.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-sector">
-        <img src="static/img/sector-eolica.jpg" alt="Aerogeneradores junto a una planta solar y una subestación de evacuación" class="card-sector-img" loading="lazy">
-        <div class="card-sector-body">
-          <h3>Eólica</h3>
-          <p>Abordamos proyectos eólicos con una visión conjunta de recurso, territorio, accesibilidad, evacuación eléctrica, medio ambiente y permitting. Coordinamos la ingeniería y la documentación necesaria para que el proyecto avance con criterios técnicos claros y riesgos identificados.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-sector">
-        <img src="static/img/sector-bess.jpg" alt="Contenedores de almacenamiento BESS junto a una subestación eléctrica" class="card-sector-img" loading="lazy">
-        <div class="card-sector-body">
-          <h3>BESS stand-alone</h3>
-          <p>Desarrollamos sistemas de almacenamiento conectados a redes de transporte o distribución, integrando estrategia de acceso, configuración de potencia y duración, implantación, ingeniería eléctrica y civil, seguridad, tramitación y preparación para construcción.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-sector">
-        <img src="static/img/hero-hibrido.jpg" alt="Instalación híbrida con solar, eólica y almacenamiento BESS" class="card-sector-img" loading="lazy">
-        <div class="card-sector-body">
-          <h3>Instalaciones hibridadas</h3>
-          <p>Diseñamos la integración de generación renovable y almacenamiento mediante configuraciones AC coupling o DC coupling. Analizamos la arquitectura, el punto de conexión, los límites operativos y los condicionantes del activo para plantear una solución técnicamente sólida y tramitable.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-sector">
-        <div class="card-sector-body">
-          <h3>Autoconsumo industrial</h3>
-          <p>Estudiamos instalaciones de autoconsumo, incluidas configuraciones sin excedentes, desde el perfil de demanda y la implantación hasta la ingeniería y legalización. El objetivo es adaptar la solución a la operación real del consumidor y a las condiciones de conexión.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
+<section class="container-fluid px-4 px-lg-5">
+  <h1 class="section-title">Sectores</h1>
+  <p class="lead lead-ancho">En <strong>Capturam</strong> desarrollamos proyectos en los principales sectores de la energía renovable: <strong>solar fotovoltaica</strong>, <strong>eólica</strong>, <strong>almacenamiento BESS</strong>, <strong>instalaciones hibridadas</strong> y <strong>autoconsumo industrial</strong>. Cada tecnología tiene su propia lógica técnica, de red y ambiental, y las abordamos todas con el mismo criterio: entender el activo a fondo para <strong>anticipar sus riesgos</strong> y llevarlo hasta una <strong>solución tramitable</strong>. Te contamos a continuación cómo trabajamos cada sector.</p>
 </section>
+
+<div class="servicio-fila" id="solar-fotovoltaica">
+  <div class="servicio-fila-foto revelar">
+    <img src="static/img/proyectos-banner.jpg" alt="Planta solar fotovoltaica de gran extensión con cielo despejado" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">01</span>
+    <h3>Solar fotovoltaica</h3>
+    <p class="justificado">Desarrollamos <strong>plantas fotovoltaicas y sus infraestructuras de evacuación</strong> desde la selección del emplazamiento y la implantación hasta la <strong>ingeniería, tramitación y puesta en servicio</strong>. Analizamos pendientes, capacidad de implantación, accesos, conexión y condicionantes ambientales para definir una <strong>solución coherente desde las primeras fases del proyecto</strong>.</p>
+  </div>
+</div>
+
+<div class="servicio-fila servicio-fila--invertida bg-suave" id="eolica">
+  <div class="servicio-fila-foto revelar">
+    <img src="static/img/servicio-terrenos.jpg" alt="Camino de acceso a un parque eólico con aerogeneradores en ladera" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">02</span>
+    <h3>Eólica</h3>
+    <p class="justificado">Abordamos <strong>proyectos eólicos</strong> desde una visión conjunta del recurso, el territorio, la accesibilidad, la evacuación eléctrica y los condicionantes ambientales. Coordinamos la <strong>ingeniería y la documentación necesaria</strong> para avanzar en la tramitación con <strong>criterios técnicos claros</strong> y los principales riesgos identificados.</p>
+  </div>
+</div>
+
+<div class="servicio-fila" id="bess">
+  <div class="servicio-fila-foto revelar">
+    <img src="static/img/caso-bess.jpg" alt="Fila de contenedores de almacenamiento BESS" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">03</span>
+    <h3>BESS stand-alone</h3>
+    <p class="justificado">Desarrollamos <strong>sistemas de almacenamiento conectados a redes de transporte o distribución</strong>, integrando la <strong>estrategia de acceso y conexión</strong>, la configuración de potencia y duración, la implantación, la ingeniería eléctrica y civil, la seguridad y la tramitación hasta su <strong>preparación para construcción</strong>.</p>
+  </div>
+</div>
+
+<div class="servicio-fila servicio-fila--invertida bg-suave" id="hibridacion">
+  <div class="servicio-fila-foto revelar">
+    <img src="static/img/proyectos-divisor.jpg" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">04</span>
+    <h3>Instalaciones hibridadas</h3>
+    <p class="justificado">Diseñamos la <strong>integración de generación renovable y almacenamiento</strong> mediante configuraciones <strong>AC coupling</strong> o <strong>DC coupling</strong>. Analizamos la arquitectura, el punto de conexión, los límites operativos y los condicionantes del activo para plantear una <strong>solución técnicamente sólida y tramitable</strong>.</p>
+  </div>
+</div>
+
+<div class="servicio-fila" id="autoconsumo">
+  <div class="servicio-fila-foto revelar">
+    <img src="static/img/caso-autoconsumo.jpg" alt="Planta solar fotovoltaica" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
+    <span class="servicio-numero">05</span>
+    <h3>Autoconsumo industrial</h3>
+    <p class="justificado">Estudiamos <strong>instalaciones de autoconsumo industrial</strong>, incluidas <strong>configuraciones sin excedentes</strong>, desde el análisis del perfil de demanda y la implantación hasta la <strong>ingeniería y legalización</strong>. Diseñamos cada solución atendiendo a la <strong>operación real del consumidor</strong> y a las condiciones de conexión.</p>
+  </div>
+</div>
 
   </main>
 

@@ -2,6 +2,11 @@
 
 Descripciones orientadas al problema del cliente y al resultado esperado.
 
+## Introducción de la página (copy original, no del dossier)
+En Capturam sabemos que ningún proyecto renovable avanza por una sola vía: hace falta coordinar red, terreno, ingeniería, medio ambiente y tramitación administrativa al mismo tiempo, sin perder de vista el calendario ni el riesgo. Por eso organizamos nuestro trabajo en servicios con un objetivo claro en cada uno: qué problema resolvemos y qué resultado obtiene el cliente. A continuación puedes ver el alcance y el resultado esperado de cada uno de ellos.
+
+*Escrito a petición de Laura (01/09/2026) como introducción de la página /servicios; no proviene del dossier ni de las presentaciones.*
+
 ## Estrategia de acceso y conexión
 - **Alcance:** Seguimiento de capacidad en redes de transporte y distribución; análisis del punto de conexión; preparación y tramitación de documentación; respuesta a requerimientos y seguimiento del expediente.
 - **Resultado:** Una estrategia de conexión fundamentada y una documentación consistente.

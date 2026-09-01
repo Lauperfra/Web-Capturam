@@ -1,5 +1,10 @@
 # 05 · Sectores
 
+## Introducción de la página (copy original, no del dossier)
+En Capturam desarrollamos proyectos en los principales sectores de la energía renovable: solar fotovoltaica, eólica, almacenamiento BESS, instalaciones hibridadas y autoconsumo industrial. Cada tecnología tiene su propia lógica técnica, de red y ambiental, y las abordamos todas con el mismo criterio: entender el activo a fondo para anticipar sus riesgos y llevarlo hasta una solución tramitable. Te contamos a continuación cómo trabajamos cada sector.
+
+*Escrito a petición de Laura (01/09/2026) como introducción de la página /sectores; no proviene del dossier ni de las presentaciones.*
+
 ## Textos breves (para tarjetas / resumen en Inicio)
 
 | Sector | Texto breve |
@@ -8,6 +13,7 @@
 | Eólica | Ingeniería y desarrollo de parques eólicos e infraestructuras de evacuación, integrando viabilidad territorial, técnica y ambiental. |
 | BESS | Sistemas de almacenamiento stand-alone o asociados a generación, con análisis de conexión, configuración, ingeniería y permisos. |
 | Hibridación | Integración de generación y almacenamiento mediante soluciones AC o DC coupling adaptadas al activo, la red y la estrategia del proyecto. |
+| Autoconsumo industrial | Estudios de instalaciones de autoconsumo industrial, incluidas configuraciones sin excedentes, adaptadas a la operación real del consumidor. *(condensado del texto de detalle de abajo, no del dossier — faltaba en la tabla original)* |
 
 ## Textos de detalle (para la página `/sectores`)
 

@@ -21,4 +21,4 @@ Cada proyecto se aborda con método, trazabilidad y comunicación directa. Nuest
 - Número de expedientes de acceso y conexión y proyectos que han alcanzado RtB/PES.
 - Cobertura geográfica, equipo y titulaciones profesionales.
 
-*Fuente: Dossier de contenidos para la web — Capturam Ingeniería, agosto 2026, sección 4. "Más de 17 años de experiencia" y los clientes de `content/07-proyectos.md` confirmados directamente en las presentaciones corporativas del CEO (Presentación Capturam_2025.pptx, Presentación Capturam_2026.pptx).*
+*Fuente: Dossier de contenidos para la web — Capturam Ingeniería, agosto 2026, sección 4. "Más de 17 años de experiencia" confirmado directamente en las presentaciones corporativas del CEO (Presentación Capturam_2025.pptx, Presentación Capturam_2026.pptx).*

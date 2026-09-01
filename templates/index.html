@@ -18,57 +18,76 @@
   </div>
 </section>
 
-<section>
-  <div class="container revelar">
+<!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
+<div class="servicio-fila">
+  <div class="servicio-fila-foto revelar">
+    <img src="{{ url_for('static', filename='img/inicio-vision-integral.jpg') }}" alt="Subestación eléctrica de alta tensión" loading="lazy">
+  </div>
+  <div class="servicio-fila-texto revelar">
     <h2>Ingeniería y desarrollo con visión integral.</h2>
     <p class="lead justificado">Un proyecto renovable no depende de una sola disciplina. En Capturam coordinamos territorio, capacidad de red, diseño técnico, condicionantes ambientales y tramitación administrativa para anticipar riesgos, documentar decisiones y avanzar con solvencia hacia cada hito.</p>
   </div>
-</section>
+</div>
 
 <section class="bg-suave">
   <div class="container">
     <h2 class="revelar">Sectores</h2>
-    <div class="row g-4">
-      <div class="col-sm-6 col-lg-3">
-        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100 revelar">
+    <p class="sectores-intro revelar">
+      Desarrollamos proyectos de generación renovable, almacenamiento e integración energética, 
+      abordando cada tecnología desde una visión técnica y de desarrollo.
+    </p>
+    <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-5">
+      <div class="col">
+        <a href="{{ url_for('sectores') }}#solar-fotovoltaica" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/sector-solar.jpg') }}" alt="Planta solar fotovoltaica con técnico realizando inspección" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/proyectos-banner.jpg') }}" alt="Planta solar fotovoltaica de gran extensión" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Solar fotovoltaica</h3>
-              <p>Diseño y desarrollo de plantas fotovoltaicas, desde la implantación y la evacuación hasta la tramitación y puesta en servicio.</p>
+              <p>Desarrollo de plantas fotovoltaicas desde el emplazamiento hasta la ingeniería y tramitación.</p>
             </div>
           </div>
         </a>
       </div>
-      <div class="col-sm-6 col-lg-3">
-        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100 revelar">
+      <div class="col">
+        <a href="{{ url_for('sectores') }}#eolica" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/sector-eolica.jpg') }}" alt="Aerogeneradores junto a una planta solar y una subestación de evacuación" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}" alt="Camino de acceso a un parque eólico con aerogeneradores en ladera" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Eólica</h3>
-              <p>Ingeniería y desarrollo de parques eólicos e infraestructuras de evacuación, integrando viabilidad territorial, técnica y ambiental.</p>
+              <p>Proyectos eólicos integrando territorio, accesos, evacuación y condicionantes ambientales.</p>
             </div>
           </div>
         </a>
       </div>
-      <div class="col-sm-6 col-lg-3">
-        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100 revelar">
+      <div class="col">
+        <a href="{{ url_for('sectores') }}#bess" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/sector-bess.jpg') }}" alt="Contenedores de almacenamiento BESS junto a una subestación eléctrica" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/caso-bess.jpg') }}" alt="Fila de contenedores de almacenamiento BESS" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>BESS</h3>
-              <p>Sistemas de almacenamiento stand-alone o asociados a generación, con análisis de conexión, configuración, ingeniería y permisos.</p>
+              <p>Sistemas de almacenamiento desde la estrategia de acceso hasta su diseño y desarrollo.</p>
             </div>
           </div>
         </a>
       </div>
-      <div class="col-sm-6 col-lg-3">
-        <a href="{{ url_for('sectores') }}" class="text-decoration-none text-reset d-block h-100 revelar">
+      <div class="col">
+        <a href="{{ url_for('sectores') }}#hibridacion" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/hero-hibrido.jpg') }}" alt="Instalación híbrida con solar, eólica y almacenamiento BESS" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/proyectos-divisor.jpg') }}" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Hibridación</h3>
-              <p>Integración de generación y almacenamiento mediante soluciones AC o DC coupling adaptadas al activo, la red y la estrategia del proyecto.</p>
+              <p>Integración de generación renovable y almacenamiento en una solución técnica conjunta.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <a href="{{ url_for('sectores') }}#autoconsumo" class="text-decoration-none text-reset d-block h-100 revelar">
+          <div class="card-sector">
+            <img src="{{ url_for('static', filename='img/caso-autoconsumo.jpg') }}" alt="Planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+            <div class="card-sector-body">
+              <h3>Autoconsumo</h3>
+              <p>Soluciones de autoconsumo industrial adaptadas al perfil real de demanda de cada instalación.</p>
             </div>
           </div>
         </a>
