@@ -1,0 +1,25 @@
+# Endurecimiento básico para el endpoint PHP del formulario de contacto.
+# Este archivo se copia a la raíz de dist/ (junto a enviar-contacto.php).
+
+# No servir nunca los archivos de Composer ni la plantilla de configuración
+# de ejemplo (ninguno de los dos contiene secretos reales, pero no deben
+# ser accesibles por HTTP).
+<FilesMatch "\.(json|lock|md)$">
+    Require all denied
+</FilesMatch>
+
+# El archivo de configuración real vive FUERA de este directorio (un nivel
+# por encima de public_html) y por tanto nunca es accesible por HTTP. Esta
+# regla es un cinturón de seguridad adicional por si alguna vez apareciera
+# aquí por error.
+<FilesMatch "^capturam-mail-config\.php$">
+    Require all denied
+</FilesMatch>
+
+# Bloquea el acceso directo a las librerías de PHPMailer: solo deben
+# cargarse mediante "require" desde enviar-contacto.php, nunca pedirse
+# directamente por URL.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^vendor/ - [F,L]
+</IfModule>

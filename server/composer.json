@@ -1,0 +1,9 @@
+{
+    "name": "capturam/formulario-contacto",
+    "description": "Endpoint PHP para el formulario de contacto de capturam.es (envío por SMTP vía Microsoft 365, sin base de datos).",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

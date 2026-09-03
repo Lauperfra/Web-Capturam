@@ -13,6 +13,12 @@ RAIZ = Path(__file__).parent
 PLANTILLAS = RAIZ / "templates"
 ESTATICOS = RAIZ / "static"
 SALIDA = RAIZ / "dist"
+SERVIDOR = RAIZ / "server"
+
+# Archivos de server/ que se copian tal cual a la raíz de dist/ (el backend
+# PHP del formulario de contacto). config.example.php y composer.* se
+# quedan fuera a propósito: no hacen falta en producción.
+ARCHIVOS_SERVIDOR = ["enviar-contacto.php", "plantilla-correo.php", ".htaccess"]
 
 # Mapea cada endpoint de Flask (los mismos nombres usados en url_for) al
 # archivo .html final y a la plantilla que lo genera.
@@ -70,6 +76,22 @@ def construir():
         print(f"  {plantilla} -> dist/{archivo_salida}")
 
     copiar_con_reintentos(ESTATICOS, SALIDA / "static")
+
+    for nombre in ARCHIVOS_SERVIDOR:
+        origen = SERVIDOR / nombre
+        if origen.is_file():
+            shutil.copy2(origen, SALIDA / nombre)
+            print(f"  server/{nombre} -> dist/{nombre}")
+        else:
+            print(f"  [aviso] no encontrado: server/{nombre}")
+
+    vendor_origen = SERVIDOR / "vendor"
+    if vendor_origen.is_dir():
+        copiar_con_reintentos(vendor_origen, SALIDA / "vendor")
+        print("  server/vendor/ -> dist/vendor/")
+    else:
+        print("  [aviso] server/vendor/ no existe todavía — ejecuta 'composer install' dentro de server/ antes de desplegar (ver server/composer.json).")
+
     print(f"\nListo. {len(PAGINAS)} páginas + static/ copiados a {SALIDA}")
 
 

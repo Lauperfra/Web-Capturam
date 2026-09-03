@@ -3,3 +3,11 @@ venv/
 __pycache__/
 *.pyc
 .vscode/
+
+# Backend PHP del formulario de contacto: las librerías de terceros
+# (PHPMailer, vía composer install) no se versionan, igual que venv/.
+# enviar-contacto.php y .htaccess sí se versionan: no contienen secretos,
+# las credenciales solo viven en capturam-mail-config.php (fuera del repo).
+server/vendor/
+dist/vendor/
+capturam-mail-config.php

@@ -518,7 +518,7 @@ a.contacto-chip:hover {
 }
 
 .texto-legal {
-  max-width: 800px;
+  max-width: 1100px;
 }
 
 .texto-legal p {
@@ -558,6 +558,11 @@ body .card-sector:hover {
   color: var(--capturam-azul-profundo);
   font-size: 1.15rem;
   margin-bottom: 0.5rem;
+}
+
+.card-servicio p,
+.card-sector p {
+  text-align: left;
 }
 
 .card-sector-img {
