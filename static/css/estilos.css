@@ -2,6 +2,7 @@
   --capturam-azul-pizarra: #596074;
   --capturam-verde-agua: #91b5b4;
   --capturam-azul-profundo: #102d3a;
+  --capturam-azul-profundo-claro: #1e3c4b;
   --capturam-blanco-calido: #f3f6f4;
   --capturam-blanco: #ffffff;
 
@@ -90,7 +91,7 @@ main a:not(.btn):not(.text-reset):hover {
 
 /* Navegación */
 .navbar {
-  background-color: var(--capturam-azul-profundo) !important;
+  background-color: var(--capturam-azul-profundo-claro) !important;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -283,8 +284,17 @@ main a:not(.btn):not(.text-reset):hover {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(16, 45, 58, 0.95) 0, rgba(16, 45, 58, 0) 180px),
-    linear-gradient(115deg, rgba(16, 45, 58, 0.92) 0%, rgba(16, 45, 58, 0.8) 40%, rgba(16, 45, 58, 0.45) 100%);
+    linear-gradient(
+      to bottom,
+      var(--capturam-azul-profundo-claro) 0,
+      var(--capturam-azul-profundo-claro) 18px,
+      rgba(16, 45, 58, 0.55) 60px,
+      rgba(16, 45, 58, 0.4) 95px,
+      rgba(16, 45, 58, 0.26) 140px,
+      rgba(16, 45, 58, 0.12) 190px,
+      rgba(16, 45, 58, 0) 235px
+    ),
+    linear-gradient(115deg, rgba(16, 45, 58, 0.55) 0%, rgba(16, 45, 58, 0.48) 20%, rgba(16, 45, 58, 0.38) 45%, rgba(16, 45, 58, 0.28) 70%, rgba(16, 45, 58, 0.2) 100%);
 }
 
 .hero .container {
@@ -608,7 +618,7 @@ body .card-sector:hover {
 /* Footer */
 footer.site-footer {
   flex-shrink: 0;
-  background-color: var(--capturam-azul-profundo);
+  background-color: var(--capturam-azul-profundo-claro);
   color: var(--capturam-blanco-calido);
   padding: 24px 0 20px;
   font-size: 0.9rem;
