@@ -1,0 +1,15 @@
+# Endurecimiento del panel de administración. Se copia a dist/admin/.
+
+Options -Indexes
+
+# _bootstrap.php no debe pedirse nunca directamente por URL (solo se
+# incluye desde login.php/panel.php/logout.php).
+<Files "_bootstrap.php">
+    Require all denied
+</Files>
+
+# El resto de estos tipos tampoco deben ser accesibles aquí (ya se bloquean
+# a nivel de dist/.htaccess, esto es un cinturón de seguridad adicional).
+<FilesMatch "\.(json|md|example\.php)$">
+    Require all denied
+</FilesMatch>

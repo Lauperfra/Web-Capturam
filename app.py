@@ -47,9 +47,9 @@ def como_trabajamos():
     return render_template("como-trabajamos.html")
 
 
-@app.route("/conocimiento")
-def conocimiento():
-    return render_template("conocimiento.html")
+@app.route("/publicaciones")
+def publicaciones():
+    return render_template("publicaciones.html")
 
 
 @app.route("/legal")
@@ -94,6 +94,11 @@ def contacto():
         return redirect(url_for("contacto"))
 
     return render_template("contacto.html")
+
+
+@app.errorhandler(404)
+def pagina_no_encontrada(error):
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":

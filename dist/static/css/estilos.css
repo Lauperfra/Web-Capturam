@@ -45,13 +45,24 @@ h1 {
   font-size: clamp(2.3rem, 4.3vw, 3.4rem);
 }
 
+@media (min-width: 1365px) {
+  /* Igual que siempre hasta 1365px (pantalla de referencia, mismo valor
+     exacto que arriba en ese punto); a partir de ahí crece con la pantalla
+     en vez de quedarse fijo para siempre. */
+  h1 {
+    font-size: clamp(3.4rem, 1rem + 2.81vw, 5.625rem);
+  }
+}
+
 .section-title {
   text-align: center;
   margin-bottom: 3rem;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  /* Igual que siempre hasta 1365px; a partir de ahí crece con la pantalla
+     en vez de quedarse fijo para siempre (como le pasaba a h1 antes). */
+  font-size: clamp(1.5rem, 0.525rem + 1.73vw, 3.3rem);
   margin-bottom: 1.5rem;
 }
 
@@ -62,6 +73,9 @@ p {
 .lead {
   color: var(--capturam-azul-pizarra);
   max-width: 640px;
+  /* Igual que siempre hasta 1365px (pantalla de referencia); a partir de
+     ahí crece un poco con la pantalla. */
+  font-size: clamp(1.25rem, 0.329rem + 1.08vw, 2.125rem);
 }
 
 .lead strong {
@@ -102,28 +116,28 @@ main a:not(.btn):not(.text-reset):hover {
 }
 
 .navbar-brand img {
-  /* Igual que siempre hasta ~1200px; a partir de ahí crece muy poco a poco
-     (132px a 1920px de ancho, tope 145px en pantallas aún mayores). */
-  height: clamp(124px, 111px + 1.11vw, 145px);
+  /* Igual que siempre hasta 1365px (pantalla de referencia); a partir de
+     ahí crece con la pantalla en vez de quedarse fijo. */
+  height: clamp(124px, 32.94px + 6.67vw, 193px);
 }
 
 @media (max-width: 991.98px) {
   .navbar-brand img {
-    height: 84px;
+    height: 100px;
   }
 
   .hero {
-    min-height: calc(100vh - 84px);
+    min-height: calc(100vh - 100px);
   }
 }
 
 @media (max-width: 575.98px) {
   .navbar-brand img {
-    height: 64px;
+    height: 76px;
   }
 
   .hero {
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 76px);
   }
 }
 
@@ -136,7 +150,7 @@ main a:not(.btn):not(.text-reset):hover {
   color: var(--capturam-blanco-calido) !important;
   font-weight: 600;
   padding-bottom: 4px !important;
-  font-size: clamp(1rem, 0.896rem + 0.139vw, 1.15rem);
+  font-size: clamp(1rem, 0.262rem + 0.865vw, 1.55rem);
   opacity: 0.85;
   transition: opacity var(--transicion), color var(--transicion);
 }
@@ -166,6 +180,7 @@ main a:not(.btn):not(.text-reset):hover {
 .navbar .btn-capturam {
   background-color: var(--capturam-verde-agua);
   color: var(--capturam-azul-profundo);
+  font-size: clamp(1rem, 0.262rem + 0.865vw, 1.55rem);
 }
 
 .navbar .btn-capturam:hover {
@@ -269,7 +284,7 @@ main a:not(.btn):not(.text-reset):hover {
 
 /* Hero */
 .hero {
-  min-height: calc(100vh - clamp(124px, 111px + 1.11vw, 145px));
+  min-height: calc(100vh - clamp(124px, 32.94px + 6.67vw, 193px));
   display: flex;
   align-items: center;
   padding: 100px 0;
@@ -308,37 +323,47 @@ main a:not(.btn):not(.text-reset):hover {
     linear-gradient(115deg, rgba(16, 45, 58, 0.55) 0%, rgba(16, 45, 58, 0.48) 20%, rgba(16, 45, 58, 0.38) 45%, rgba(16, 45, 58, 0.28) 70%, rgba(16, 45, 58, 0.2) 100%);
 }
 
-.hero .container {
+.hero .container-fluid {
   position: relative;
   z-index: 1;
 }
 
+.hero-container {
+  /* Margen izquierdo generoso (como el de antes, con el .container de
+     Bootstrap) que sigue creciendo un poco en pantallas grandes; el derecho
+     se queda pequeño para que el texto tenga sitio de sobra al agrandarse. */
+  padding-left: clamp(24px, 15vw, 340px);
+  padding-right: clamp(24px, 4vw, 100px);
+}
+
+@media (max-width: 767.98px) {
+  .hero-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-cta .btn-capturam-outline {
+    padding: 0.5em 1.1em;
+    font-size: 0.85rem;
+  }
+}
+
 .hero h1 {
-  max-width: clamp(900px, 484px + 34.7vw, 1400px);
+  /* Ancho relativo a su propio tamaño de letra: crecen siempre pegados,
+     así al agrandarse no salta a más líneas. Sin tramos ni saltos: una sola
+     fórmula continua, igual que siempre hasta 1365px de ancho (pantalla de
+     referencia), y a partir de ahí crece con la pantalla. */
+  max-width: 19.4em;
   margin-bottom: 1.25rem;
   color: var(--capturam-blanco);
-  /* Igual que siempre en móvil/tablet; el tramo de escritorio (≥1200px) se
-     agranda más abajo. */
-  font-size: clamp(2rem, 3vw, 2.9rem);
+  font-size: clamp(2rem, 1.174rem + 2.023vw, 6.25rem);
 }
 
 .hero .lead {
-  max-width: clamp(900px, 650px + 20.8vw, 1300px);
+  max-width: 41.7em;
   margin-bottom: 2rem;
   color: rgba(243, 246, 244, 0.92);
-  font-size: clamp(1.05rem, 1.1rem + 0.21vw, 1.35rem);
-}
-
-@media (min-width: 1200px) {
-  /* A partir de aquí (portátiles/monitores de escritorio) el texto crece muy
-     poco a poco, sin salto (en 1200px da lo mismo que la regla de arriba). */
-  .hero h1 {
-    font-size: clamp(2.9rem, 2.32rem + 0.778vw, 3.75rem);
-  }
-
-  .hero .lead {
-    font-size: clamp(1.35rem, 1.1rem + 0.333vw, 1.75rem);
-  }
+  font-size: clamp(1.05rem, 0.693rem + 0.77vw, 2.625rem);
 }
 
 .hero .eyebrow {
@@ -357,11 +382,17 @@ main a:not(.btn):not(.text-reset):hover {
   gap: 16px;
 }
 
+.hero-cta .btn-capturam-outline {
+  /* Igual que siempre hasta ~1200px; a partir de ahí crece con la pantalla,
+     igual que el título y el párrafo del hero. */
+  font-size: clamp(1rem, 0.6875rem + 0.417vw, 1.625rem);
+}
+
 /* Botones */
 .btn-capturam,
 .btn-capturam-outline {
   font-weight: 600;
-  padding: 10px 24px;
+  padding: 0.625em 1.5em;
   border-radius: 6px;
   transition: transform var(--transicion), box-shadow var(--transicion), background-color var(--transicion), color var(--transicion);
 }
@@ -423,23 +454,36 @@ section {
 }
 
 .servicio-fila-foto {
+  /* La foto se posiciona en absoluto (ver la regla siguiente) para que
+     nunca influya en la altura de la fila: esa la decide solo el texto.
+     Así la foto rellena siempre exactamente esa altura, sin huecos ni
+     estirones raros, tenga el texto pocas líneas (Inicio) o muchas
+     (Servicios/Sectores, con Alcance + Resultado). */
+  position: relative;
   min-height: 320px;
   overflow: hidden;
 }
 
 .servicio-fila-foto img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  min-height: 320px;
   object-fit: cover;
   display: block;
 }
 
 .servicio-fila-texto {
-  padding: 56px 8vw;
+  /* El margen lateral crece con la pantalla, pero con un tope (antes crecía
+     sin límite y en pantallas grandes dejaba un hueco enorme). */
+  padding: 56px clamp(24px, 6vw, 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Escala base compartida: el título y el párrafo se definen como múltiplos
+     de este valor (ver más abajo), así que crecen siempre EN LA MISMA
+     proporción entre sí, para cualquier ancho de pantalla, sin excepciones. */
+  font-size: clamp(1rem, 0.75rem + 0.333vw, 1.65rem);
 }
 
 .servicio-numero {
@@ -450,19 +494,86 @@ section {
   margin-bottom: 0.5rem;
 }
 
+.servicio-fila-texto .servicio-numero {
+  /* Relativo a la misma escala que el título y el párrafo de la fila, para
+     que no se quede pequeño y suelto en pantallas grandes. */
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.servicio-fila-texto .resultado-servicio span {
+  /* Mismo tamaño que el texto del recuadro (antes era un tamaño fijo
+     pequeño que se quedaba diminuto en pantallas grandes). */
+  font-size: 1em;
+}
+
+.servicio-fila-texto h2,
 .servicio-fila-texto h3 {
   color: var(--capturam-azul-profundo);
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  font-size: 1.6em;
   margin-bottom: 1rem;
+  max-width: clamp(560px, 398px + 16.3vw, 1050px);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .servicio-fila-texto p {
   color: var(--capturam-azul-pizarra);
-  max-width: 560px;
+  font-size: 1.25em;
+  max-width: clamp(560px, 398px + 16.3vw, 1050px);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bg-suave {
   background-color: var(--capturam-blanco-calido);
+}
+
+.inicio-sectores {
+  /* Misma idea que en "Ingeniería y desarrollo con visión integral": una
+     escala compartida de la que título, texto y tarjetas son múltiplos, así
+     crecen todos a la vez y en proporción en pantallas grandes. También la
+     usa "Últimas publicaciones", para que ambos títulos queden igual. */
+  font-size: clamp(1rem, 0.7rem + 0.5vw, 1.65rem);
+}
+
+.inicio-sectores h2 {
+  font-size: 1.5em;
+}
+
+.inicio-sectores .sectores-intro {
+  font-size: 1.1em;
+  max-width: none;
+}
+
+.inicio-sectores .card-sector h3 {
+  font-size: 1.15em;
+}
+
+.inicio-sectores .card-sector-body p {
+  font-size: 1em;
+}
+
+.cta-final {
+  font-size: clamp(1rem, 0.75rem + 0.333vw, 1.65rem);
+  text-align: center;
+}
+
+.cta-final h2 {
+  font-size: 1.5em;
+  max-width: clamp(560px, 398px + 16.3vw, 1050px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-final .lead {
+  font-size: 1.1em;
+  max-width: clamp(540px, 380px + 15.6vw, 1000px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .col-formulario {
@@ -565,6 +676,51 @@ a.contacto-chip:hover {
   text-align: justify;
 }
 
+/* Página de error (404, etc.). El <main> normal no es flex, así que su
+   único hijo no crece para llenar el hueco que deja el "flex:1 0 auto" de
+   <main> en pantallas muy altas — sin esto, el bloque se queda pegado
+   arriba con un hueco en blanco debajo, en vez de centrado de verdad. */
+main:has(.pagina-error) {
+  display: flex;
+  flex-direction: column;
+}
+
+.pagina-error {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 auto;
+}
+
+.pagina-error-codigo {
+  font-family: "Poppins", "Inter", "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 1;
+  color: var(--capturam-verde-agua);
+  margin-bottom: 0.5rem;
+}
+
+.pagina-error .section-title {
+  margin-bottom: 1rem;
+}
+
+.pagina-error .lead {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.pagina-error-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
 /* Tarjetas */
 .card-servicio,
 .card-sector {
@@ -601,6 +757,234 @@ body .card-sector:hover {
   text-align: left;
 }
 
+/* Miniatura de las tarjetas de publicaciones: vista previa modesta en la
+   lista, la versión grande se ve en el visor (abajo) al hacer clic. */
+.tarjeta-publicacion {
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-publicacion .card-sector-img {
+  aspect-ratio: 16 / 9;
+  /* Siempre crece para llenar el hueco que deje el cuerpo (haya texto o
+     no) — el cuerpo ocupa solo lo que necesita y la vista previa se queda
+     con el resto, en vez de quedarse pequeña con un hueco en blanco
+     debajo. */
+  flex: 1 1 auto;
+  min-height: 100px;
+}
+
+/* Versión compacta: solo para el aperitivo de "Últimas publicaciones" en
+   Inicio (tres tarjetas pequeñas que invitan a ver la página completa,
+   sin competir en tamaño con el resto de la portada). En Publicaciones se
+   usa el tamaño normal de arriba. Igual que siempre hasta 1920px; a partir
+   de ahí crece un poco (antes se quedaba fija para siempre). */
+.publicaciones-compactas {
+  font-size: clamp(1rem, 0.52rem + 0.4vw, 1.5rem);
+}
+
+.tarjeta-publicacion-compacta .card-sector-body {
+  padding: 12px 16px 16px;
+}
+
+.tarjeta-publicacion-compacta .card-sector-body h3 {
+  font-size: 0.95em;
+  margin-bottom: 0.3rem;
+}
+
+.tarjeta-publicacion-compacta .card-sector-body .servicio-numero {
+  font-size: 0.7em;
+}
+
+.tarjeta-publicacion-compacta .card-sector-body p {
+  font-size: 0.85em;
+}
+
+.tarjeta-publicacion-compacta .card-sector-body .btn {
+  font-size: 0.8em;
+  padding: 0.5em 1.1em;
+}
+
+.tarjeta-publicacion .card-sector-body {
+  display: flex;
+  flex-direction: column;
+  /* Compacto: ocupa solo lo que su contenido necesita — la vista previa de
+     arriba es quien crece para llenar el resto de la tarjeta. */
+  flex: 0 0 auto;
+}
+
+/* Vista previa de un PDF: mientras se genera la miniatura real de la
+   primera página (o si algo falla, p. ej. el CDN de pdf.js bloqueado), se
+   ve este recuadro con icono de documento — misma proporción que la
+   miniatura de imagen para que ambos tipos de tarjeta se vean igual de
+   cuidados. */
+.vista-previa-pdf {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--capturam-azul-profundo), var(--capturam-azul-pizarra));
+  color: var(--capturam-blanco);
+  overflow: hidden;
+}
+
+.vista-previa-pdf span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* La miniatura real (canvas de PDF.js) tapa el icono en cuanto termina de
+   renderizarse. */
+.vista-previa-pdf-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+/* Texto de la publicación: justificado (a diferencia del resto de tarjetas
+   de la web) y con estilo propio para negrita y enlaces, ya que el CEO
+   puede escribir **negrita** y [texto](url) al crear la publicación. */
+.tarjeta-publicacion p {
+  text-align: justify;
+}
+
+.tarjeta-publicacion p strong {
+  color: var(--capturam-azul-profundo);
+}
+
+.tarjeta-publicacion p a {
+  color: var(--capturam-verde-agua);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.tarjeta-publicacion p a:hover {
+  color: var(--capturam-azul-profundo);
+}
+
+/* Toda la tarjeta es clicable (abre el visor), salvo enlaces/botones. */
+.tarjeta-publicacion-clicable {
+  cursor: pointer;
+}
+
+/* Visor a pantalla completa de una publicación (imagen o PDF), con una "X"
+   para cerrar — se crea con JS (publicaciones.js) la primera vez que se
+   abre una publicación. */
+.visor-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(11, 43, 60, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+/* El atributo "hidden" del navegador tiene menos prioridad que cualquier
+   regla CSS normal — sin esto, "display:flex" de arriba gana siempre y el
+   visor se queda visible (vacío) aunque JS lo marque como oculto. */
+.visor-overlay[hidden] {
+  display: none;
+}
+
+.visor-cerrar {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 2001;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--capturam-blanco);
+  color: var(--capturam-azul-profundo);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--sombra-media);
+}
+
+.visor-cerrar:hover {
+  background: var(--capturam-verde-agua);
+  color: var(--capturam-blanco);
+}
+
+.visor-contenido {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visor-contenido img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.visor-contenido iframe {
+  /* Antes tenía un tope fijo de 900px, así que en pantallas grandes se veía
+     diminuto en medio de un hueco enorme. Ahora ocupa todo el alto
+     disponible y bastante más ancho, sin pasarse del hueco disponible en
+     pantallas estrechas/móvil (max-width cubre ese caso). */
+  height: 100%;
+  width: min(92vw, 1800px);
+  max-width: 100%;
+  border: none;
+  border-radius: 4px;
+  background: var(--capturam-blanco);
+}
+
+/* Botón "ver más / ver menos" de las publicaciones (texto largo, estilo
+   LinkedIn: se trunca y se expande sin recargar ni navegar). */
+.enlace-ver-mas {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--capturam-verde-agua);
+  font-weight: 600;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.enlace-ver-mas:hover {
+  text-decoration: underline;
+}
+
+/* Proyectos y Publicaciones se habían quedado sin la "escala compartida"
+   que ya tiene el resto de tarjetas de la web (Sectores, Empresa...): el
+   título y el texto se quedaban con el tamaño fijo de siempre mientras el
+   resto de la página crecía en pantallas grandes. Igual que siempre hasta
+   1920px (cualquier portátil u ordenador normal, no solo la pantalla de
+   referencia de 1365px), a partir de ahí crecen todos juntos y en
+   proporción — solo en monitores realmente muy anchos. */
+.proyectos-grid,
+.publicaciones-grid {
+  font-size: clamp(1rem, 0.52rem + 0.4vw, 1.8rem);
+}
+
+.proyectos-grid .card-sector h3,
+.publicaciones-grid .tarjeta-publicacion h3 {
+  font-size: 1.15em;
+}
+
+.proyectos-grid .card-sector-body p,
+.publicaciones-grid .tarjeta-publicacion p {
+  font-size: 1em;
+}
+
+.proyectos-grid .servicio-numero,
+.publicaciones-grid .servicio-numero {
+  font-size: 0.9em;
+}
+
 .card-sector-img {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -610,6 +994,31 @@ body .card-sector:hover {
 
 .card-sector-body {
   padding: 20px 24px 24px;
+}
+
+/* Principios de trabajo (Empresa), Modelo de negocio y párrafos sueltos de
+   Cómo trabajamos: igual que siempre hasta 1365px (misma proporción
+   título/texto/número que antes); a partir de ahí crece de forma moderada
+   con la pantalla. */
+.principios-trabajo,
+.modelo-negocio,
+.como-trabajamos-main {
+  font-size: clamp(1rem, 0.232rem + 0.9vw, 2.2rem);
+}
+
+.principios-trabajo .card-servicio h3,
+.modelo-negocio .card-sector h3 {
+  font-size: 1.15em;
+}
+
+.principios-trabajo .card-servicio p,
+.modelo-negocio .card-sector-body p {
+  font-size: 1em;
+}
+
+.principios-trabajo .servicio-numero,
+.modelo-negocio .servicio-numero {
+  font-size: 0.9em;
 }
 
 /* Foto de sección (Empresa, Cómo trabajamos) */
@@ -673,13 +1082,14 @@ footer.site-footer a:hover {
 }
 
 .footer-logo {
-  height: 210px;
+  /* Igual que siempre hasta 1365px; a partir de ahí crece con la pantalla. */
+  height: clamp(210px, 55.1px + 11.35vw, 326px);
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
 }
 
 .footer-contacto h3 {
   color: var(--capturam-verde-agua);
-  font-size: 0.85rem;
+  font-size: clamp(0.85rem, 0.223rem + 0.735vw, 1.32rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -696,11 +1106,11 @@ footer.site-footer a:hover {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 18px;
+  padding: 0.64em 1.28em;
   border-radius: 999px;
   background-color: rgba(243, 246, 244, 0.06);
   border: 1px solid rgba(243, 246, 244, 0.2);
-  font-size: 0.88rem;
+  font-size: clamp(0.88rem, 0.232rem + 0.76vw, 1.365rem);
   font-weight: 500;
   color: var(--capturam-blanco-calido);
   transition: border-color var(--transicion), background-color var(--transicion), transform var(--transicion);
@@ -708,6 +1118,8 @@ footer.site-footer a:hover {
 
 .footer-chip svg {
   flex-shrink: 0;
+  width: 1em;
+  height: 1em;
   color: var(--capturam-verde-agua);
 }
 
@@ -728,7 +1140,7 @@ footer.site-footer a.footer-chip:hover {
 }
 
 .footer-bottom {
-  font-size: 0.85rem;
+  font-size: clamp(0.85rem, 0.223rem + 0.735vw, 1.32rem);
   color: rgba(243, 246, 244, 0.75);
 }
 
@@ -751,22 +1163,50 @@ footer.site-footer a.footer-chip:hover {
   margin: 40px 0 0;
   padding: 0;
   position: relative;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 17px;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: linear-gradient(var(--capturam-verde-agua), var(--capturam-azul-pizarra));
+  /* Igual que siempre hasta 1365px; a partir de ahí título, texto y número
+     crecen juntos (son múltiplos de esta misma escala). */
+  font-size: clamp(1rem, 0.232rem + 0.9vw, 2.2rem);
 }
 
 .timeline-item {
   display: flex;
+  align-items: center;
   gap: 24px;
   padding-bottom: 32px;
+  position: relative;
+}
+
+/* Tramo inferior: del centro del número (real, no aproximado) hasta el
+   siguiente paso, atravesando el padding-bottom de 32px. Se ancla en las
+   dimensiones reales de cada fila, así que no depende de que la foto sea
+   más alta que el texto (evita que el palo se salga en móvil, donde el
+   texto puede ocupar más que la foto). */
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 1.125em;
+  top: calc(50% - 16px);
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--capturam-verde-agua), var(--capturam-azul-pizarra));
+}
+
+/* Tramo superior: desde el inicio de la fila hasta el centro de su propio
+   número. */
+.timeline-item:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  left: 1.125em;
+  top: 0;
+  height: calc(50% - 16px);
+  width: 2px;
+  background: linear-gradient(var(--capturam-verde-agua), var(--capturam-azul-pizarra));
+}
+
+/* El último paso no tiene padding-bottom, así que su centro real está
+   exactamente al 50%, no al 50% - 16px. */
+.timeline-item:not(:first-child):last-child::after {
+  height: 50%;
 }
 
 .timeline-item:last-child {
@@ -780,8 +1220,8 @@ footer.site-footer a.footer-chip:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 2.25em;
+  height: 2.25em;
   border-radius: 50%;
   background-color: var(--capturam-azul-profundo);
   color: var(--capturam-blanco);
@@ -805,13 +1245,18 @@ footer.site-footer a.footer-chip:hover {
 
 .timeline-item h3 {
   color: var(--capturam-azul-profundo);
-  font-size: 1.1rem;
+  font-size: 1.1em;
   margin-bottom: 4px;
 }
 
 .timeline-item p {
   margin-bottom: 0;
   color: var(--capturam-azul-pizarra);
+  font-size: 1em;
+  /* Sin justificar: la columna de texto es estrecha (comparte fila con
+     la foto), y justificar ahí deja huecos muy grandes entre palabras,
+     sobre todo en móvil. */
+  text-align: left;
 }
 
 /* Fotito dentro de cada paso de la línea de tiempo */
@@ -822,8 +1267,10 @@ footer.site-footer a.footer-chip:hover {
 }
 
 .timeline-foto {
-  width: 72px;
-  height: 72px;
+  /* Más grande que antes (72px), y sigue creciendo en pantallas grandes en
+     vez de quedarse fija. */
+  width: clamp(100px, 26.3px + 5.4vw, 190px);
+  height: clamp(100px, 26.3px + 5.4vw, 190px);
   border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
@@ -870,7 +1317,7 @@ footer.site-footer a.footer-chip:hover {
   display: block;
   margin-bottom: 0.35rem;
   color: var(--capturam-verde-agua);
-  font-size: 0.78rem;
+  font-size: 0.78em;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;

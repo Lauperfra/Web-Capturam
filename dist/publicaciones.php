@@ -1,0 +1,45 @@
+<?php
+/**
+ * Endpoint público de solo lectura para la página "Publicaciones": devuelve
+ * el listado (título, fecha, resumen, archivo y tipo) en JSON. No requiere
+ * sesión ni admite escritura — el alta/baja se hace desde /admin/panel.php
+ * (con contraseña).
+ */
+
+declare(strict_types=1);
+
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
+
+header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-cache');
+
+$rutaDatos = __DIR__ . '/publicaciones/datos.json';
+
+$publicaciones = [];
+if (is_file($rutaDatos)) {
+    $contenido = @file_get_contents($rutaDatos);
+    $decodificado = $contenido ? json_decode($contenido, true) : null;
+    if (is_array($decodificado)) {
+        $publicaciones = $decodificado;
+    }
+}
+
+usort($publicaciones, function ($a, $b) {
+    return strcmp((string) ($b['fecha'] ?? ''), (string) ($a['fecha'] ?? ''));
+});
+
+// Solo se exponen los campos que necesita la página pública (nunca el "id"
+// interno ni nada más que pueda haber en el JSON).
+$salida = array_map(function ($publicacion) {
+    return [
+        'titulo' => (string) ($publicacion['titulo'] ?? ''),
+        'resumen' => (string) ($publicacion['resumen'] ?? ''),
+        'fecha' => (string) ($publicacion['fecha'] ?? ''),
+        'archivo' => (string) ($publicacion['archivo'] ?? ''),
+        'tipo' => (string) ($publicacion['tipo'] ?? 'pdf'),
+    ];
+}, $publicaciones);
+
+echo json_encode(['ok' => true, 'publicaciones' => $salida], JSON_UNESCAPED_UNICODE);

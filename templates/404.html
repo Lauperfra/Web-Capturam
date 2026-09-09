@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Capturam Ingeniería · Página no encontrada{% endblock %}
+
+{% block contenido %}
+<section class="container pagina-error">
+  <p class="pagina-error-codigo">404</p>
+  <h1 class="section-title">Esta página no existe</h1>
+  <p class="lead">
+    Puede que el enlace esté mal escrito o que la página se haya movido.
+  </p>
+  <div class="pagina-error-acciones">
+    <a href="{{ url_for('inicio') }}" class="btn btn-capturam">Ir al inicio</a>
+  </div>
+</section>
+{% endblock %}

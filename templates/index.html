@@ -7,7 +7,7 @@
   <div class="hero-imagen">
     <img src="{{ url_for('static', filename='img/hero-hibrido.jpg') }}" alt="Planta solar con almacenamiento BESS, aerogeneradores y subestación de evacuación" loading="eager">
   </div>
-  <div class="container">
+  <div class="container-fluid hero-container">
     <p class="eyebrow">Proyectos renovables</p>
     <h1>Convertimos oportunidades energéticas en proyectos listos para construir</h1>
     <p class="lead justificado">Desarrollamos proyectos solares, eólicos, BESS e hibridados desde el análisis de suelo y red hasta la ingeniería, los permisos y la puesta en servicio.</p>
@@ -30,7 +30,7 @@
 </div>
 
 <section class="bg-suave">
-  <div class="container">
+  <div class="container-fluid px-4 px-lg-5 inicio-sectores">
     <h2 class="revelar">Sectores</h2>
     <p class="sectores-intro revelar">
       Desarrollamos proyectos de generación renovable, almacenamiento e integración energética, 
@@ -62,7 +62,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#bess" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/caso-bess.jpg') }}" alt="Fila de contenedores de almacenamiento BESS" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/proyectos-divisor.jpg') }}" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>BESS</h3>
               <p>Sistemas de almacenamiento desde la estrategia de acceso hasta su diseño y desarrollo.</p>
@@ -73,7 +73,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#hibridacion" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/proyectos-divisor.jpg') }}" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/caso-hibrido.jpg') }}" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Hibridación</h3>
               <p>Integración de generación renovable y almacenamiento en una solución técnica conjunta.</p>
@@ -84,7 +84,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#autoconsumo" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/caso-autoconsumo.jpg') }}" alt="Planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+            <img src="{{ url_for('static', filename='img/sector-autoconsumo.jpg') }}" alt="Instalación de placas solares en cubierta industrial" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Autoconsumo</h3>
               <p>Soluciones de autoconsumo industrial adaptadas al perfil real de demanda de cada instalación.</p>
@@ -96,11 +96,42 @@
   </div>
 </section>
 
+<section class="bg-suave" id="seccion-ultimas-publicaciones" hidden>
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="inicio-sectores">
+      <h2 class="revelar">Últimas publicaciones</h2>
+      <p class="sectores-intro revelar">
+        Artículos técnicos y novedades regulatorias de Capturam Ingeniería.
+      </p>
+    </div>
+    <div id="ultimas-publicaciones" class="row g-4 mt-2 publicaciones-compactas"></div>
+    <a href="{{ url_for('publicaciones') }}" class="btn btn-capturam-outline mt-4 revelar">Ver todas las publicaciones</a>
+  </div>
+</section>
+
 <section>
-  <div class="container revelar">
+  <div class="container-fluid px-4 px-lg-5 revelar cta-final">
     <h2>La seguridad de avanzar con criterio técnico.</h2>
     <p class="lead justificado">Acompañamos a promotores, inversores y propietarios en las decisiones que determinan la viabilidad y el calendario de un proyecto. Hablemos de tu próxima oportunidad.</p>
     <a href="{{ url_for('contacto') }}" class="btn btn-capturam">Cuéntanos tu oportunidad</a>
   </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/publicaciones.js') }}"></script>
+<script>
+  // Nota: las tarjetas creadas aquí no llevan clase "revelar" — se crean
+  // después de que revelar.js ya haya registrado sus observadores en
+  // DOMContentLoaded, así que nunca recibirían la clase "visible" y se
+  // quedarían invisibles para siempre.
+  CapturamPublicaciones.cargar({
+    contenedor: document.getElementById('ultimas-publicaciones'),
+    limite: 3,
+    compacto: true,
+    alCargar: function (hayPublicaciones) {
+      document.getElementById('seccion-ultimas-publicaciones').hidden = !hayPublicaciones;
+    }
+  });
+</script>
 {% endblock %}

@@ -15,10 +15,22 @@ ESTATICOS = RAIZ / "static"
 SALIDA = RAIZ / "dist"
 SERVIDOR = RAIZ / "server"
 
-# Archivos de server/ que se copian tal cual a la raíz de dist/ (el backend
-# PHP del formulario de contacto). config.example.php y composer.* se
-# quedan fuera a propósito: no hacen falta en producción.
-ARCHIVOS_SERVIDOR = ["enviar-contacto.php", "plantilla-correo.php", ".htaccess"]
+# Archivos de server/ que se copian tal cual a la raíz de dist/ (backend PHP
+# del formulario de contacto y de las publicaciones). config.example.php y
+# composer.* se quedan fuera a propósito: no hacen falta en producción.
+ARCHIVOS_SERVIDOR = [
+    "enviar-contacto.php",
+    "plantilla-correo.php",
+    "publicaciones.php",
+    "robots.txt",
+    ".htaccess",
+    ".user.ini",
+]
+
+# Archivos de server/admin/ que NO se copian a dist/admin/ (plantilla de
+# configuración de ejemplo: no hace falta en producción, la real vive fuera
+# de dist/).
+ARCHIVOS_ADMIN_EXCLUIDOS = {"config.example.php"}
 
 # Mapea cada endpoint de Flask (los mismos nombres usados en url_for) al
 # archivo .html final y a la plantilla que lo genera.
@@ -29,7 +41,7 @@ PAGINAS = {
     "sectores": ("sectores.html", "sectores.html"),
     "proyectos": ("proyectos.html", "proyectos.html"),
     "como_trabajamos": ("como-trabajamos.html", "como-trabajamos.html"),
-    "conocimiento": ("conocimiento.html", "conocimiento.html"),
+    "publicaciones": ("publicaciones.html", "publicaciones.html"),
     "legal": ("legal.html", "legal.html"),
     "privacidad": ("privacidad.html", "privacidad.html"),
     "contacto": ("contacto.html", "contacto.html"),
@@ -38,10 +50,17 @@ PAGINAS = {
 
 def url_for(endpoint, filename=None, **kwargs):
     if endpoint == "static":
-        return f"static/{filename}"
+        # Ruta absoluta (con "/" inicial): necesario para que la página de
+        # error 404 cargue bien su CSS/imágenes sin importar la URL que
+        # pidiera el visitante (Apache la sirve por dentro sin cambiar la
+        # barra de direcciones, así que una ruta relativa se resolvería mal
+        # en URLs con más de un nivel, p. ej. /carpeta/algo-inexistente).
+        return f"/static/{filename}"
     if endpoint not in PAGINAS:
         raise ValueError(f"Endpoint desconocido en url_for: {endpoint}")
-    return PAGINAS[endpoint][0]
+    if endpoint == "inicio":
+        return "/"
+    return "/" + PAGINAS[endpoint][0]
 
 
 def get_flashed_messages(with_categories=False, **kwargs):
@@ -49,11 +68,11 @@ def get_flashed_messages(with_categories=False, **kwargs):
     return []
 
 
-def copiar_con_reintentos(origen, destino, intentos=5, espera=1.0):
+def copiar_con_reintentos(origen, destino, intentos=5, espera=1.0, ignorar=None):
     """OneDrive puede bloquear un archivo un instante mientras sincroniza."""
     for intento in range(intentos):
         try:
-            shutil.copytree(origen, destino, dirs_exist_ok=True)
+            shutil.copytree(origen, destino, dirs_exist_ok=True, ignore=ignorar)
             return
         except PermissionError:
             if intento == intentos - 1:
@@ -75,6 +94,13 @@ def construir():
         (SALIDA / archivo_salida).write_text(html, encoding="utf-8")
         print(f"  {plantilla} -> dist/{archivo_salida}")
 
+    # Página de error 404, servida por .htaccess (ErrorDocument) cuando la
+    # URL pedida no existe. No es una página del menú, así que no está en
+    # PAGINAS.
+    html_404 = env.get_template("404.html").render()
+    (SALIDA / "404.html").write_text(html_404, encoding="utf-8")
+    print("  404.html -> dist/404.html")
+
     copiar_con_reintentos(ESTATICOS, SALIDA / "static")
 
     for nombre in ARCHIVOS_SERVIDOR:
@@ -84,6 +110,17 @@ def construir():
             print(f"  server/{nombre} -> dist/{nombre}")
         else:
             print(f"  [aviso] no encontrado: server/{nombre}")
+
+    admin_origen = SERVIDOR / "admin"
+    if admin_origen.is_dir():
+        copiar_con_reintentos(
+            admin_origen,
+            SALIDA / "admin",
+            ignorar=shutil.ignore_patterns(*ARCHIVOS_ADMIN_EXCLUIDOS),
+        )
+        print("  server/admin/ -> dist/admin/")
+    else:
+        print("  [aviso] server/admin/ no existe todavía.")
 
     vendor_origen = SERVIDOR / "vendor"
     if vendor_origen.is_dir():

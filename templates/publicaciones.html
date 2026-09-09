@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Capturam Ingeniería · Publicaciones{% endblock %}
+
+{% block contenido %}
+<section class="container-fluid px-4 px-lg-5">
+  <h1 class="section-title">Publicaciones</h1>
+  <p class="lead lead-ancho">Artículos técnicos, novedades regulatorias y publicaciones de Capturam Ingeniería.</p>
+
+  <div id="lista-publicaciones" class="row g-4 mt-2 publicaciones-grid" aria-live="polite"></div>
+
+  <p id="publicaciones-vacio" class="placeholder-note" hidden>
+    Todavía no hay publicaciones. Vuelve pronto.
+  </p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/publicaciones.js') }}"></script>
+<script>
+  CapturamPublicaciones.cargar({
+    contenedor: document.getElementById('lista-publicaciones'),
+    vacio: document.getElementById('publicaciones-vacio')
+  });
+</script>
+{% endblock %}

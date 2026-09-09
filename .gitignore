@@ -11,3 +11,9 @@ __pycache__/
 server/vendor/
 dist/vendor/
 capturam-mail-config.php
+
+# Panel de administración de publicaciones: capturam-admin-config.php (fuera
+# del repo, igual que capturam-mail-config.php) y las publicaciones/PDFs que
+# suba el CEO desde el panel, que solo deben vivir en el servidor real.
+capturam-admin-config.php
+dist/publicaciones/

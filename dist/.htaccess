@@ -1,6 +1,32 @@
 # Endurecimiento básico para el endpoint PHP del formulario de contacto.
 # Este archivo se copia a la raíz de dist/ (junto a enviar-contacto.php).
 
+# Página de error propia (misma imagen que el resto de la web) en vez de la
+# página fea por defecto del servidor, tanto si la URL no existe (404) como
+# si el acceso está bloqueado por las reglas de abajo (403).
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# Límite de subida para el panel de publicaciones (PDF/imagen, hasta 15MB
+# reales en la app): en hostings con PHP como módulo de Apache (mod_php),
+# esto sube el límite del propio servidor sin que haya que tocar nada desde
+# el panel de control. En hostings con PHP-FPM/CGI (lo más habitual hoy),
+# quien hace ese mismo trabajo es .user.ini (ver ese archivo) — el
+# <IfModule> de aquí abajo simplemente no hace nada en ese caso, así que no
+# hay riesgo de romper nada por tener ambos a la vez.
+<IfModule mod_php.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
+
 # No servir nunca los archivos de Composer ni la plantilla de configuración
 # de ejemplo (ninguno de los dos contiene secretos reales, pero no deben
 # ser accesibles por HTTP).
