@@ -64,12 +64,19 @@ function cargarConfiguracionAdmin(): array
 }
 
 // ---------------------------------------------------------------------
-// Publicaciones: almacenadas como PDFs + un índice JSON en dist/publicaciones/
-// (fuera del control de versiones — vive solo en el servidor real y no debe
-// borrarse ni sobrescribirse al desplegar cambios de la web).
+// Publicaciones: almacenadas como PDFs + un índice JSON en
+// dist/publicaciones-datos/ (fuera del control de versiones — vive solo en
+// el servidor real y no debe borrarse ni sobrescribirse al desplegar
+// cambios de la web).
+//
+// El nombre NO puede ser simplemente "publicaciones": esa carpeta
+// colisiona con la URL limpia "/publicaciones" (la página). Apache
+// encuentra la carpeta real antes de que la regla de reescritura pueda
+// actuar y la redirige como si fuera un directorio, en vez de servir
+// publicaciones.html.
 // ---------------------------------------------------------------------
 
-define('CARPETA_PUBLICACIONES', dirname(__DIR__) . '/publicaciones');
+define('CARPETA_PUBLICACIONES', dirname(__DIR__) . '/publicaciones-datos');
 define('RUTA_DATOS_PUBLICACIONES', CARPETA_PUBLICACIONES . '/datos.json');
 
 function asegurarCarpetaPublicaciones(): void
@@ -121,7 +128,7 @@ function sesionAdminIniciada(): bool
 function requerirSesionAdmin(): void
 {
     if (!sesionAdminIniciada()) {
-        header('Location: login.php');
+        header('Location: login');
         exit;
     }
 }

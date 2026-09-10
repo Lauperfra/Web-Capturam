@@ -44,8 +44,39 @@ ErrorDocument 403 /404.html
 
 # Bloquea el acceso directo a las librerías de PHPMailer: solo deben
 # cargarse mediante "require" desde enviar-contacto.php, nunca pedirse
-# directamente por URL.
+# directamente por URL. También sirve las URLs "limpias" (sin ".html")
+# usadas en todos los enlaces internos.
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^vendor/ - [F,L]
+
+    # Caso especial: index.html es la home, cuya URL limpia es "/" (no
+    # "/index") — sin esto, la regla genérica de abajo redirigiría
+    # index.html a /index, que no existe.
+    RewriteRule ^index\.html$ / [R=301,L]
+
+    # Si alguien pide la URL con ".html" (enlace o marcador viejo), redirige
+    # de verdad a la versión limpia — evita contenido duplicado y que se
+    # vea el .html.
+    RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # Igual si la piden con una barra final (enlace, marcador o autocompletado
+    # viejo de antes de tener URLs limpias) — redirige a la versión sin barra.
+    RewriteRule ^(empresa|servicios|sectores|proyectos|como-trabajamos|publicaciones|legal|privacidad|contacto)/$ /$1 [R=301,L]
+
+    # Sirve por dentro el archivo .html real cuando piden la URL limpia, sin
+    # que cambie lo que se ve en la barra de direcciones. Una regla
+    # explícita por página (no una genérica basada en comprobar si el
+    # archivo existe: esa comprobación no se comportaba igual en todos los
+    # hostings).
+    RewriteRule ^empresa$ empresa.html [L]
+    RewriteRule ^servicios$ servicios.html [L]
+    RewriteRule ^sectores$ sectores.html [L]
+    RewriteRule ^proyectos$ proyectos.html [L]
+    RewriteRule ^como-trabajamos$ como-trabajamos.html [L]
+    RewriteRule ^publicaciones$ publicaciones.html [L]
+    RewriteRule ^legal$ legal.html [L]
+    RewriteRule ^privacidad$ privacidad.html [L]
+    RewriteRule ^contacto$ contacto.html [L]
 </IfModule>

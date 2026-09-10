@@ -69,7 +69,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     if (empty($_POST) && empty($_FILES) && $contentLength > 0) {
         $_SESSION['aviso_flash'] = 'El archivo es demasiado grande para el servidor (supera '
             . ini_get('post_max_size') . '). Prueba con un archivo más pequeño o pide que se amplíe el límite del hosting.';
-        header('Location: panel.php');
+        header('Location: panel');
         exit;
     }
 
@@ -82,7 +82,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         // reaparezca cada vez que se recargue esa misma página.
         $_SESSION['aviso_flash'] = 'La página llevaba abierta demasiado tiempo y hubo que recargarla. Ya puedes continuar.';
         $idPost = (string) ($_POST['id'] ?? '');
-        $destino = 'panel.php';
+        $destino = 'panel';
         if ($idPost !== '' && ($_POST['accion'] ?? '') === 'editar') {
             $destino .= '?editar=' . rawurlencode($idPost);
         }
@@ -391,7 +391,7 @@ if ($idEditando !== '') {
 <body>
   <header>
     <h1>Panel de publicaciones — Capturam</h1>
-    <a href="logout.php">Cerrar sesión</a>
+    <a href="logout">Cerrar sesión</a>
   </header>
 
   <main>
@@ -404,7 +404,7 @@ if ($idEditando !== '') {
 
     <div class="tarjeta">
       <h2><?= $editando !== null ? 'Editar publicación' : 'Nueva publicación' ?></h2>
-      <form method="post" enctype="multipart/form-data" action="<?= $editando !== null ? 'panel.php?editar=' . rawurlencode($idEditando) : 'panel.php' ?>">
+      <form method="post" enctype="multipart/form-data" action="<?= $editando !== null ? 'panel?editar=' . rawurlencode($idEditando) : 'panel' ?>">
         <input type="hidden" name="accion" value="<?= $editando !== null ? 'editar' : 'crear' ?>">
         <input type="hidden" name="csrf" value="<?= e($csrf) ?>">
         <?php if ($editando !== null): ?>
@@ -427,7 +427,7 @@ if ($idEditando !== '') {
         <?php if ($editando !== null): ?>
           <p class="ayuda-formato">
             Archivo actual:
-            <a href="../publicaciones/<?= rawurlencode((string) ($editando['archivo'] ?? '')) ?>" target="_blank" rel="noopener">
+            <a href="../publicaciones-datos/<?= rawurlencode((string) ($editando['archivo'] ?? '')) ?>" target="_blank" rel="noopener">
               <?= ($editando['tipo'] ?? '') === 'imagen' ? 'ver imagen' : 'ver PDF' ?>
             </a>. Sube uno nuevo solo si quieres reemplazarlo.
           </p>
@@ -442,7 +442,7 @@ if ($idEditando !== '') {
 
         <button type="submit" class="principal"><?= $editando !== null ? 'Guardar cambios' : 'Publicar' ?></button>
         <?php if ($editando !== null): ?>
-          <a href="panel.php" class="enlace-cancelar">Cancelar</a>
+          <a href="panel" class="enlace-cancelar">Cancelar</a>
         <?php endif; ?>
       </form>
     </div>
@@ -470,7 +470,7 @@ if ($idEditando !== '') {
                   data-tipo="<?= e((string) ($publicacion['tipo'] ?? '')) ?>"
                 ><?= ($publicacion['tipo'] ?? '') === 'imagen' ? 'Ver imagen' : 'Ver PDF' ?></button>
                 <a href="?editar=<?= rawurlencode((string) ($publicacion['id'] ?? '')) ?>">Editar</a>
-                <form method="post" action="panel.php" onsubmit="return confirm('¿Eliminar esta publicación? No se puede deshacer.');">
+                <form method="post" action="panel" onsubmit="return confirm('¿Eliminar esta publicación? No se puede deshacer.');">
                   <input type="hidden" name="accion" value="eliminar">
                   <input type="hidden" name="csrf" value="<?= e($csrf) ?>">
                   <input type="hidden" name="id" value="<?= e((string) ($publicacion['id'] ?? '')) ?>">
@@ -530,7 +530,7 @@ if ($idEditando !== '') {
           var v = asegurarVisor();
           contenido.innerHTML = '';
 
-          var url = '../publicaciones/' + encodeURIComponent(boton.getAttribute('data-archivo') || '');
+          var url = '../publicaciones-datos/' + encodeURIComponent(boton.getAttribute('data-archivo') || '');
 
           if (boton.getAttribute('data-tipo') === 'imagen') {
             var img = document.createElement('img');

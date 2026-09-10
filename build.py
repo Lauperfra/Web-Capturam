@@ -60,7 +60,11 @@ def url_for(endpoint, filename=None, **kwargs):
         raise ValueError(f"Endpoint desconocido en url_for: {endpoint}")
     if endpoint == "inicio":
         return "/"
-    return "/" + PAGINAS[endpoint][0]
+    # URL "limpia" (sin ".html") para los enlaces internos — el .htaccess
+    # sirve por dentro el archivo .html real sin que se note en la barra de
+    # direcciones. El archivo en sí sigue generándose con su extensión.
+    archivo_salida = PAGINAS[endpoint][0]
+    return "/" + archivo_salida.rsplit(".", 1)[0]
 
 
 def get_flashed_messages(with_categories=False, **kwargs):

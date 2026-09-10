@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/_bootstrap.php';
 
 if (sesionAdminIniciada()) {
-    header('Location: panel.php');
+    header('Location: panel');
     exit;
 }
 
@@ -26,7 +26,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $_SESSION['admin_autenticado'] = true;
             $_SESSION['ultima_actividad'] = time();
             registrarIntentoOk($ip);
-            header('Location: panel.php');
+            header('Location: panel');
             exit;
         }
 

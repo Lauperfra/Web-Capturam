@@ -13,3 +13,19 @@ Options -Indexes
 <FilesMatch "\.(json|md|example\.php)$">
     Require all denied
 </FilesMatch>
+
+# URLs limpias (sin ".php") para login/panel/logout, igual que en el resto
+# de la web.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si alguien pide el archivo .php directamente, redirige a la URL limpia.
+    RewriteCond %{THE_REQUEST} \s/+admin/(login|panel|logout)\.php[\s?] [NC]
+    RewriteRule ^ /admin/%1 [R=301,L]
+
+    # Sirve por dentro el archivo .php real cuando piden la URL limpia (la
+    # cadena de consulta, p. ej. "?editar=ID", se conserva automáticamente).
+    RewriteRule ^login$ login.php [L]
+    RewriteRule ^panel$ panel.php [L]
+    RewriteRule ^logout$ logout.php [L]
+</IfModule>

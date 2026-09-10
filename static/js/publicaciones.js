@@ -168,7 +168,7 @@
     var contenido = visor._contenido;
     contenido.innerHTML = '';
 
-    var url = 'publicaciones/' + encodeURIComponent(publicacion.archivo);
+    var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
 
     if (publicacion.tipo === 'imagen') {
       var img = document.createElement('img');
@@ -265,7 +265,7 @@
   function crearVistaPrevia(publicacion) {
     if (publicacion.tipo === 'imagen') {
       var img = document.createElement('img');
-      img.src = 'publicaciones/' + encodeURIComponent(publicacion.archivo);
+      img.src = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
       img.alt = publicacion.titulo;
       img.className = 'card-sector-img';
       img.loading = 'lazy';
@@ -281,7 +281,7 @@
     canvas.hidden = true;
     previa.appendChild(canvas);
 
-    var url = 'publicaciones/' + encodeURIComponent(publicacion.archivo);
+    var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
     var promesaPagina = conTiempoLimite(
       cargarPdfJs().then(function (pdfjsLib) { return pdfjsLib.getDocument(url).promise; }),
       8000

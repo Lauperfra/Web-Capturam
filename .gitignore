@@ -16,4 +16,4 @@ capturam-mail-config.php
 # del repo, igual que capturam-mail-config.php) y las publicaciones/PDFs que
 # suba el CEO desde el panel, que solo deben vivir en el servidor real.
 capturam-admin-config.php
-dist/publicaciones/
+dist/publicaciones-datos/

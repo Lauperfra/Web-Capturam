@@ -7,5 +7,5 @@ require __DIR__ . '/_bootstrap.php';
 $_SESSION = [];
 session_destroy();
 
-header('Location: login.php');
+header('Location: login');
 exit;

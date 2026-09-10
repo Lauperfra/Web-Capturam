@@ -15,7 +15,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-cache');
 
-$rutaDatos = __DIR__ . '/publicaciones/datos.json';
+$rutaDatos = __DIR__ . '/publicaciones-datos/datos.json';
 
 $publicaciones = [];
 if (is_file($rutaDatos)) {
