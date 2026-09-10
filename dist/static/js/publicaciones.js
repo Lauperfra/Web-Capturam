@@ -197,8 +197,7 @@
   // navegador con PDF.js (no depende de que el hosting tenga Ghostscript ni
   // ninguna otra herramienta instalada). Se carga la librería una sola vez
   // y se reutiliza para todos los PDF de la página.
-  var PDFJS_VERSION = '3.11.174';
-  var PDFJS_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/' + PDFJS_VERSION + '/';
+  var PDFJS_BASE = '/static/vendor/pdfjs/';
   var promesaPdfJs = null;
 
   function cargarPdfJs() {

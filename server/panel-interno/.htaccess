@@ -1,4 +1,4 @@
-# Endurecimiento del panel de administración. Se copia a dist/admin/.
+# Endurecimiento del panel de administración. Se copia a dist/panel-interno/.
 
 Options -Indexes
 
@@ -20,8 +20,8 @@ Options -Indexes
     RewriteEngine On
 
     # Si alguien pide el archivo .php directamente, redirige a la URL limpia.
-    RewriteCond %{THE_REQUEST} \s/+admin/(login|panel|logout)\.php[\s?] [NC]
-    RewriteRule ^ /admin/%1 [R=301,L]
+    RewriteCond %{THE_REQUEST} \s/+panel-interno/(login|panel|logout)\.php[\s?] [NC]
+    RewriteRule ^ /panel-interno/%1 [R=301,L]
 
     # Sirve por dentro el archivo .php real cuando piden la URL limpia (la
     # cadena de consulta, p. ej. "?editar=ID", se conserva automáticamente).

@@ -3,8 +3,9 @@
  * Arranque común del panel de administración (sesión, configuración y
  * datos de publicaciones). Lo incluyen login.php, panel.php y logout.php.
  *
- * No debe pedirse nunca directamente por URL (bloqueado en admin/.htaccess);
- * no imprime nada por sí mismo si alguien lo consigue pedir igualmente.
+ * No debe pedirse nunca directamente por URL (bloqueado en
+ * panel-interno/.htaccess); no imprime nada por sí mismo si alguien lo
+ * consigue pedir igualmente.
  */
 
 declare(strict_types=1);
@@ -14,8 +15,8 @@ error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
 // ---------------------------------------------------------------------
-// Sesión reforzada: cookie restringida a /admin/, inaccesible por JS y
-// marcada "secure" cuando el sitio va por HTTPS (debería ir siempre).
+// Sesión reforzada: cookie restringida a /panel-interno/, inaccesible por
+// JS y marcada "secure" cuando el sitio va por HTTPS (debería ir siempre).
 // ---------------------------------------------------------------------
 
 $sitioSeguro = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
@@ -25,7 +26,7 @@ $sitioSeguro = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 session_name('capturam_admin_sesion');
 session_set_cookie_params([
     'lifetime' => 0,
-    'path' => '/admin/',
+    'path' => '/panel-interno/',
     'secure' => $sitioSeguro,
     'httponly' => true,
     'samesite' => 'Lax',
@@ -45,14 +46,16 @@ if (!empty($_SESSION['admin_autenticado'])) {
 }
 
 // ---------------------------------------------------------------------
-// Configuración: hash de la contraseña de acceso, guardado FUERA del
-// directorio público (nunca en este repositorio ni accesible por HTTP).
-// Misma convención que capturam-mail-config.php — ver admin/config.example.php.
+// Configuración: usuario y hash de la contraseña de acceso, guardados
+// FUERA del directorio público (nunca en este repositorio ni accesible por
+// HTTP). Misma convención que capturam-mail-config.php — ver
+// panel-interno/config.example.php.
 // ---------------------------------------------------------------------
 
 function cargarConfiguracionAdmin(): array
 {
-    // admin/_bootstrap.php -> dist/admin -> dist -> fuera de public_html.
+    // panel-interno/_bootstrap.php -> dist/panel-interno -> dist -> fuera
+    // de public_html.
     $rutaConfig = dirname(__DIR__, 2) . '/capturam-admin-config.php';
     if (is_file($rutaConfig)) {
         $config = require $rutaConfig;

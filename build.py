@@ -27,10 +27,10 @@ ARCHIVOS_SERVIDOR = [
     ".user.ini",
 ]
 
-# Archivos de server/admin/ que NO se copian a dist/admin/ (plantilla de
-# configuración de ejemplo: no hace falta en producción, la real vive fuera
-# de dist/).
-ARCHIVOS_ADMIN_EXCLUIDOS = {"config.example.php"}
+# Archivos de server/panel-interno/ que NO se copian a dist/panel-interno/
+# (plantilla de configuración de ejemplo: no hace falta en producción, la
+# real vive fuera de dist/).
+ARCHIVOS_PANEL_EXCLUIDOS = {"config.example.php"}
 
 # Mapea cada endpoint de Flask (los mismos nombres usados en url_for) al
 # archivo .html final y a la plantilla que lo genera.
@@ -115,16 +115,16 @@ def construir():
         else:
             print(f"  [aviso] no encontrado: server/{nombre}")
 
-    admin_origen = SERVIDOR / "admin"
-    if admin_origen.is_dir():
+    panel_origen = SERVIDOR / "panel-interno"
+    if panel_origen.is_dir():
         copiar_con_reintentos(
-            admin_origen,
-            SALIDA / "admin",
-            ignorar=shutil.ignore_patterns(*ARCHIVOS_ADMIN_EXCLUIDOS),
+            panel_origen,
+            SALIDA / "panel-interno",
+            ignorar=shutil.ignore_patterns(*ARCHIVOS_PANEL_EXCLUIDOS),
         )
-        print("  server/admin/ -> dist/admin/")
+        print("  server/panel-interno/ -> dist/panel-interno/")
     else:
-        print("  [aviso] server/admin/ no existe todavía.")
+        print("  [aviso] server/panel-interno/ no existe todavía.")
 
     vendor_origen = SERVIDOR / "vendor"
     if vendor_origen.is_dir():

@@ -2,7 +2,7 @@
 /**
  * Endpoint público de solo lectura para la página "Publicaciones": devuelve
  * el listado (título, fecha, resumen, archivo y tipo) en JSON. No requiere
- * sesión ni admite escritura — el alta/baja se hace desde /admin/panel.php
+ * sesión ni admite escritura — el alta/baja se hace desde /panel-interno/panel
  * (con contraseña).
  */
 
@@ -14,6 +14,30 @@ error_reporting(E_ALL);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-cache');
+
+// Solo debe responder cuando lo pide el propio JavaScript de la página
+// /publicaciones (no si alguien abre este archivo directamente en el
+// navegador, o lo pide desde fuera). No es una medida de seguridad fuerte
+// (un cliente que falsee las cabeceras podría saltársela), pero evita el
+// acceso "casual" directo al endpoint.
+function peticionDesdeLaPropiaWeb(): bool
+{
+    $secFetchSite = $_SERVER['HTTP_SEC_FETCH_SITE'] ?? '';
+    if ($secFetchSite !== '') {
+        return $secFetchSite === 'same-origin' || $secFetchSite === 'none';
+    }
+    // Navegadores/clientes antiguos que no mandan Sec-Fetch-Site: nos
+    // conformamos con comprobar que el Referer sea de este mismo dominio.
+    $referer = $_SERVER['HTTP_REFERER'] ?? '';
+    $hostReferer = $referer !== '' ? parse_url($referer, PHP_URL_HOST) : null;
+    return $hostReferer !== null && $hostReferer === ($_SERVER['HTTP_HOST'] ?? '');
+}
+
+if (!peticionDesdeLaPropiaWeb()) {
+    http_response_code(403);
+    echo json_encode(['ok' => false, 'error' => 'Acceso no permitido.'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 $rutaDatos = __DIR__ . '/publicaciones-datos/datos.json';
 

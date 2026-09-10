@@ -281,10 +281,10 @@ if ($idEditando !== '') {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Publicaciones · Panel Capturam</title>
-<link rel="icon" href="../static/img/favicon-admin.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-admin-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-admin-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../static/img/favicon-admin-48.png">
+<link rel="icon" href="../static/img/favicon-panel-interno.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/img/favicon-panel-interno-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../static/img/favicon-panel-interno-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="../static/img/favicon-panel-interno-48.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
