@@ -14,6 +14,38 @@ ini_set('display_errors', '0');
 error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
+/**
+ * Detecta si el archivo subido es realmente un PDF o una imagen (JPG, PNG o
+ * WEBP), mirando el contenido — nunca el nombre ni la extensión que mande el
+ * navegador. Devuelve null si no es ninguno de los dos. Compartida por el
+ * panel de publicaciones y el de "Contenido web".
+ */
+function detectarTipoArchivo(string $tmpPath): ?array
+{
+    $cabecera = @file_get_contents($tmpPath, false, null, 0, 5);
+    if ($cabecera === '%PDF-') {
+        return ['tipo' => 'pdf', 'extension' => 'pdf'];
+    }
+
+    // getimagesize() forma parte del núcleo de PHP (no depende de GD ni de
+    // fileinfo) y comprueba la estructura real del archivo, no solo la
+    // cabecera — sirve como validación robusta también en hostings con
+    // pocas extensiones activadas.
+    $info = @getimagesize($tmpPath);
+    if ($info !== false) {
+        $extensionesPermitidas = [
+            IMAGETYPE_JPEG => 'jpg',
+            IMAGETYPE_PNG => 'png',
+            IMAGETYPE_WEBP => 'webp',
+        ];
+        if (isset($extensionesPermitidas[$info[2]])) {
+            return ['tipo' => 'imagen', 'extension' => $extensionesPermitidas[$info[2]]];
+        }
+    }
+
+    return null;
+}
+
 // ---------------------------------------------------------------------
 // Sesión reforzada: cookie restringida a /panel-interno/, inaccesible por
 // JS y marcada "secure" cuando el sitio va por HTTPS (debería ir siempre).
@@ -126,6 +158,12 @@ function guardarPublicaciones(array $publicaciones): void
 function sesionAdminIniciada(): bool
 {
     return !empty($_SESSION['admin_autenticado']);
+}
+
+/** Usuario de la sesión actual (para auditoría ligera en "Contenido web"). */
+function sesionUsuarioActual(): string
+{
+    return (string) ($_SESSION['admin_usuario'] ?? 'admin');
 }
 
 function requerirSesionAdmin(): void

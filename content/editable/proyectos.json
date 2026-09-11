@@ -1,0 +1,45 @@
+{
+    "_actualizado": null,
+    "_admin": null,
+    "titulo": "Proyectos",
+    "introduccion": "En **Capturam** preferimos **enseñar** el trabajo hecho antes que solo describirlo. Estos son algunos de los proyectos que hemos desarrollado en los últimos años, una muestra de la **experiencia** técnica del equipo en solar fotovoltaica, eólica, BESS e hibridación: desde instalaciones híbridas de pocos megavatios hasta plantas de cientos de MW con infraestructuras de evacuación complejas.",
+    "foto_ancha": "sector-eolica.jpg",
+    "proyectos": {
+        "hibrida-fv-bess": {
+            "imagen": "proyectos-divisor.jpg",
+            "anio": "2026",
+            "titulo": "Instalación híbrida FV + BESS",
+            "texto": "Diseño y tramitación de instalaciones híbridas fotovoltaicas y BESS de 5 MW, en AC coupling y DC coupling."
+        },
+        "parque-eolico": {
+            "imagen": "caso-eolico.jpg",
+            "anio": "2026",
+            "titulo": "Parque eólico",
+            "texto": "Ingeniería y tramitación de un parque eólico de 33 MW con infraestructura de evacuación a 66 kV."
+        },
+        "bess-standalone": {
+            "imagen": "caso-bess.jpg",
+            "anio": "2026",
+            "titulo": "BESS stand-alone",
+            "texto": "Acceso y conexión a red de transporte para un sistema de almacenamiento de 50 MW / 4 h."
+        },
+        "agrovoltaica": {
+            "imagen": "caso-agrovoltaica.jpg",
+            "anio": "2025",
+            "titulo": "Planta solar agrovoltaica",
+            "texto": "Desarrollo de 20 plantas agrovoltaicas de 5 MW con infraestructura de conexión a 25 kV."
+        },
+        "autoconsumo-industrial": {
+            "imagen": "sector-autoconsumo.jpg",
+            "anio": "2025",
+            "titulo": "Autoconsumo industrial",
+            "texto": "Desarrollo de una instalación fotovoltaica de autoconsumo de 5 MW sin excedentes."
+        },
+        "psf-400kv": {
+            "imagen": "sector-solar.jpg",
+            "anio": "2024",
+            "titulo": "PSF 3 × 50 MW",
+            "texto": "Ingeniería de una planta fotovoltaica de 3 × 50 MW con infraestructura de evacuación a 400 kV."
+        }
+    }
+}

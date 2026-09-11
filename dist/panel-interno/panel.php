@@ -3,7 +3,11 @@
 declare(strict_types=1);
 
 require __DIR__ . '/_bootstrap.php';
+require __DIR__ . '/_contenido.php';
 requerirSesionAdmin();
+
+const CONTENIDO_PAGINA_CONTACTO = 'datos-contacto';
+$esquemaContenido = esquemaPaginasContenido();
 
 const MAX_ARCHIVO_BYTES = 15 * 1024 * 1024; // 15 MB
 const TITULO_MAX = 150;
@@ -12,37 +16,6 @@ const RESUMEN_MAX = 3000; // como el limite de un post de LinkedIn
 function generarId(): string
 {
     return bin2hex(random_bytes(8));
-}
-
-/**
- * Detecta si el archivo subido es realmente un PDF o una imagen (JPG, PNG o
- * WEBP), mirando el contenido — nunca el nombre ni la extensión que mande el
- * navegador. Devuelve null si no es ninguno de los dos.
- */
-function detectarTipoArchivo(string $tmpPath): ?array
-{
-    $cabecera = @file_get_contents($tmpPath, false, null, 0, 5);
-    if ($cabecera === '%PDF-') {
-        return ['tipo' => 'pdf', 'extension' => 'pdf'];
-    }
-
-    // getimagesize() forma parte del núcleo de PHP (no depende de GD ni de
-    // fileinfo) y comprueba la estructura real del archivo, no solo la
-    // cabecera — sirve como validación robusta también en hostings con
-    // pocas extensiones activadas.
-    $info = @getimagesize($tmpPath);
-    if ($info !== false) {
-        $extensionesPermitidas = [
-            IMAGETYPE_JPEG => 'jpg',
-            IMAGETYPE_PNG => 'png',
-            IMAGETYPE_WEBP => 'webp',
-        ];
-        if (isset($extensionesPermitidas[$info[2]])) {
-            return ['tipo' => 'imagen', 'extension' => $extensionesPermitidas[$info[2]]];
-        }
-    }
-
-    return null;
 }
 
 function slug(string $texto): string
@@ -296,18 +269,49 @@ if ($idEditando !== '') {
     background: var(--blanco-calido); font-family:'Inter',sans-serif; color:var(--azul-profundo);
   }
   header {
-    background: var(--azul-profundo);
+    /* Mismo color y estructura que el navbar de la web pública. */
+    background: #1e3c4b;
     color: #fff;
-    padding: 18px 28px;
+    padding: 14px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 14px;
   }
-  header h1 { font-family:'Poppins',sans-serif; font-size:1.15rem; margin:0; }
-  header a { color:#fff; text-decoration:none; font-size:.9rem; opacity:.85; }
-  header a:hover { opacity:1; text-decoration:underline; }
+  .header-marca { display:flex; align-items:center; gap:20px; }
+  .header-marca img { height:44px; width:auto; display:block; }
+  .enlace-salir {
+    color:#f3f6f4; text-decoration:none; font-size:.9rem; font-weight:600; opacity:.85;
+    border-left:1px solid rgba(255,255,255,.22); padding-left:20px; transition:opacity .15s, color .15s;
+  }
+  .enlace-salir:hover { opacity:1; color:#91b5b4; }
+  header nav { display:flex; gap:30px; align-items:center; }
+  header nav a {
+    position:relative; color:#f3f6f4; text-decoration:none; font-weight:600; font-size:.95rem;
+    opacity:.85; padding-bottom:4px; transition:opacity .15s, color .15s;
+  }
+  header nav a::after {
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background-color:#91b5b4; transition:width .2s;
+  }
+  header nav a:hover, header nav a.activa { color:#91b5b4; opacity:1; }
+  header nav a:hover::after, header nav a.activa::after { width:100%; }
+  .menu-toggle {
+    display:none; background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff;
+    font-size:1.2rem; line-height:1; padding:7px 12px; border-radius:6px; cursor:pointer;
+  }
+  @media (max-width: 860px) {
+    body { overflow-x:hidden; }
+    .menu-toggle { display:block; }
+    header nav {
+      display:none; flex-basis:100%; flex-direction:column; align-items:flex-start; gap:2px;
+      padding-top:14px; margin-top:14px; border-top:1px solid rgba(255,255,255,.15);
+    }
+    header nav.abierta { display:flex; }
+    header nav a { width:100%; padding:10px 0; }
+    header nav a::after { display:none; }
+  }
   main { max-width: 900px; width: 100%; margin: 0 auto; padding: 32px 20px 64px; flex: 1 0 auto; }
 
   /* En monitores muy anchos no basta con ensanchar el recuadro: si el
@@ -390,8 +394,22 @@ if ($idEditando !== '') {
 </head>
 <body>
   <header>
-    <h1>Panel de publicaciones — Capturam</h1>
-    <a href="logout">Cerrar sesión</a>
+    <div class="header-marca">
+      <img src="../static/img/logo-capturam-claro.png" alt="Capturam Ingeniería">
+      <a href="logout" class="enlace-salir">Cerrar sesión</a>
+    </div>
+    <button type="button" class="menu-toggle" onclick="document.getElementById('menu-panel').classList.toggle('abierta')" aria-label="Abrir menú">☰</button>
+    <nav id="menu-panel">
+      <?php foreach (ordenNavPanel() as $item): ?>
+        <?php if ($item['tipo'] === 'publicaciones'): ?>
+          <a href="panel" class="activa">Publicaciones</a>
+        <?php elseif ($item['tipo'] === 'contacto'): ?>
+          <a href="contenido?pagina=<?= rawurlencode(CONTENIDO_PAGINA_CONTACTO) ?>">Datos de contacto</a>
+        <?php else: ?>
+          <a href="contenido?pagina=<?= rawurlencode($item['clave']) ?>"><?= e($esquemaContenido[$item['clave']]['etiqueta']) ?></a>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </nav>
   </header>
 
   <main>

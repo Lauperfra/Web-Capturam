@@ -1,0 +1,28 @@
+{
+    "_actualizado": null,
+    "_admin": null,
+    "titulo": "Sectores",
+    "introduccion": "En **Capturam** desarrollamos proyectos en los principales sectores de la energía renovable: **solar fotovoltaica**, **eólica**, **almacenamiento BESS**, **instalaciones hibridadas** y **autoconsumo industrial**. Cada tecnología tiene su propia lógica técnica, de red y ambiental, y las abordamos todas con el mismo criterio: entender el activo a fondo para **anticipar sus riesgos** y llevarlo hasta una **solución tramitable**. Te contamos a continuación cómo trabajamos cada sector.",
+    "sectores": {
+        "solar-fotovoltaica": {
+            "imagen": "proyectos-banner.jpg",
+            "texto": "Desarrollamos **plantas fotovoltaicas y sus infraestructuras de evacuación** desde la selección del emplazamiento y la implantación hasta la **ingeniería, tramitación y puesta en servicio**. Analizamos pendientes, capacidad de implantación, accesos, conexión y condicionantes ambientales para definir una **solución coherente desde las primeras fases del proyecto**."
+        },
+        "eolica": {
+            "imagen": "servicio-terrenos.jpg",
+            "texto": "Abordamos **proyectos eólicos** desde una visión conjunta del recurso, el territorio, la accesibilidad, la evacuación eléctrica y los condicionantes ambientales. Coordinamos la **ingeniería y la documentación necesaria** para avanzar en la tramitación con **criterios técnicos claros** y los principales riesgos identificados."
+        },
+        "bess": {
+            "imagen": "proyectos-divisor.jpg",
+            "texto": "Desarrollamos **sistemas de almacenamiento conectados a redes de transporte o distribución**, integrando la **estrategia de acceso y conexión**, la configuración de potencia y duración, la implantación, la ingeniería eléctrica y civil, la seguridad y la tramitación hasta su **preparación para construcción**."
+        },
+        "hibridacion": {
+            "imagen": "caso-hibrido.jpg",
+            "texto": "Diseñamos la **integración de generación renovable y almacenamiento** mediante configuraciones **AC coupling** o **DC coupling**. Analizamos la arquitectura, el punto de conexión, los límites operativos y los condicionantes del activo para plantear una **solución técnicamente sólida y tramitable**."
+        },
+        "autoconsumo": {
+            "imagen": "sector-autoconsumo.jpg",
+            "texto": "Estudiamos **instalaciones de autoconsumo industrial**, incluidas **configuraciones sin excedentes**, desde el análisis del perfil de demanda y la implantación hasta la **ingeniería y legalización**. Diseñamos cada solución atendiendo a la **operación real del consumidor** y a las condiciones de conexión."
+        }
+    }
+}

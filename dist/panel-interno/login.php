@@ -30,6 +30,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         if ($configuracionCompleta && $usuarioOk && $passwordOk) {
             session_regenerate_id(true);
             $_SESSION['admin_autenticado'] = true;
+            $_SESSION['admin_usuario'] = $usuarioValido;
             $_SESSION['ultima_actividad'] = time();
             registrarIntentoOk($ip);
             header('Location: panel');

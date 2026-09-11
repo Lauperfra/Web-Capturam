@@ -17,3 +17,13 @@ capturam-mail-config.php
 # suba el CEO desde el panel, que solo deben vivir en el servidor real.
 capturam-admin-config.php
 dist/publicaciones-datos/
+
+# "Contenido web" (textos/fotos editables de Inicio, Empresa, Sectores,
+# Servicios y Cómo trabajamos): contenido-datos/ es el JSON vivo que edita
+# el CEO desde el panel (fuera de dist/, igual que los config.php) y
+# plantillas-contenido/ son las plantillas con marcadores que genera
+# build.py — ninguna de las dos debe versionarse, solo dist/*.html
+# (el resultado ya generado) y content/editable/ (los valores de fábrica).
+contenido-datos/
+plantillas-contenido/
+dist/static/uploads/contenido/

@@ -2,11 +2,13 @@
 
 Options -Indexes
 
-# _bootstrap.php no debe pedirse nunca directamente por URL (solo se
-# incluye desde login.php/panel.php/logout.php).
-<Files "_bootstrap.php">
+# Ningún archivo que empiece por "_" debe pedirse nunca directamente por URL
+# (_bootstrap.php, _contenido.php, _cli_regenerar_contenido.php...): solo se
+# incluyen desde los scripts públicos del panel, o se ejecutan por línea de
+# comandos.
+<FilesMatch "^_">
     Require all denied
-</Files>
+</FilesMatch>
 
 # El resto de estos tipos tampoco deben ser accesibles aquí (ya se bloquean
 # a nivel de dist/.htaccess, esto es un cinturón de seguridad adicional).
@@ -20,12 +22,14 @@ Options -Indexes
     RewriteEngine On
 
     # Si alguien pide el archivo .php directamente, redirige a la URL limpia.
-    RewriteCond %{THE_REQUEST} \s/+panel-interno/(login|panel|logout)\.php[\s?] [NC]
+    RewriteCond %{THE_REQUEST} \s/+panel-interno/(login|panel|logout|contenido)\.php[\s?] [NC]
     RewriteRule ^ /panel-interno/%1 [R=301,L]
 
     # Sirve por dentro el archivo .php real cuando piden la URL limpia (la
-    # cadena de consulta, p. ej. "?editar=ID", se conserva automáticamente).
+    # cadena de consulta, p. ej. "?editar=ID" o "?pagina=empresa", se
+    # conserva automáticamente).
     RewriteRule ^login$ login.php [L]
     RewriteRule ^panel$ panel.php [L]
     RewriteRule ^logout$ logout.php [L]
+    RewriteRule ^contenido$ contenido.php [L]
 </IfModule>

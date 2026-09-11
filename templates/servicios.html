@@ -4,19 +4,13 @@
 {% block contenido %}
 <!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
 <section class="container-fluid px-4 px-lg-5">
-  <h1 class="section-title">Servicios</h1>
-  <p class="lead lead-ancho">
-    En <strong>Capturam</strong> sabemos que ningún proyecto renovable avanza por una sola vía: es necesario coordinar
-    <strong>red, terreno, ingeniería, medio ambiente y tramitación administrativa</strong> al mismo tiempo,
-    sin perder de vista el calendario ni el riesgo. Por eso organizamos nuestro trabajo en servicios con un objetivo claro en cada uno:
-    <strong>resolver los aspectos críticos del proyecto y aportar un resultado concreto al cliente</strong>.
-    A continuación puedes ver el alcance y el resultado esperado de cada uno de ellos.
-  </p>
+  <h1 class="section-title">[[TEXTO:titulo]]</h1>
+  <p class="lead lead-ancho">[[TEXTO:introduccion]]</p>
 </section>
 
 <div class="servicio-fila" id="acceso-conexion">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-conexion.jpg') }}"
+    <img src="[[IMAGEN:servicios.acceso-conexion.imagen]]"
          alt="Subestación eléctrica con transformador de alta tensión"
         >
   </div>
@@ -26,21 +20,19 @@
     <h3>Estrategia de acceso y conexión</h3>
 
     <p>
-      <strong>Alcance:</strong> Seguimiento de capacidad en redes de transporte (REE) y distribución (Endesa, i+DE);
-      análisis del punto de conexión; preparación y tramitación de documentación de acceso y conexión;
-      respuesta a requerimientos y seguimiento del expediente.
+      <strong>Alcance:</strong> [[TEXTO:servicios.acceso-conexion.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Una estrategia de conexión fundamentada y una documentación consistente.
+      [[TEXTO:servicios.acceso-conexion.resultado]]
     </p>
   </div>
 </div>
 
 <div class="servicio-fila servicio-fila--invertida bg-suave" id="terrenos-viabilidad">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}"
+    <img src="[[IMAGEN:servicios.terrenos-viabilidad.imagen]]"
          alt="Camino de acceso a un emplazamiento de proyecto renovable en ladera"
         >
   </div>
@@ -50,20 +42,19 @@
     <h3>Terrenos y viabilidad</h3>
 
     <p>
-      <strong>Alcance:</strong> Identificación de emplazamientos; análisis previo ambiental, urbanístico y técnico;
-      contacto con propietarios; apoyo en derechos de superficie; análisis de pendientes y capacidad de implantación.
+      <strong>Alcance:</strong> [[TEXTO:servicios.terrenos-viabilidad.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Oportunidades validadas antes de comprometer tiempo y capital.
+      [[TEXTO:servicios.terrenos-viabilidad.resultado]]
     </p>
   </div>
 </div>
 
 <div class="servicio-fila" id="ingenieria-plantas">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-ingenieria.jpg') }}"
+    <img src="[[IMAGEN:servicios.ingenieria-plantas.imagen]]"
          alt="Estructura de seguidor solar en fase de instalación"
         >
   </div>
@@ -73,21 +64,19 @@
     <h3>Ingeniería de plantas e infraestructuras</h3>
 
     <p>
-      <strong>Alcance:</strong> Estudios de implantación, incluido análisis de pendientes en instalación fija o a un eje
-      y capacidad de implantación con <strong>PVCase</strong>; ingeniería de planta, accesos, obra civil e infraestructuras
-      de evacuación; documentación para permisos y coordinación técnica.
+      <strong>Alcance:</strong> [[TEXTO:servicios.ingenieria-plantas.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Una solución técnicamente definida, tramitable y alineada con los condicionantes del proyecto.
+      [[TEXTO:servicios.ingenieria-plantas.resultado]]
     </p>
   </div>
 </div>
 
 <div class="servicio-fila servicio-fila--invertida bg-suave" id="medio-ambiente">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-ambiente.jpg') }}"
+    <img src="[[IMAGEN:servicios.medio-ambiente.imagen]]"
          alt="Rebaño de ovejas pastando junto a una planta solar"
         >
   </div>
@@ -97,20 +86,19 @@
     <h3>Medio ambiente</h3>
 
     <p>
-      <strong>Alcance:</strong> Coordinación o elaboración de estudios de impacto ambiental, estudios de avifauna
-      y documentación sectorial; integración de condicionantes ambientales en el diseño.
+      <strong>Alcance:</strong> [[TEXTO:servicios.medio-ambiente.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Menos iteraciones y mayor coherencia entre ingeniería y evaluación ambiental.
+      [[TEXTO:servicios.medio-ambiente.resultado]]
     </p>
   </div>
 </div>
 
 <div class="servicio-fila" id="permitting">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-permitting.jpg') }}"
+    <img src="[[IMAGEN:servicios.permitting.imagen]]"
          alt="Vista general de una subestación eléctrica en operación"
         >
   </div>
@@ -120,21 +108,19 @@
     <h3>Permitting, RtB y PES</h3>
 
     <p>
-      <strong>Alcance:</strong> Planificación y seguimiento de autorizaciones tanto de competencia autonómica como ministerial;
-      separatas y respuestas a organismos; alegaciones; coordinación de hitos hasta <strong>RtB</strong>
-      y apoyo a la <strong>puesta en servicio</strong>.
+      <strong>Alcance:</strong> [[TEXTO:servicios.permitting.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Visibilidad del estado real del expediente y de los siguientes pasos necesarios para su avance.
+      [[TEXTO:servicios.permitting.resultado]]
     </p>
   </div>
 </div>
 
 <div class="servicio-fila servicio-fila--invertida bg-suave" id="asesoramiento">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/servicio-asesoramiento.jpg') }}"
+    <img src="[[IMAGEN:servicios.asesoramiento.imagen]]"
          alt="Sistema de almacenamiento BESS junto a aerogeneradores"
         >
   </div>
@@ -144,13 +130,12 @@
     <h3>Asesoramiento técnico-regulatorio</h3>
 
     <p>
-      <strong>Alcance:</strong> Análisis de normativa aplicable, concursos de capacidad, régimen retributivo,
-      alternativas de desarrollo y apoyo técnico a decisiones de inversión.
+      <strong>Alcance:</strong> [[TEXTO:servicios.asesoramiento.alcance]]
     </p>
 
     <p class="resultado-servicio">
       <span>Resultado</span>
-      Decisiones fundamentadas en un estudio que integra la tecnología, el plazo y el riesgo regulatorio.
+      [[TEXTO:servicios.asesoramiento.resultado]]
     </p>
   </div>
 </div>

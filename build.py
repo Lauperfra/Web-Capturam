@@ -4,6 +4,7 @@ mismas plantillas Jinja2 que usa app.py, sin necesidad de un servidor Python
 en producción. Uso: python build.py — el resultado queda en dist/.
 """
 import shutil
+import subprocess
 import time
 from pathlib import Path
 
@@ -14,6 +15,27 @@ PLANTILLAS = RAIZ / "templates"
 ESTATICOS = RAIZ / "static"
 SALIDA = RAIZ / "dist"
 SERVIDOR = RAIZ / "server"
+
+# "Contenido web" (textos/fotos editables desde el panel): plantillas con
+# marcadores [[...]] y valores de fábrica, ambos FUERA de dist/ — el mismo
+# nivel que ocupará contenido-datos/ (el JSON vivo) en producción, un nivel
+# por encima de public_html. Ver server/panel-interno/_contenido.php.
+PLANTILLAS_CONTENIDO = RAIZ / "plantillas-contenido"
+CONTENT_EDITABLE = RAIZ / "content" / "editable"
+
+# Páginas con contenido editable desde el panel: su HTML NO se escribe aquí
+# directamente (llevarían marcadores sin resolver) — se guarda como
+# plantilla, y el HTML público final lo genera el script PHP de
+# regeneración al final de este archivo, combinando la plantilla con el
+# contenido vivo (o el de fábrica si todavía no hay ninguno).
+ENDPOINT_A_PAGINA_EDITABLE = {
+    "inicio": "inicio",
+    "empresa": "empresa",
+    "sectores": "sectores",
+    "servicios": "servicios",
+    "proyectos": "proyectos",
+    "como_trabajamos": "como-trabajamos",
+}
 
 # Archivos de server/ que se copian tal cual a la raíz de dist/ (backend PHP
 # del formulario de contacto y de las publicaciones). config.example.php y
@@ -84,10 +106,38 @@ def copiar_con_reintentos(origen, destino, intentos=5, espera=1.0, ignorar=None)
             time.sleep(espera)
 
 
+def regenerar_contenido_editable():
+    """Invoca el script PHP que combina plantillas-contenido/ + el JSON vivo
+    (o el de fábrica si no hay contenido vivo todavía) para producir
+    dist/<pagina>.html de las 5 páginas editables. Mismo script que se usa
+    en producción tras desplegar una plantilla nueva — ver
+    server/panel-interno/_cli_regenerar_contenido.php."""
+    script = SALIDA / "panel-interno" / "_cli_regenerar_contenido.php"
+    if not script.is_file():
+        print("  [aviso] no se encontró _cli_regenerar_contenido.php — las páginas editables no se han regenerado.")
+        return
+
+    php = shutil.which("php")
+    if php is None:
+        print("  [aviso] no se encontró 'php' en el PATH — instálalo o ejecútalo tú misma con:")
+        print(f'          php "{script}"')
+        return
+
+    resultado = subprocess.run([php, str(script)], capture_output=True, text=True)
+    for linea in resultado.stdout.splitlines():
+        print("  " + linea)
+    if resultado.returncode != 0:
+        print("  [aviso] alguna página editable no se pudo regenerar (ver arriba).")
+        if resultado.stderr.strip():
+            print("  " + resultado.stderr.strip())
+
+
 def construir():
     # No borramos dist/ entero: OneDrive puede tener un archivo bloqueado un
     # instante mientras sincroniza. Sobrescribimos página a página en su lugar.
     SALIDA.mkdir(parents=True, exist_ok=True)
+    PLANTILLAS_CONTENIDO.mkdir(parents=True, exist_ok=True)
+    (PLANTILLAS_CONTENIDO / "valores-fabrica").mkdir(parents=True, exist_ok=True)
 
     env = Environment(loader=FileSystemLoader(str(PLANTILLAS)))
     env.globals["url_for"] = url_for
@@ -95,8 +145,20 @@ def construir():
 
     for endpoint, (archivo_salida, plantilla) in PAGINAS.items():
         html = env.get_template(plantilla).render()
-        (SALIDA / archivo_salida).write_text(html, encoding="utf-8")
-        print(f"  {plantilla} -> dist/{archivo_salida}")
+        pagina_editable = ENDPOINT_A_PAGINA_EDITABLE.get(endpoint)
+        if pagina_editable is not None:
+            # Todavía lleva marcadores [[...]] sin resolver — se guarda como
+            # plantilla, NUNCA como el HTML público (lo genera el script PHP
+            # de más abajo, combinándola con el contenido vivo real). Se
+            # nombra por la clave de la página (p. ej. "inicio.html"), no
+            # por el nombre de archivo público final (p. ej. "index.html"),
+            # para que coincida con lo que busca el esquema PHP.
+            nombre_plantilla = f"{pagina_editable}.html"
+            (PLANTILLAS_CONTENIDO / nombre_plantilla).write_text(html, encoding="utf-8")
+            print(f"  {plantilla} -> plantillas-contenido/{nombre_plantilla}")
+        else:
+            (SALIDA / archivo_salida).write_text(html, encoding="utf-8")
+            print(f"  {plantilla} -> dist/{archivo_salida}")
 
     # Página de error 404, servida por .htaccess (ErrorDocument) cuando la
     # URL pedida no existe. No es una página del menú, así que no está en
@@ -132,6 +194,15 @@ def construir():
         print("  server/vendor/ -> dist/vendor/")
     else:
         print("  [aviso] server/vendor/ no existe todavía — ejecuta 'composer install' dentro de server/ antes de desplegar (ver server/composer.json).")
+
+    for pagina in ENDPOINT_A_PAGINA_EDITABLE.values():
+        origen = CONTENT_EDITABLE / f"{pagina}.json"
+        if origen.is_file():
+            shutil.copy2(origen, PLANTILLAS_CONTENIDO / "valores-fabrica" / f"{pagina}.json")
+        else:
+            print(f"  [aviso] falta content/editable/{pagina}.json (valores de fábrica).")
+
+    regenerar_contenido_editable()
 
     print(f"\nListo. {len(PAGINAS)} páginas + static/ copiados a {SALIDA}")
 

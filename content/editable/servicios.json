@@ -1,0 +1,38 @@
+{
+    "_actualizado": null,
+    "_admin": null,
+    "titulo": "Servicios",
+    "introduccion": "En **Capturam** sabemos que ningún proyecto renovable avanza por una sola vía: es necesario coordinar **red, terreno, ingeniería, medio ambiente y tramitación administrativa** al mismo tiempo, sin perder de vista el calendario ni el riesgo. Por eso organizamos nuestro trabajo en servicios con un objetivo claro en cada uno: **resolver los aspectos críticos del proyecto y aportar un resultado concreto al cliente**. A continuación puedes ver el alcance y el resultado esperado de cada uno de ellos.",
+    "servicios": {
+        "acceso-conexion": {
+            "imagen": "servicio-conexion.jpg",
+            "alcance": "Seguimiento de capacidad en redes de transporte (REE) y distribución (Endesa, i+DE); análisis del punto de conexión; preparación y tramitación de documentación de acceso y conexión; respuesta a requerimientos y seguimiento del expediente.",
+            "resultado": "Una estrategia de conexión fundamentada y una documentación consistente."
+        },
+        "terrenos-viabilidad": {
+            "imagen": "servicio-terrenos.jpg",
+            "alcance": "Identificación de emplazamientos; análisis previo ambiental, urbanístico y técnico; contacto con propietarios; apoyo en derechos de superficie; análisis de pendientes y capacidad de implantación.",
+            "resultado": "Oportunidades validadas antes de comprometer tiempo y capital."
+        },
+        "ingenieria-plantas": {
+            "imagen": "servicio-ingenieria.jpg",
+            "alcance": "Estudios de implantación, incluido análisis de pendientes en instalación fija o a un eje y capacidad de implantación con **PVCase**; ingeniería de planta, accesos, obra civil e infraestructuras de evacuación; documentación para permisos y coordinación técnica.",
+            "resultado": "Una solución técnicamente definida, tramitable y alineada con los condicionantes del proyecto."
+        },
+        "medio-ambiente": {
+            "imagen": "servicio-ambiente.jpg",
+            "alcance": "Coordinación o elaboración de estudios de impacto ambiental, estudios de avifauna y documentación sectorial; integración de condicionantes ambientales en el diseño.",
+            "resultado": "Menos iteraciones y mayor coherencia entre ingeniería y evaluación ambiental."
+        },
+        "permitting": {
+            "imagen": "servicio-permitting.jpg",
+            "alcance": "Planificación y seguimiento de autorizaciones tanto de competencia autonómica como ministerial; separatas y respuestas a organismos; alegaciones; coordinación de hitos hasta **RtB** y apoyo a la **puesta en servicio**.",
+            "resultado": "Visibilidad del estado real del expediente y de los siguientes pasos necesarios para su avance."
+        },
+        "asesoramiento": {
+            "imagen": "servicio-asesoramiento.jpg",
+            "alcance": "Análisis de normativa aplicable, concursos de capacidad, régimen retributivo, alternativas de desarrollo y apoyo técnico a decisiones de inversión.",
+            "resultado": "Decisiones fundamentadas en un estudio que integra la tecnología, el plazo y el riesgo regulatorio."
+        }
+    }
+}

@@ -9,8 +9,8 @@
   </div>
   <div class="container-fluid hero-container">
     <p class="eyebrow">Proyectos renovables</p>
-    <h1>Convertimos oportunidades energéticas en proyectos listos para construir</h1>
-    <p class="lead justificado">Desarrollamos proyectos solares, eólicos, BESS e hibridados desde el análisis de suelo y red hasta la ingeniería, los permisos y la puesta en servicio.</p>
+    <h1>[[TEXTO:hero_titulo]]</h1>
+    <p class="lead justificado">[[TEXTO:hero_subtitulo]]</p>
     <div class="hero-cta">
       <a href="{{ url_for('contacto') }}" class="btn btn-capturam-outline">Analizamos tu proyecto</a>
       <a href="{{ url_for('proyectos') }}" class="btn btn-capturam-outline">Conoce nuestra experiencia</a>
@@ -21,11 +21,11 @@
 <!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
 <div class="servicio-fila">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/inicio-vision-integral.jpg') }}" alt="Subestación eléctrica de alta tensión" loading="lazy">
+    <img src="[[IMAGEN:vision_imagen]]" alt="Subestación eléctrica de alta tensión" loading="lazy">
   </div>
   <div class="servicio-fila-texto revelar">
-    <h2>Ingeniería y desarrollo con visión integral.</h2>
-    <p class="lead justificado">Un proyecto renovable no depende de una sola disciplina. En Capturam coordinamos territorio, capacidad de red, diseño técnico, condicionantes ambientales y tramitación administrativa para anticipar riesgos, documentar decisiones y avanzar con solvencia hacia cada hito.</p>
+    <h2>[[TEXTO:vision_titulo]]</h2>
+    <p class="lead justificado">[[TEXTO:vision_texto]]</p>
   </div>
 </div>
 
@@ -40,7 +40,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#solar-fotovoltaica" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/proyectos-banner.jpg') }}" alt="Planta solar fotovoltaica de gran extensión" class="card-sector-img" loading="lazy">
+            <img src="[[IMAGEN:sectores.solar-fotovoltaica.imagen]]" alt="Planta solar fotovoltaica de gran extensión" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Solar fotovoltaica</h3>
               <p>Desarrollo de plantas fotovoltaicas desde el emplazamiento hasta la ingeniería y tramitación.</p>
@@ -51,7 +51,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#eolica" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/servicio-terrenos.jpg') }}" alt="Camino de acceso a un parque eólico con aerogeneradores en ladera" class="card-sector-img" loading="lazy">
+            <img src="[[IMAGEN:sectores.eolica.imagen]]" alt="Camino de acceso a un parque eólico con aerogeneradores en ladera" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Eólica</h3>
               <p>Proyectos eólicos integrando territorio, accesos, evacuación y condicionantes ambientales.</p>
@@ -62,7 +62,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#bess" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/proyectos-divisor.jpg') }}" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
+            <img src="[[IMAGEN:sectores.bess.imagen]]" alt="Contenedores de almacenamiento BESS con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>BESS</h3>
               <p>Sistemas de almacenamiento desde la estrategia de acceso hasta su diseño y desarrollo.</p>
@@ -73,7 +73,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#hibridacion" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/caso-hibrido.jpg') }}" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+            <img src="[[IMAGEN:sectores.hibridacion.imagen]]" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Hibridación</h3>
               <p>Integración de generación renovable y almacenamiento en una solución técnica conjunta.</p>
@@ -84,7 +84,7 @@
       <div class="col">
         <a href="{{ url_for('sectores') }}#autoconsumo" class="text-decoration-none text-reset d-block h-100 revelar">
           <div class="card-sector">
-            <img src="{{ url_for('static', filename='img/sector-autoconsumo.jpg') }}" alt="Instalación de placas solares en cubierta industrial" class="card-sector-img" loading="lazy">
+            <img src="[[IMAGEN:sectores.autoconsumo.imagen]]" alt="Instalación de placas solares en cubierta industrial" class="card-sector-img" loading="lazy">
             <div class="card-sector-body">
               <h3>Autoconsumo</h3>
               <p>Soluciones de autoconsumo industrial adaptadas al perfil real de demanda de cada instalación.</p>

@@ -4,41 +4,21 @@
 {% block contenido %}
 <!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
 <section class="container-fluid px-4 px-lg-5">
-  <h1 class="section-title">Quiénes somos</h1>
-  <p class="lead lead-ancho">
-    <strong>Capturam Ingeniería</strong> es una empresa especializada en el
-    <strong>desarrollo de proyectos de energías renovables</strong>, con más de
-    <strong>17 años de experiencia en el sector</strong>.
-    Trabajamos en solar fotovoltaica, eólica, almacenamiento BESS e instalaciones hibridadas,
-    acompañando cada proyecto desde la <strong>identificación de la oportunidad</strong>
-    hasta su <strong>madurez técnica y administrativa</strong>.
-  </p>
+  <h1 class="section-title">[[TEXTO:titulo]]</h1>
+  <p class="lead lead-ancho">[[TEXTO:introduccion]]</p>
 </section>
 
 <div class="servicio-fila" id="experiencia">
   <div class="servicio-fila-foto revelar">
-    <img src="{{ url_for('static', filename='img/empresa-equipo.jpg') }}"
+    <img src="[[IMAGEN:imagen_principal]]"
          alt="Equipo técnico revisando la implantación de un proyecto sobre plano"
          loading="lazy">
   </div>
 
   <div class="servicio-fila-texto revelar">
-    <h3>Territorio, ingeniería y regulación en un mismo equipo</h3>
+    <h3>[[TEXTO:bloque_subtitulo]]</h3>
 
-    <p>
-      Nuestra experiencia combina conocimiento del <strong>territorio</strong>,
-      ingeniería especializada y gestión regulatoria.
-      Esta visión permite <strong>evaluar con rapidez, anticipar condicionantes y coordinar la documentación necesaria</strong>
-      para avanzar desde Greenfield hasta Ready to Build y, cuando el alcance lo requiere,
-      hasta construcción y puesta en servicio.
-    </p>
-
-    <p>
-      Cada proyecto se aborda con <strong>método, trazabilidad y comunicación directa</strong>.
-      Nuestro objetivo es que el cliente disponga de información fiable para decidir,
-      una ingeniería consistente para tramitar y un seguimiento riguroso de los hitos que condicionan
-      <strong>plazo, coste y viabilidad</strong>.
-    </p>
+    [[TEXTO_MULTIPARRAFO:bloque_texto]]
   </div>
 </div>
 

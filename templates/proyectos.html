@@ -4,67 +4,67 @@
 {% block contenido %}
 <!-- Fotografía real de proyecto (contexto/03_Fotos Página web) -->
 <section class="container-fluid px-4 px-lg-5">
-  <h1 class="section-title">Proyectos</h1>
-  <p class="lead lead-ancho">En <strong>Capturam</strong> preferimos <strong>enseñar</strong> el trabajo hecho antes que solo describirlo. Estos son algunos de los proyectos que hemos desarrollado en los últimos años, una muestra de la <strong>experiencia</strong> técnica del equipo en solar fotovoltaica, eólica, BESS e hibridación: desde instalaciones híbridas de pocos megavatios hasta plantas de cientos de MW con infraestructuras de evacuación complejas.</p>
+  <h1 class="section-title">[[TEXTO:titulo]]</h1>
+  <p class="lead lead-ancho">[[TEXTO:introduccion]]</p>
 
   <div class="row g-4 mt-2 proyectos-grid">
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/proyectos-divisor.jpg') }}" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.hibrida-fv-bess.imagen]]" alt="Contenedor BESS junto a una planta solar fotovoltaica" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2026</span>
-          <h3>Instalación híbrida FV + BESS</h3>
-          <p>Diseño y tramitación de instalaciones híbridas fotovoltaicas y BESS de 5 MW, en AC coupling y DC coupling.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.hibrida-fv-bess.anio]]</span>
+          <h3>[[TEXTO:proyectos.hibrida-fv-bess.titulo]]</h3>
+          <p>[[TEXTO:proyectos.hibrida-fv-bess.texto]]</p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/caso-eolico.jpg') }}" alt="Aerogenerador en operación" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.parque-eolico.imagen]]" alt="Aerogenerador en operación" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2026</span>
-          <h3>Parque eólico</h3>
-          <p class="justificado">Ingeniería y tramitación de un parque eólico de 33 MW con infraestructura de evacuación a 66 kV.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.parque-eolico.anio]]</span>
+          <h3>[[TEXTO:proyectos.parque-eolico.titulo]]</h3>
+          <p class="justificado">[[TEXTO:proyectos.parque-eolico.texto]]</p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/caso-bess.jpg') }}" alt="Fila de contenedores de almacenamiento BESS" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.bess-standalone.imagen]]" alt="Fila de contenedores de almacenamiento BESS" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2026</span>
-          <h3>BESS stand-alone</h3>
-          <p>Acceso y conexión a red de transporte para un sistema de almacenamiento de 50 MW / 4 h.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.bess-standalone.anio]]</span>
+          <h3>[[TEXTO:proyectos.bess-standalone.titulo]]</h3>
+          <p>[[TEXTO:proyectos.bess-standalone.texto]]</p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/caso-agrovoltaica.jpg') }}" alt="Planta solar con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.agrovoltaica.imagen]]" alt="Planta solar con aerogeneradores al fondo" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2025</span>
-          <h3>Planta solar agrovoltaica</h3>
-          <p>Desarrollo de 20 plantas agrovoltaicas de 5 MW con infraestructura de conexión a 25 kV.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.agrovoltaica.anio]]</span>
+          <h3>[[TEXTO:proyectos.agrovoltaica.titulo]]</h3>
+          <p>[[TEXTO:proyectos.agrovoltaica.texto]]</p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/sector-autoconsumo.jpg') }}" alt="Instalación de placas solares en cubierta industrial" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.autoconsumo-industrial.imagen]]" alt="Instalación de placas solares en cubierta industrial" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2025</span>
-          <h3>Autoconsumo industrial</h3>
-          <p>Desarrollo de una instalación fotovoltaica de autoconsumo de 5 MW sin excedentes.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.autoconsumo-industrial.anio]]</span>
+          <h3>[[TEXTO:proyectos.autoconsumo-industrial.titulo]]</h3>
+          <p>[[TEXTO:proyectos.autoconsumo-industrial.texto]]</p>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
       <div class="card-sector revelar">
-        <img src="{{ url_for('static', filename='img/sector-solar.jpg') }}" alt="Ingeniero revisando planos junto a una planta solar fotovoltaica con infraestructura de evacuación al fondo" class="card-sector-img" loading="lazy">
+        <img src="[[IMAGEN:proyectos.psf-400kv.imagen]]" alt="Ingeniero revisando planos junto a una planta solar fotovoltaica con infraestructura de evacuación al fondo" class="card-sector-img" loading="lazy">
         <div class="card-sector-body">
-          <span class="servicio-numero">2024</span>
-          <h3>PSF 3 × 50 MW</h3>
-          <p>Ingeniería de una planta fotovoltaica de 3 × 50 MW con infraestructura de evacuación a 400 kV.</p>
+          <span class="servicio-numero">[[TEXTO:proyectos.psf-400kv.anio]]</span>
+          <h3>[[TEXTO:proyectos.psf-400kv.titulo]]</h3>
+          <p>[[TEXTO:proyectos.psf-400kv.texto]]</p>
         </div>
       </div>
     </div>
@@ -74,6 +74,6 @@
 </section>
 
 <div class="foto-ancha revelar">
-  <img src="{{ url_for('static', filename='img/sector-eolica.jpg') }}" alt="Vista aérea de planta solar, aerogeneradores y subestación eléctrica" loading="lazy">
+  <img src="[[IMAGEN:foto_ancha]]" alt="Vista aérea de planta solar, aerogeneradores y subestación eléctrica" loading="lazy">
 </div>
 {% endblock %}

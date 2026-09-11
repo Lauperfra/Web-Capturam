@@ -29,10 +29,15 @@ ErrorDocument 403 /404.html
 
 # No servir nunca los archivos de Composer ni la plantilla de configuración
 # de ejemplo (ninguno de los dos contiene secretos reales, pero no deben
-# ser accesibles por HTTP).
+# ser accesibles por HTTP). datos-contacto.json es la única excepción real:
+# es público a propósito, lo lee el JavaScript de cada página para rellenar
+# el email/teléfono/LinkedIn — ver static/js/datos-contacto.js.
 <FilesMatch "\.(json|lock|md)$">
     Require all denied
 </FilesMatch>
+<Files "datos-contacto.json">
+    Require all granted
+</Files>
 
 # El archivo de configuración real vive FUERA de este directorio (un nivel
 # por encima de public_html) y por tanto nunca es accesible por HTTP. Esta
