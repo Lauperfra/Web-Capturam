@@ -15,26 +15,43 @@
 
 declare(strict_types=1);
 
+// _cli_regenerar_contenido.php carga este archivo directamente, sin pasar
+// por _bootstrap.php (que es donde normalmente vive esta función) — con el
+// guard de function_exists(), da igual el orden o la combinación en que se
+// carguen los dos.
+if (!function_exists('capturamCarpetaPrivada')) {
+    function capturamCarpetaPrivada(string $nivelSuperior): string
+    {
+        $conPrivate = $nivelSuperior . '/private';
+        return @is_dir($conPrivate) ? $conPrivate : $nivelSuperior;
+    }
+}
+
 // ---------------------------------------------------------------------
 // Rutas. contenido-datos/ y plantillas-contenido/ viven FUERA de
 // public_html (mismo patrón que capturam-admin-config.php:
 // panel-interno/_contenido.php -> dist/panel-interno -> dist -> fuera de
-// public_html). Las imágenes subidas sí son públicas (como las de
-// publicaciones), así que esas sí viven dentro de dist/static/.
+// public_html — o de httpdocs/private, según el hosting). Las imágenes
+// subidas sí son públicas (como las de publicaciones), así que esas sí
+// viven dentro de dist/static/.
 // ---------------------------------------------------------------------
 
-define('CONTENIDO_DATOS_DIR', dirname(__DIR__, 2) . '/contenido-datos');
+define('CONTENIDO_CARPETA_PRIVADA', capturamCarpetaPrivada(dirname(__DIR__, 2)));
+define('CONTENIDO_DATOS_DIR', CONTENIDO_CARPETA_PRIVADA . '/contenido-datos');
 define('CONTENIDO_BACKUPS_DIR', CONTENIDO_DATOS_DIR . '/backups');
-define('CONTENIDO_PLANTILLAS_DIR', dirname(__DIR__, 2) . '/plantillas-contenido');
+define('CONTENIDO_PLANTILLAS_DIR', CONTENIDO_CARPETA_PRIVADA . '/plantillas-contenido');
 define('CONTENIDO_VALORES_FABRICA_DIR', CONTENIDO_PLANTILLAS_DIR . '/valores-fabrica');
 define('CONTENIDO_UPLOADS_DIR', dirname(__DIR__) . '/static/uploads/contenido');
 // Email/teléfono/LinkedIn: a diferencia del resto, este archivo SÍ es
 // público a propósito (lo lee el JavaScript de cualquier página para
 // rellenar el pie de página, Contacto, etc. — ver static/js/datos-contacto.js).
-// No es información sensible, ya está visible en la web de todas formas.
+// Los datos en sí no son sensibles, ya están visibles en la web de todas
+// formas — pero el usuario del panel que hizo el último cambio (_admin) NO
+// debe ir aquí: es la mitad de las credenciales de acceso al panel, y este
+// archivo es público. Esos metadatos van aparte, fuera de public_html.
 define('CONTENIDO_DATOS_CONTACTO_RUTA', dirname(__DIR__) . '/datos-contacto.json');
+define('CONTENIDO_DATOS_CONTACTO_META_RUTA', CONTENIDO_DATOS_DIR . '/datos-contacto-meta.json');
 define('CONTENIDO_IMG_MAX_DIMENSION', 6000);
-const CONTENIDO_MAX_BACKUPS_POR_PAGINA = 10;
 
 // ---------------------------------------------------------------------
 // Esquema: qué páginas y qué campos son editables. Es la única fuente de
@@ -522,6 +539,13 @@ function guardarYPublicarContenido(string $pagina, array $camposNuevos, string $
     return contenidoPublicarDatos($pagina, $datosNuevos);
 }
 
+/** Ruta del único backup (la versión anterior) de una página. */
+function contenidoRutaBackup(string $pagina): string
+{
+    return CONTENIDO_BACKUPS_DIR . "/{$pagina}.json";
+}
+
+/** Guarda el JSON vivo actual como "versión anterior", sobrescribiendo el backup previo si lo había. */
 function contenidoCrearBackup(string $pagina): void
 {
     $rutaViva = contenidoRutaJsonVivo($pagina);
@@ -533,26 +557,14 @@ function contenidoCrearBackup(string $pagina): void
         @mkdir(CONTENIDO_BACKUPS_DIR, 0700, true);
     }
 
-    $marca = date('Y-m-d-His');
-    @copy($rutaViva, CONTENIDO_BACKUPS_DIR . "/{$pagina}-{$marca}.json");
-
-    $archivos = glob(CONTENIDO_BACKUPS_DIR . "/{$pagina}-*.json") ?: [];
-    sort($archivos); // la marca de tiempo en el nombre hace que el orden alfabético sea cronológico
-    $exceso = count($archivos) - CONTENIDO_MAX_BACKUPS_POR_PAGINA;
-    for ($i = 0; $i < $exceso; $i++) {
-        @unlink($archivos[$i]);
-    }
+    @copy($rutaViva, contenidoRutaBackup($pagina));
 }
 
-/** Ruta del backup más reciente de una página, o null si todavía no hay ninguno. */
+/** Ruta del backup de una página, o null si todavía no hay ninguno. */
 function contenidoUltimoBackup(string $pagina): ?string
 {
-    $archivos = glob(CONTENIDO_BACKUPS_DIR . "/{$pagina}-*.json") ?: [];
-    if ($archivos === []) {
-        return null;
-    }
-    sort($archivos);
-    return end($archivos) ?: null;
+    $ruta = contenidoRutaBackup($pagina);
+    return is_file($ruta) ? $ruta : null;
 }
 
 function hayVersionAnterior(string $pagina): bool
@@ -609,15 +621,30 @@ function contenidoValoresContactoPorDefecto(): array
     ];
 }
 
+/**
+ * Los datos públicos (email/teléfono/LinkedIn) más, solo para uso interno
+ * del panel, "_actualizado"/"_admin" leídos del archivo privado aparte —
+ * nunca se mezclan dentro del JSON público.
+ */
 function leerDatosContacto(): array
 {
+    $datos = contenidoValoresContactoPorDefecto();
     if (is_file(CONTENIDO_DATOS_CONTACTO_RUTA)) {
-        $datos = json_decode((string) file_get_contents(CONTENIDO_DATOS_CONTACTO_RUTA), true);
-        if (is_array($datos)) {
-            return $datos;
+        $publicos = json_decode((string) file_get_contents(CONTENIDO_DATOS_CONTACTO_RUTA), true);
+        if (is_array($publicos)) {
+            $datos = $publicos;
         }
     }
-    return contenidoValoresContactoPorDefecto();
+
+    if (is_file(CONTENIDO_DATOS_CONTACTO_META_RUTA)) {
+        $meta = json_decode((string) file_get_contents(CONTENIDO_DATOS_CONTACTO_META_RUTA), true);
+        if (is_array($meta)) {
+            $datos['_actualizado'] = $meta['_actualizado'] ?? '';
+            $datos['_admin'] = $meta['_admin'] ?? '';
+        }
+    }
+
+    return $datos;
 }
 
 function guardarDatosContacto(array $datosFormulario, string $usuarioAdmin): array
@@ -640,18 +667,26 @@ function guardarDatosContacto(array $datosFormulario, string $usuarioAdmin): arr
         return ['ok' => false, 'error' => 'El enlace de LinkedIn no es válido.'];
     }
 
-    $datosFinales = [
+    $datosPublicos = [
         'email' => $email,
         'telefono_texto' => $telefonoTexto,
         'telefono_href' => $telefonoHref,
         'linkedin' => $linkedin,
+    ];
+
+    $json = json_encode($datosPublicos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    if ($json === false || !contenidoEscribirAtomico(CONTENIDO_DATOS_CONTACTO_RUTA, $json)) {
+        return ['ok' => false, 'error' => 'No se ha podido guardar.'];
+    }
+
+    asegurarCarpetasContenido();
+    $meta = [
         '_actualizado' => date('c'),
         '_admin' => $usuarioAdmin,
     ];
-
-    $json = json_encode($datosFinales, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-    if ($json === false || !contenidoEscribirAtomico(CONTENIDO_DATOS_CONTACTO_RUTA, $json)) {
-        return ['ok' => false, 'error' => 'No se ha podido guardar.'];
+    $jsonMeta = json_encode($meta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if ($jsonMeta !== false) {
+        contenidoEscribirAtomico(CONTENIDO_DATOS_CONTACTO_META_RUTA, $jsonMeta);
     }
 
     return ['ok' => true, 'error' => ''];

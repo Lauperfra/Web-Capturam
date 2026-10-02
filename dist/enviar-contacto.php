@@ -68,8 +68,14 @@ function cargarConfiguracion(): array
         return $desdeEntorno;
     }
 
-    // Un nivel por encima del directorio público (fuera de public_html).
-    $rutaConfig = dirname(__DIR__) . '/capturam-mail-config.php';
+    // Un nivel por encima del directorio público (fuera de public_html) —
+    // salvo en hostings tipo Hostalia (Plesk), donde ese nivel superior no
+    // es legible para PHP por open_basedir y hay que usar en su lugar la
+    // carpeta "private/" que sí tienen permitida, hermana de httpdocs.
+    $nivelSuperior = dirname(__DIR__);
+    $conPrivate = $nivelSuperior . '/private';
+    $carpetaPrivada = @is_dir($conPrivate) ? $conPrivate : $nivelSuperior;
+    $rutaConfig = $carpetaPrivada . '/capturam-mail-config.php';
     if (is_file($rutaConfig)) {
         $config = require $rutaConfig;
         if (is_array($config)) {
@@ -152,6 +158,53 @@ if (limiteDeEnviosSuperado($ipVisitante)) {
 //    secreta configurada. Sin clave, este paso se omite por completo.
 // ---------------------------------------------------------------------
 
+/**
+ * Llama a la petición HTTPS de verificación (cURL si está disponible —
+ * más fiable en hosting compartido y nos deja distinguir "no se pudo
+ * contactar" de "respuesta no válida" — con file_get_contents() como
+ * respaldo si el hosting no tuviera la extensión curl activada).
+ * Devuelve null si no se ha podido contactar con el servicio en absoluto.
+ */
+function turnstileConsultarApi(string $datosPeticion): ?string
+{
+    if (function_exists('curl_init')) {
+        $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $datosPeticion,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_CONNECTTIMEOUT => 5,
+        ]);
+        $respuesta = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        if ($respuesta === false) {
+            error_log('[contacto] Turnstile: fallo de cURL al contactar con Cloudflare: ' . $error);
+            return null;
+        }
+        return $respuesta;
+    }
+
+    // Respaldo si el hosting no tiene la extensión curl activada.
+    $contexto = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content' => $datosPeticion,
+            'timeout' => 5,
+        ],
+    ]);
+    $respuesta = @file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, $contexto);
+    if ($respuesta === false) {
+        error_log('[contacto] Turnstile: file_get_contents() no pudo contactar con Cloudflare (¿allow_url_fopen desactivado?).');
+        return null;
+    }
+    return $respuesta;
+}
+
 function turnstileValido(string $secretKey, string $token, string $ip): bool
 {
     if ($token === '') {
@@ -164,25 +217,27 @@ function turnstileValido(string $secretKey, string $token, string $ip): bool
         'remoteip' => $ip,
     ]);
 
-    $contexto = stream_context_create([
-        'http' => [
-            'method' => 'POST',
-            'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-            'content' => $datosPeticion,
-            'timeout' => 5,
-        ],
-    ]);
-
-    $respuesta = @file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, $contexto);
-    if ($respuesta === false) {
-        // Si el servicio de verificación falla, no bloqueamos el envío
-        // solo por eso (evita que un fallo externo tumbe el formulario).
-        error_log('[contacto] No se pudo contactar con Turnstile.');
+    $respuesta = turnstileConsultarApi($datosPeticion);
+    if ($respuesta === null) {
+        // Si el servicio de verificación falla, no bloqueamos el envío solo
+        // por eso (evita que un fallo externo tumbe el formulario) — pero
+        // turnstileConsultarApi() ya ha dejado constancia clara en el log
+        // de PHP del motivo exacto, para poder detectarlo cuanto antes.
         return true;
     }
 
     $resultado = json_decode($respuesta, true);
-    return !empty($resultado['success']);
+    if (!is_array($resultado)) {
+        error_log('[contacto] Turnstile: respuesta de Cloudflare no es JSON válido: ' . $respuesta);
+        return true;
+    }
+
+    if (empty($resultado['success'])) {
+        error_log('[contacto] Turnstile: verificación rechazada — ' . json_encode($resultado['error-codes'] ?? []));
+        return false;
+    }
+
+    return true;
 }
 
 if (!empty($config['turnstile_secret_key'])) {
@@ -284,6 +339,15 @@ try {
         'hora' => date('H:i:s'),
     ];
     $urlBase = $config['site_url'] ?? 'https://capturam.es';
+
+    $rutaLogo = __DIR__ . '/static/img/03_color_positivo.png';
+    if (is_file($rutaLogo)) {
+        // El tercer argumento es el nombre que ven los clientes de correo
+        // que listan las imágenes incrustadas como adjunto (Outlook,
+        // Gmail...) — el nombre real del archivo en disco no tiene por qué
+        // salir ahí.
+        $mail->addEmbeddedImage($rutaLogo, 'logo-capturam', 'logo-capturam.png');
+    }
 
     $mail->Subject = 'Un usuario ha rellenado el formulario de contacto — Web Capturam';
     $mail->isHTML(true);

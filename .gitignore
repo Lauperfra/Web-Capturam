@@ -27,3 +27,8 @@ dist/publicaciones-datos/
 contenido-datos/
 plantillas-contenido/
 dist/static/uploads/contenido/
+
+# Carpeta de preparación para el despliegue (copia de dist/ + los config.php
+# reales + plantillas-contenido/, lista para subir al hosting) — contiene
+# las mismas credenciales reales que los puntos de arriba, nunca al repo.
+PARA-AZULAE/

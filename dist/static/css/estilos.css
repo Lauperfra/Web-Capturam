@@ -774,6 +774,40 @@ body .card-sector:hover {
   min-height: 100px;
 }
 
+/* A diferencia del resto de fotos de la web (encuadradas a propósito para
+   su hueco), las que sube el CEO para una publicación pueden venir en
+   cualquier proporción — con "cover" (la regla de ".card-sector-img" de
+   más abajo) una foto vertical se recortaba igual que le pasaba a los PDF
+   verticales. Aquí se ve la foto entera siempre, sin recortar, encima de
+   un fondo con la misma foto recortada y difuminada — así una foto muy
+   vertical u horizontal respecto a la caja no deja barras en blanco (igual
+   que la portada de un álbum en Spotify). */
+.vista-previa-imagen {
+  position: relative;
+  overflow: hidden;
+}
+
+.vista-previa-imagen-fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.85);
+  /* El difuminado emborrona también hacia fuera del propio borde de la
+     imagen; escalarla un poco de más evita que se note ese borde nítido
+     asomando por los lados. */
+  transform: scale(1.15);
+}
+
+.vista-previa-imagen-principal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+}
+
 /* Versión compacta: solo para el aperitivo de "Últimas publicaciones" en
    Inicio (tres tarjetas pequeñas que invitan a ver la página completa,
    sin competir en tamaño con el resto de la portada). En Publicaciones se
@@ -864,6 +898,7 @@ body .card-sector:hover {
   color: var(--capturam-azul-profundo);
 }
 
+
 /* Toda la tarjeta es clicable (abre el visor), salvo enlaces/botones. */
 .tarjeta-publicacion-clicable {
   cursor: pointer;
@@ -940,8 +975,77 @@ body .card-sector:hover {
   background: var(--capturam-blanco);
 }
 
-/* Botón "ver más / ver menos" de las publicaciones (texto largo, estilo
-   LinkedIn: se trunca y se expande sin recargar ni navegar). */
+/* Visor de texto completo de una publicación: mismo fondo oscurecido, "X"
+   y z-index que el visor de PDF/imagen de arriba — cuál de los dos se ve
+   por delante lo decide el orden en el DOM (el que se acaba de abrir se
+   mueve al final, ver "traerAlFrente" en publicaciones.js), no el z-index.
+   La tarjeta va centrada con scroll propio en vez de ocupar toda la
+   pantalla — es texto, no un documento a pantalla completa. */
+.visor-texto-contenido {
+  background: var(--capturam-blanco);
+  border-radius: var(--radio);
+  width: 100%;
+  max-width: 700px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 40px;
+  box-shadow: var(--sombra-media);
+}
+
+.visor-texto-contenido h3 {
+  color: var(--capturam-azul-profundo);
+  margin: 0.3rem 0 1.2rem;
+}
+
+.visor-texto-cuerpo {
+  text-align: justify;
+}
+
+.visor-texto-cuerpo strong {
+  color: var(--capturam-azul-profundo);
+}
+
+.visor-texto-cuerpo a {
+  color: var(--capturam-verde-agua);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.visor-texto-cuerpo a:hover {
+  color: var(--capturam-azul-profundo);
+}
+
+.visor-texto-boton-media {
+  display: block;
+  margin-top: 1.8rem;
+}
+
+/* Botón para abrir el texto completo desde encima del PDF/imagen (esquina
+   opuesta a la "X" de cerrar, para no chocar con ella). */
+.visor-boton-texto {
+  position: fixed;
+  left: 20px;
+  bottom: 24px;
+  z-index: 2001;
+  border: none;
+  border-radius: 999px;
+  background: var(--capturam-blanco);
+  color: var(--capturam-azul-profundo);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: var(--sombra-media);
+}
+
+.visor-boton-texto:hover {
+  background: var(--capturam-verde-agua);
+  color: var(--capturam-blanco);
+}
+
+/* Botón "ver más" de las publicaciones con texto largo: abre el visor de
+   texto completo de arriba (estilo LinkedIn: se trunca en la tarjeta y se
+   lee entero en el visor, sin recargar ni navegar). */
 .enlace-ver-mas {
   background: none;
   border: none;

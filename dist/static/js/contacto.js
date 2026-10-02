@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
         boton.disabled = false;
         boton.textContent = textoOriginal;
         enviando = false;
+        // Los tokens de Turnstile son de un solo uso: sin esto, un segundo
+        // envío en la misma carga de página (tras un error, o tras enviar
+        // dos mensajes seguidos) mandaría un token ya usado y el servidor
+        // lo rechazaría. form.reset() no lo regenera por sí solo.
+        if (window.turnstile) { window.turnstile.reset(); }
       });
   });
 });

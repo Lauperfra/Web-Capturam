@@ -15,6 +15,25 @@ error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
 /**
+ * Carpeta privada fuera de httpdocs: distinto según el hosting. Azulae (y
+ * Laragon en local) ponen los archivos directamente un nivel por encima de
+ * la carpeta pública. Hostalia (Plesk) usa una carpeta "private/" hermana
+ * de httpdocs, y además restringe con open_basedir el acceso de PHP
+ * exactamente a esas dos rutas (httpdocs/ y private/) — el directorio raíz
+ * del dominio en sí no es legible ni siquiera para comprobar si existe.
+ * "@" aquí no oculta errores reales: is_dir() sobre una ruta fuera de
+ * open_basedir emite un aviso esperado (estamos probando a propósito), no
+ * un fallo.
+ */
+if (!function_exists('capturamCarpetaPrivada')) {
+    function capturamCarpetaPrivada(string $nivelSuperior): string
+    {
+        $conPrivate = $nivelSuperior . '/private';
+        return @is_dir($conPrivate) ? $conPrivate : $nivelSuperior;
+    }
+}
+
+/**
  * Detecta si el archivo subido es realmente un PDF o una imagen (JPG, PNG o
  * WEBP), mirando el contenido — nunca el nombre ni la extensión que mande el
  * navegador. Devuelve null si no es ninguno de los dos. Compartida por el
@@ -87,8 +106,8 @@ if (!empty($_SESSION['admin_autenticado'])) {
 function cargarConfiguracionAdmin(): array
 {
     // panel-interno/_bootstrap.php -> dist/panel-interno -> dist -> fuera
-    // de public_html.
-    $rutaConfig = dirname(__DIR__, 2) . '/capturam-admin-config.php';
+    // de public_html (o de httpdocs/private, según el hosting).
+    $rutaConfig = capturamCarpetaPrivada(dirname(__DIR__, 2)) . '/capturam-admin-config.php';
     if (is_file($rutaConfig)) {
         $config = require $rutaConfig;
         if (is_array($config)) {

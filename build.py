@@ -45,6 +45,7 @@ ARCHIVOS_SERVIDOR = [
     "plantilla-correo.php",
     "publicaciones.php",
     "robots.txt",
+    "sitemap.xml",
     ".htaccess",
     ".user.ini",
 ]

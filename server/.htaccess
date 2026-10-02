@@ -7,6 +7,23 @@
 ErrorDocument 404 /404.html
 ErrorDocument 403 /404.html
 
+# Cabeceras de seguridad globales (aplican también a panel-interno/, que
+# hereda este .htaccess). La CSP se deja para más adelante a propósito: hay
+# Google Fonts, Turnstile y un par de <script> inline (index.html,
+# publicaciones.html) que habría que revisar uno a uno para no romper nada.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # HSTS: descomentar SOLO cuando Azulae confirme que el HTTPS de
+    # capturam.es (con y sin "www") funciona perfectamente — de lo
+    # contrario, un despiste de certificado deja el dominio inaccesible
+    # durante hasta un año (así es como funciona max-age).
+    # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
 # Límite de subida para el panel de publicaciones (PDF/imagen, hasta 15MB
 # reales en la app): en hostings con PHP como módulo de Apache (mod_php),
 # esto sube el límite del propio servidor sin que haya que tocar nada desde
@@ -54,6 +71,16 @@ ErrorDocument 403 /404.html
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^vendor/ - [F,L]
+
+    # Fuerza HTTPS en el dominio real — condicionado al host real
+    # (capturam.es, con o sin "www": todavía no está decidido cuál será la
+    # versión definitiva, así que de momento se admiten las dos sin elegir
+    # entre ellas) a propósito: así no afecta a las pruebas locales en
+    # Laragon (capturam.test), que no tiene certificado y nunca cumple esta
+    # condición de host.
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} ^(www\.)?capturam\.es$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # Caso especial: index.html es la home, cuya URL limpia es "/" (no
     # "/index") — sin esto, la regla genérica de abajo redirigiría

@@ -47,7 +47,14 @@ function construirCorreoHtml(array $datos, string $urlBase): string
 
           <tr>
             <td align="center" style="padding:32px 28px 8px;">
-              <img src="{$urlBase}/static/img/logo-capturam.png" alt="Capturam Ingeniería" width="200" style="display:block; max-width:200px; height:auto; border:0;">
+              <!-- "cid:" en vez de una URL: así el logo viaja incrustado en
+                   el propio correo (lo añade enviar-contacto.php con
+                   addEmbeddedImage) y se ve siempre, sin depender de que el
+                   cliente de correo pueda salir a buscar la imagen a la web
+                   — Gmail, por ejemplo, la buscaría desde sus propios
+                   servidores, que nunca van a poder resolver un dominio de
+                   pruebas en local. -->
+              <img src="cid:logo-capturam" alt="Capturam Ingeniería" width="200" style="display:block; max-width:200px; height:auto; border:0;">
             </td>
           </tr>
 

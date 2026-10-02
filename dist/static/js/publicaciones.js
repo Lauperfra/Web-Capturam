@@ -81,7 +81,14 @@
       .trim();
   }
 
-  function crearParrafoResumen(texto) {
+  // Resumen corto en la tarjeta; "ver más" no despliega en el sitio (eso
+  // hacía que la tarjeta se recortase rara o se saliera del pie de página
+  // cuando la publicación estaba al final del listado) — abre el texto
+  // completo en un visor centrado propio, independiente del de PDF/imagen,
+  // para que se puedan tener abiertos los dos a la vez sin que uno pise el
+  // contenido del otro.
+  function crearParrafoResumen(publicacion) {
+    var texto = publicacion.resumen;
     var p = document.createElement('p');
     var plano = textoPlanoParaPreview(texto);
 
@@ -90,33 +97,120 @@
       return p;
     }
 
-    var expandido = false;
     var contenedorTexto = document.createElement('span');
+    contenedorTexto.textContent = plano.slice(0, LIMITE_RESUMEN).trim() + '… ';
+
     var boton = document.createElement('button');
     boton.type = 'button';
     boton.className = 'enlace-ver-mas';
-
-    function actualizar() {
-      contenedorTexto.textContent = '';
-      if (expandido) {
-        contenedorTexto.appendChild(crearContenidoFormateado(texto));
-      } else {
-        contenedorTexto.textContent = plano.slice(0, LIMITE_RESUMEN).trim() + '… ';
-      }
-      boton.textContent = expandido ? 'ver menos' : 'ver más';
-    }
-
+    boton.textContent = 'ver más';
     boton.addEventListener('click', function (evento) {
-      evento.stopPropagation(); // no abrir el visor al plegar/desplegar
-      expandido = !expandido;
-      actualizar();
+      evento.stopPropagation(); // no abrir el visor de PDF/imagen al pulsar este
+      abrirVisorTexto(publicacion);
     });
 
-    actualizar();
     p.appendChild(contenedorTexto);
     p.appendChild(document.createTextNode(' '));
     p.appendChild(boton);
     return p;
+  }
+
+  // Pila de visores abiertos (texto y/o PDF/imagen: una misma publicación
+  // puede tener los dos abiertos a la vez, uno encima del otro). Sirve para
+  // dos cosas: pintar por delante al que se acaba de abrir/reabrir (moverlo
+  // al final de <body>, mismo z-index que el resto, así que el último en
+  // el DOM es el que se ve), y que Escape cierre solo el de encima en vez
+  // de cerrar los dos de golpe.
+  var pilaVisores = [];
+
+  function traerAlFrente(visor) {
+    document.body.appendChild(visor);
+    pilaVisores = pilaVisores.filter(function (v) { return v !== visor; });
+    pilaVisores.push(visor);
+  }
+
+  function olvidarVisor(visor) {
+    pilaVisores = pilaVisores.filter(function (v) { return v !== visor; });
+  }
+
+  document.addEventListener('keydown', function (evento) {
+    if (evento.key !== 'Escape' || pilaVisores.length === 0) { return; }
+    pilaVisores[pilaVisores.length - 1]._cerrar();
+  });
+
+  // Visor de texto completo: mismo lenguaje visual que el de PDF/imagen
+  // (fondo oscurecido, tarjeta centrada, "X" para cerrar), pero en su propio
+  // overlay — así una publicación con texto largo Y PDF/imagen puede abrir
+  // los dos a la vez: desde aquí se puede abrir también el PDF/imagen (se
+  // apila encima) sin perder este texto, que sigue esperando debajo.
+  function asegurarVisorTexto() {
+    var visor = document.getElementById('capturam-visor-texto');
+    if (visor) { return visor; }
+
+    visor = document.createElement('div');
+    visor.id = 'capturam-visor-texto';
+    visor.className = 'visor-overlay visor-overlay-texto';
+    visor.hidden = true;
+
+    var cerrar = document.createElement('button');
+    cerrar.type = 'button';
+    cerrar.className = 'visor-cerrar';
+    cerrar.setAttribute('aria-label', 'Cerrar');
+    cerrar.textContent = '×';
+
+    var contenido = document.createElement('div');
+    contenido.className = 'visor-texto-contenido';
+
+    visor.appendChild(cerrar);
+    visor.appendChild(contenido);
+    document.body.appendChild(visor);
+
+    function cerrarVisorTexto() {
+      visor.hidden = true;
+      contenido.innerHTML = '';
+      olvidarVisor(visor);
+    }
+
+    cerrar.addEventListener('click', cerrarVisorTexto);
+    visor.addEventListener('click', function (evento) {
+      if (evento.target === visor) { cerrarVisorTexto(); }
+    });
+
+    visor._contenido = contenido;
+    visor._cerrar = cerrarVisorTexto;
+    return visor;
+  }
+
+  function abrirVisorTexto(publicacion) {
+    var visor = asegurarVisorTexto();
+    var contenido = visor._contenido;
+    contenido.innerHTML = '';
+
+    var fecha = document.createElement('span');
+    fecha.className = 'servicio-numero';
+    fecha.textContent = formatearFecha(publicacion.fecha);
+    contenido.appendChild(fecha);
+
+    var titulo = document.createElement('h3');
+    titulo.textContent = publicacion.titulo;
+    contenido.appendChild(titulo);
+
+    var cuerpo = document.createElement('div');
+    cuerpo.className = 'visor-texto-cuerpo';
+    cuerpo.appendChild(crearContenidoFormateado(publicacion.resumen));
+    contenido.appendChild(cuerpo);
+
+    // También se puede ver el PDF/imagen de esta publicación sin cerrar el
+    // texto: se abre por encima, apilado.
+    var botonMedia = document.createElement('button');
+    botonMedia.type = 'button';
+    botonMedia.className = 'btn btn-capturam-outline visor-texto-boton-media';
+    botonMedia.textContent = publicacion.tipo === 'imagen' ? 'Ver imagen completa' : 'Ver PDF completo';
+    botonMedia.addEventListener('click', function () { abrirVisor(publicacion); });
+    contenido.appendChild(botonMedia);
+
+    visor.hidden = false;
+    traerAlFrente(visor);
   }
 
   // Visor a pantalla completa (imagen grande o PDF embebido) con una "X"
@@ -146,6 +240,7 @@
     function cerrarVisor() {
       visor.hidden = true;
       contenido.innerHTML = '';
+      olvidarVisor(visor);
     }
 
     cerrar.addEventListener('click', cerrarVisor);
@@ -155,20 +250,37 @@
     visor.addEventListener('click', function (evento) {
       if (evento.target === visor || evento.target === contenido) { cerrarVisor(); }
     });
-    document.addEventListener('keydown', function (evento) {
-      if (evento.key === 'Escape' && !visor.hidden) { cerrarVisor(); }
-    });
 
     visor._contenido = contenido;
+    visor._cerrar = cerrarVisor;
     return visor;
   }
 
+  // iPadOS 13+ hace pasar el user-agent por uno de Mac normal — el único
+  // rasgo fiable que le queda para distinguirlo es tener pantalla táctil,
+  // algo que un Mac de verdad no tiene.
+  function esIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
   function abrirVisor(publicacion) {
+    var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
+
+    // Un PDF embebido en <iframe> dentro de un overlay position:fixed se ve
+    // mal en Safari de iOS: aparece recortado/ampliado y el pinch-to-zoom
+    // no funciona con normalidad — es una limitación vieja y conocida de
+    // iOS con PDFs en iframes, no algo que se pueda arreglar por CSS. Mejor
+    // dejar que lo abra el propio visor nativo de PDF de iOS (con zoom,
+    // buscador y botón de compartir de verdad) en vez de nuestro visor.
+    if (publicacion.tipo !== 'imagen' && esIOS()) {
+      global.open(url, '_blank');
+      return;
+    }
+
     var visor = asegurarVisor();
     var contenido = visor._contenido;
     contenido.innerHTML = '';
-
-    var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
 
     if (publicacion.tipo === 'imagen') {
       var img = document.createElement('img');
@@ -182,7 +294,27 @@
       contenido.appendChild(iframe);
     }
 
+    // También se puede leer el texto completo de esta publicación sin
+    // cerrar el PDF/imagen: se abre por encima, apilado. El botón es fijo
+    // (hijo directo del visor, no de "contenido", que se vacía en cada
+    // apertura) y se reutiliza entre publicaciones.
+    var botonTexto = visor.querySelector('.visor-boton-texto');
+    if (publicacion.resumen) {
+      if (!botonTexto) {
+        botonTexto = document.createElement('button');
+        botonTexto.type = 'button';
+        botonTexto.className = 'visor-boton-texto';
+        visor.appendChild(botonTexto);
+      }
+      botonTexto.hidden = false;
+      botonTexto.textContent = 'Ver texto completo';
+      botonTexto.onclick = function () { abrirVisorTexto(publicacion); };
+    } else if (botonTexto) {
+      botonTexto.hidden = true;
+    }
+
     visor.hidden = false;
+    traerAlFrente(visor);
   }
 
   // Icono genérico de documento para la vista previa de los PDF (markup fijo,
@@ -234,41 +366,113 @@
   }
 
   // Pinta la página ya cargada en "canvas" al tamaño exacto que tenga la
-  // caja EN ESE MOMENTO, recortando tipo "cover" — igual que object-fit:cover
-  // en las miniaturas de imagen — para que ambos tipos de tarjeta se vean
-  // igual de cuidados.
+  // caja EN ESE MOMENTO: página entera sin recortar ("contain") encima de
+  // un fondo de la misma página recortada y difuminada ("cover" + blur) —
+  // así una página muy vertical u horizontal respecto a la caja no deja
+  // barras en blanco ni se recorta, igual que la portada de un álbum en
+  // Spotify. Dos pasadas de render porque cada una usa un "viewport"
+  // (escala) distinto.
   function dibujarPaginaPdf(page, anchoCaja, altoCaja, canvas) {
     var dpr = global.devicePixelRatio || 1;
     var vistaBase = page.getViewport({ scale: 1 });
-    var escala = Math.max(anchoCaja / vistaBase.width, altoCaja / vistaBase.height) * dpr;
-    var vista = page.getViewport({ scale: escala });
 
     canvas.width = anchoCaja * dpr;
     canvas.height = altoCaja * dpr;
     canvas.style.width = anchoCaja + 'px';
     canvas.style.height = altoCaja + 'px';
 
-    var contexto = canvas.getContext('2d');
-    // Recorte centrado en horizontal, pero siempre desde ARRIBA en
-    // vertical (como una miniatura de documento normal: Google Drive,
-    // Dropbox...) — no por el centro, que corta el documento por la
-    // mitad y deja el título fuera.
-    contexto.setTransform(1, 0, 0, 1, 0, 0);
-    contexto.translate((canvas.width - vista.width) / 2, 0);
+    var escalaFondo = Math.max(canvas.width / vistaBase.width, canvas.height / vistaBase.height);
+    var vistaFondo = page.getViewport({ scale: escalaFondo });
+    var fondo = document.createElement('canvas');
+    fondo.width = vistaFondo.width;
+    fondo.height = vistaFondo.height;
 
-    return page.render({ canvasContext: contexto, viewport: vista }).promise;
+    var escalaPrimerPlano = Math.min(canvas.width / vistaBase.width, canvas.height / vistaBase.height);
+    var vistaPrimerPlano = page.getViewport({ scale: escalaPrimerPlano });
+    var primerPlano = document.createElement('canvas');
+    primerPlano.width = vistaPrimerPlano.width;
+    primerPlano.height = vistaPrimerPlano.height;
+
+    // Cada capa se renderiza en su propio canvas "limpio", al tamaño exacto
+    // que necesita — nunca directamente sobre "canvas" con una transformación
+    // ya aplicada: pdf.js fija su propia transformación internamente al
+    // llamar a render(), y no combina bien con un translate() previo (se
+    // veía descentrado hacia una esquina, con el difuminado asomando solo
+    // por un lado). Centrar con drawImage() después es lo único fiable.
+    return page.render({ canvasContext: fondo.getContext('2d'), viewport: vistaFondo }).promise
+      .then(function () {
+        return page.render({ canvasContext: primerPlano.getContext('2d'), viewport: vistaPrimerPlano }).promise;
+      })
+      .then(function () {
+        var contexto = canvas.getContext('2d');
+        contexto.setTransform(1, 0, 0, 1, 0, 0);
+        contexto.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (esIOS()) {
+          // Safari no soporta "filter" en canvas (lo ignora en silencio,
+          // sin avisar) — así que aquí, en vez de depender de eso, se
+          // reduce la imagen a un tamaño minúsculo y se amplía después: el
+          // propio escalado ya la deja borrosa, sin filtros. Se ve algo
+          // más pixelado que el "filter" real, pero es lo que hay sin él.
+          var mini = document.createElement('canvas');
+          mini.width = Math.max(1, Math.round(canvas.width * 0.06));
+          mini.height = Math.max(1, Math.round(canvas.height * 0.06));
+          mini.getContext('2d').drawImage(
+            fondo,
+            (fondo.width - canvas.width) / 2, (fondo.height - canvas.height) / 2, canvas.width, canvas.height,
+            0, 0, mini.width, mini.height
+          );
+          contexto.drawImage(mini, 0, 0, canvas.width, canvas.height);
+
+          // Oscurecido (antes lo hacía "brightness(0.85)" del filter): una
+          // capa negra semitransparente encima, universalmente soportada.
+          contexto.fillStyle = 'rgba(0, 0, 0, 0.15)';
+          contexto.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+          // Fuera de iOS, "filter" en canvas sí funciona bien (Chrome,
+          // Firefox, Edge...) y se ve más suave que el truco de arriba.
+          contexto.save();
+          contexto.filter = 'blur(18px) brightness(0.85)';
+          contexto.drawImage(
+            fondo,
+            (fondo.width - canvas.width) / 2, (fondo.height - canvas.height) / 2, canvas.width, canvas.height,
+            0, 0, canvas.width, canvas.height
+          );
+          contexto.restore();
+        }
+
+        contexto.drawImage(primerPlano, (canvas.width - primerPlano.width) / 2, (canvas.height - primerPlano.height) / 2);
+      });
   }
 
   // Vista previa de la publicación: la imagen real si es una imagen, o la
   // miniatura real de la primera página si es un PDF.
   function crearVistaPrevia(publicacion) {
     if (publicacion.tipo === 'imagen') {
+      var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
+
+      // Igual que con el PDF: la foto entera sin recortar ("contain")
+      // encima de un fondo de la misma foto recortada y difuminada
+      // ("cover" + blur) — así una foto vertical no deja barras en blanco.
+      var contenedor = document.createElement('div');
+      contenedor.className = 'card-sector-img vista-previa-imagen';
+
+      var fondo = document.createElement('img');
+      fondo.src = url;
+      fondo.alt = '';
+      fondo.setAttribute('aria-hidden', 'true');
+      fondo.className = 'vista-previa-imagen-fondo';
+      fondo.loading = 'lazy';
+      contenedor.appendChild(fondo);
+
       var img = document.createElement('img');
-      img.src = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
+      img.src = url;
       img.alt = publicacion.titulo;
-      img.className = 'card-sector-img';
+      img.className = 'vista-previa-imagen-principal';
       img.loading = 'lazy';
-      return img;
+      contenedor.appendChild(img);
+
+      return contenedor;
     }
 
     var previa = document.createElement('div');
@@ -282,7 +486,15 @@
 
     var url = 'publicaciones-datos/' + encodeURIComponent(publicacion.archivo);
     var promesaPagina = conTiempoLimite(
-      cargarPdfJs().then(function (pdfjsLib) { return pdfjsLib.getDocument(url).promise; }),
+      // "isEvalSupported: false" desactiva en pdf.js la vía de ejecutar
+      // JavaScript al procesar ciertas fuentes de un PDF (CVE-2024-4367,
+      // corregido de fondo en pdf.js >= 4.2.67 — la versión vendorizada
+      // aquí, 3.11.174, sigue afectada). Sin esto, un PDF manipulado a
+      // propósito podría ejecutar código en el navegador de cualquier
+      // visitante que viera la miniatura, aunque quien lo suba sea de
+      // confianza (puede venir de un tercero — CNMC, IRENA... — no todo
+      // lo genera el propio CEO). No afecta a cómo se ve la miniatura.
+      cargarPdfJs().then(function (pdfjsLib) { return pdfjsLib.getDocument({ url: url, isEvalSupported: false }).promise; }),
       8000
     ).then(function (pdf) { return pdf.getPage(1); });
 
@@ -294,10 +506,24 @@
     var ultimoAncho = 0;
     var ultimoAlto = 0;
 
+    // El dibujado ahora son dos pasadas de render encadenadas (fondo
+    // difuminado + página nítida encima, ver dibujarPaginaPdf) sobre el
+    // MISMO canvas: si "repintar" se solapase consigo mismo (el
+    // ResizeObserver puede disparar varias veces seguidas mientras la
+    // página todavía está acomodando fuentes/imágenes) una llamada pisaría
+    // a medias el dibujo de la otra. Por eso nunca hay más de una en
+    // marcha — si llega otra mientras tanto, se guarda y se relanza al
+    // terminar la que está en curso, ya con el tamaño más reciente.
+    var pintando = false;
+    var repintarPendiente = false;
+
     function repintar() {
       var caja = previa.getBoundingClientRect();
       if (caja.width < 1 || caja.height < 1) { return; }
       if (Math.abs(caja.width - ultimoAncho) < 1 && Math.abs(caja.height - ultimoAlto) < 1) { return; }
+
+      if (pintando) { repintarPendiente = true; return; }
+      pintando = true;
       ultimoAncho = caja.width;
       ultimoAlto = caja.height;
 
@@ -307,6 +533,10 @@
         .catch(function () {
           // pdf.js no disponible (CDN bloqueado) o PDF no renderizable: se
           // queda el icono de repuesto, ya visible detrás del canvas.
+        })
+        .then(function () {
+          pintando = false;
+          if (repintarPendiente) { repintarPendiente = false; repintar(); }
         });
     }
 
@@ -350,7 +580,7 @@
     cuerpo.appendChild(titulo);
 
     if (publicacion.resumen) {
-      cuerpo.appendChild(crearParrafoResumen(publicacion.resumen));
+      cuerpo.appendChild(crearParrafoResumen(publicacion));
     }
 
     var boton = document.createElement('button');
